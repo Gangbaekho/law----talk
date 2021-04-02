@@ -9,6 +9,8 @@ const userRouter = require("./routes/user");
 
 const app = express();
 
+const Test = require("./models/test");
+
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -38,8 +40,9 @@ app.use((error, req, res, next) => {
 });
 
 sequelize
-  .sync()
+  .sync({ alter: true })
   .then((result) => {
+    Test.create({ testName: "hi" });
     app.listen(3000);
   })
   .catch((error) => {
