@@ -7,6 +7,9 @@ const sequelize = require("./util/database");
 
 const userRouter = require("./routes/user");
 
+const Lawyer = require("./models/lawyer");
+const LawyerCharacter = require("./models/lawyer-character");
+
 const app = express();
 
 app.use(bodyParser.json());
@@ -40,6 +43,13 @@ app.use((error, req, res, next) => {
 sequelize
   .sync({ alter: true })
   .then((result) => {
+    Lawyer.create({
+      email: "test@test.com",
+      password: "password",
+      lawyerName: "tester",
+      lawyerProfileImageUrl: "dummyurl",
+    });
+    LawyerCharacter.create({ character: "친절" });
     app.listen(3000);
   })
   .catch((error) => {
