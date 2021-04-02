@@ -9,7 +9,7 @@ const userRouter = require("./routes/user");
 
 const app = express();
 
-const Test = require("./models/test");
+const SpecificDomain = require("./models/specific-domain");
 
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, "public")));
@@ -42,7 +42,7 @@ app.use((error, req, res, next) => {
 sequelize
   .sync({ alter: true })
   .then((result) => {
-    Test.create({ testName: "hi" });
+    SpecificDomain.create({ domainName: "이혼" });
     app.listen(3000);
   })
   .catch((error) => {
