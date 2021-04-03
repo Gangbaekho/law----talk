@@ -1,6 +1,8 @@
 const redisClient = require("../util/redisClient");
 
 exports.getRedis = (req, res, next) => {
+  console.log(req._parsedOriginalUrl.path);
+
   redisClient.get("test", async (err, test) => {
     if (err) {
       console.log(err);

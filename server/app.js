@@ -2,6 +2,7 @@ const path = require("path");
 
 const databaseConnect = require("./util/databaseConnect");
 const redisClient = require("./util/redisClient");
+const cron = require("node-cron");
 
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -52,3 +53,7 @@ redisClient.set(
     console.log(res);
   }
 );
+
+cron.schedule("* * * * *", () => {
+  console.log("running a test every minute");
+});
