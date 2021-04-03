@@ -1,23 +1,25 @@
 const Sequelize = require("sequelize");
 
-const sequelize = require("../util/database");
+const sequelize = require("../../util/mysql");
 
-const GeneralDomain = sequelize.define(
-  "general-domain",
+const SpecificRegion = sequelize.define(
+  "specific-region",
   {
     id: {
       type: Sequelize.INTEGER,
-      autoIncrement: true,
       allowNull: false,
       primaryKey: true,
+      autoIncrement: true,
     },
-    domainName: {
+    regionName: {
       type: Sequelize.STRING,
       allowNull: false,
       unique: true,
     },
   },
-  { timestamps: false }
+  {
+    timestamps: false,
+  }
 );
 
-module.exports = GeneralDomain;
+module.exports = SpecificRegion;

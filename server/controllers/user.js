@@ -1,4 +1,4 @@
-const User = require("../models/user");
+const User = require("../models/mysql/user");
 
 exports.createUser = async (req, res, next) => {
   const name = req.body.name;

@@ -1,9 +1,9 @@
 const Sequelize = require("sequelize");
 
-const sequelize = require("../util/database");
+const sequelize = require("../../util/mysql");
 
-const LawyerCharacter = sequelize.define(
-  "lawer-character",
+const GeneralRegion = sequelize.define(
+  "general-region",
   {
     id: {
       type: Sequelize.INTEGER,
@@ -11,7 +11,7 @@ const LawyerCharacter = sequelize.define(
       primaryKey: true,
       autoIncrement: true,
     },
-    character: {
+    regionName: {
       type: Sequelize.STRING,
       allowNull: false,
       unique: true,
@@ -22,4 +22,4 @@ const LawyerCharacter = sequelize.define(
   }
 );
 
-module.exports = LawyerCharacter;
+module.exports = GeneralRegion;

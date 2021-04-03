@@ -1,6 +1,6 @@
 const Sequelize = require("sequelize");
 
-const sequelize = require("../util/database");
+const sequelize = require("../../util/mysql");
 
 const Lawyer = sequelize.define("lawyer", {
   id: {
@@ -8,6 +8,11 @@ const Lawyer = sequelize.define("lawyer", {
     allowNull: false,
     primaryKey: true,
     autoIncrement: true,
+  },
+  mongodbId: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    unique: true,
   },
   email: {
     type: Sequelize.STRING,

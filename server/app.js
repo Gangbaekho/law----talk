@@ -1,14 +1,13 @@
 const path = require("path");
 
+const databaseConnect = require("./util/databaseConnect");
+const redisClient = require("./util/redisClient");
+
 const express = require("express");
 const bodyParser = require("body-parser");
 
-const sequelize = require("./util/database");
-
 const userRouter = require("./routes/user");
-
-const Lawyer = require("./models/lawyer");
-const LawyerCharacter = require("./models/lawyer-character");
+const testRouter = require("./routes/test");
 
 const app = express();
 
@@ -16,6 +15,7 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/user", userRouter);
+app.use("/test", testRouter);
 
 // DEFAULT RESPONSE HEADER SETTING
 app.use((req, res, next) => {
@@ -40,18 +40,15 @@ app.use((error, req, res, next) => {
   return res.status(statusCode).json({ message: message });
 });
 
-sequelize
-  .sync({ alter: true })
-  .then((result) => {
-    Lawyer.create({
-      email: "test@test.com",
-      password: "password",
-      lawyerName: "tester",
-      lawyerProfileImageUrl: "dummyurl",
-    });
-    LawyerCharacter.create({ character: "친절" });
-    app.listen(3000);
-  })
-  .catch((error) => {
-    console.log(error);
-  });
+databaseConnect(app);
+
+redisClient.set(
+  "test",
+  JSON.stringify(["test1", "test2"]),
+  function (err, res) {
+    if (err) {
+      console.log(err);
+    }
+    console.log(res);
+  }
+);
