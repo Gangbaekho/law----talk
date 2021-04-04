@@ -10,7 +10,7 @@ const Lawyer = sequelize.define("lawyer", {
     autoIncrement: true,
   },
   mongodbId: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.STRING,
     allowNull: false,
     unique: true,
   },

@@ -8,7 +8,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 
 const userRouter = require("./routes/user");
-const testRouter = require("./routes/test");
+const lawyerRouter = require("./routes/lawyer");
 
 const app = express();
 
@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/user", userRouter);
-app.use("/test", testRouter);
+app.use("/lawyer", lawyerRouter);
 
 // DEFAULT RESPONSE HEADER SETTING
 app.use((req, res, next) => {
@@ -42,17 +42,6 @@ app.use((error, req, res, next) => {
 });
 
 databaseConnect(app);
-
-redisClient.set(
-  "test",
-  JSON.stringify(["test1", "test2"]),
-  function (err, res) {
-    if (err) {
-      console.log(err);
-    }
-    console.log(res);
-  }
-);
 
 cron.schedule("* * * * *", () => {
   console.log("running a test every minute");
