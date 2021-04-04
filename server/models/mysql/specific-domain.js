@@ -1,27 +1,35 @@
-const Sequelize = require("sequelize");
+const { DataTypes } = require("sequelize");
 
 const sequelize = require("../../util/mysql");
+const GeneralDomain = require("./general-domain");
 
 const SpecificDomain = sequelize.define(
   "specific-domain",
   {
     id: {
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true,
     },
+    generalDomainId: {
+      type: DataTypes.INTEGER,
+      reference: {
+        model: GeneralDomain,
+        key: "id",
+      },
+    },
     domainName: {
-      type: Sequelize.STRING,
+      type: DataTypes.STRING,
       allowNull: false,
       unique: true,
     },
     lawyerCount: {
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
       defaultValue: 0,
     },
     caseCount: {
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
       defaultValue: 0,
     },
   },

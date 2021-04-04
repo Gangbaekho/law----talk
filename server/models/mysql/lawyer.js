@@ -23,20 +23,8 @@ const Lawyer = sequelize.define("lawyer", {
     type: Sequelize.STRING,
     allowNull: false,
   },
-  lawyerName: {
-    type: Sequelize.STRING,
-    allowNull: false,
-  },
-  lawyerProfileImageUrl: {
-    type: Sequelize.STRING,
-    allowNull: false,
-  },
-  companyName: {
-    type: Sequelize.STRING,
-    allowNull: false,
-  },
-  companyPhoneNumber: {
-    type: Sequelize.STRING,
+  isPremium: {
+    type: Sequelize.CHAR(1),
     allowNull: false,
   },
 });

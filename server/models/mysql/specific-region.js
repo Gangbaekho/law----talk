@@ -1,18 +1,26 @@
-const Sequelize = require("sequelize");
+const { DataTypes } = require("sequelize");
 
 const sequelize = require("../../util/mysql");
+const GeneralRegion = require("./general-region");
 
 const SpecificRegion = sequelize.define(
   "specific-region",
   {
     id: {
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true,
     },
+    generalRegionId: {
+      type: DataTypes.INTEGER,
+      reference: {
+        model: GeneralRegion,
+        key: "id",
+      },
+    },
     regionName: {
-      type: Sequelize.STRING,
+      type: DataTypes.STRING,
       allowNull: false,
       unique: true,
     },
