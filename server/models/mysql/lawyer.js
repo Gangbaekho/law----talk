@@ -1,31 +1,35 @@
-const Sequelize = require("sequelize");
+const { DataTypes } = require("sequelize");
 
 const sequelize = require("../../util/mysql");
 
 const Lawyer = sequelize.define("lawyer", {
   id: {
-    type: Sequelize.INTEGER,
+    type: DataTypes.INTEGER,
     allowNull: false,
     primaryKey: true,
     autoIncrement: true,
   },
   mongodbId: {
-    type: Sequelize.STRING,
+    type: DataTypes.STRING,
     allowNull: false,
     unique: true,
   },
   email: {
-    type: Sequelize.STRING,
+    type: DataTypes.STRING,
     allowNull: false,
     unique: true,
   },
   password: {
-    type: Sequelize.STRING,
+    type: DataTypes.STRING,
     allowNull: false,
   },
   isPremium: {
-    type: Sequelize.CHAR(1),
+    type: DataTypes.CHAR(1),
     allowNull: false,
+  },
+  priorityScore: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
   },
 });
 
