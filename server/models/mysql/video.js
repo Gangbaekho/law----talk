@@ -4,9 +4,9 @@ const sequelize = require("../../util/mysql");
 const Lawyer = require("./lawyer");
 const SpecificDomain = require("./specific-domain");
 
-const postType = require("../../constants/postType");
+const videoType = require("../../constants/videoType");
 
-const Post = sequelize.defind("post", {
+const Video = sequelize.defind("video", {
   id: {
     type: DataTypes.INTEGER.UNSIGNED,
     allowNull: false,
@@ -29,8 +29,8 @@ const Post = sequelize.defind("post", {
     },
     allowNull: false,
   },
-  postType: {
-    type: DataTypes.ENUM(postType),
+  videoType: {
+    type: DataTypes.ENUM(videoType),
     allowNull: false,
   },
   title: {
@@ -39,9 +39,9 @@ const Post = sequelize.defind("post", {
   },
   content: {
     type: DataTypes.TEXT,
-    allowNull: false,
+    allowNull: true,
   },
-  postImageUrl: {
+  videoImageUrl: {
     type: DataTypes.STRING,
     allowNull: false,
   },
@@ -55,4 +55,4 @@ const Post = sequelize.defind("post", {
   },
 });
 
-module.exports = Post;
+module.exports = Video;
