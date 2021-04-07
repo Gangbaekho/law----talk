@@ -4,7 +4,7 @@ const sequelize = require("../../util/mysql");
 
 const User = sequelize.define("user", {
   id: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.INTEGER.UNSIGNED,
     autoIncrement: true,
     allowNull: false,
     primaryKey: true,

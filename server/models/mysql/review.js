@@ -10,13 +10,13 @@ const estimateKeywords = require("../../constants/estimateKeywords");
 
 const Review = sequelize.define("Review", {
   id: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.INTEGER.UNSIGNED,
     allowNull: false,
     primaryKey: true,
     autoIncrement: true,
   },
   userId: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.INTEGER.UNSIGNED,
     reference: {
       model: User,
       key: "id",
@@ -24,7 +24,7 @@ const Review = sequelize.define("Review", {
     allowNull: false,
   },
   lawyerId: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.INTEGER.UNSIGNED,
     reference: {
       model: Lawyer,
       key: "id",
@@ -32,7 +32,7 @@ const Review = sequelize.define("Review", {
     allowNull: false,
   },
   specificDomainId: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.INTEGER.UNSIGNED,
     reference: {
       model: SpecificDomain,
       key: "id",

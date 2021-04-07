@@ -7,13 +7,13 @@ const SpecificDomain = sequelize.define(
   "specific-domain",
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER.UNSIGNED,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true,
     },
     generalDomainId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER.UNSIGNED,
       reference: {
         model: GeneralDomain,
         key: "id",

@@ -6,7 +6,7 @@ const GeneralDomain = sequelize.define(
   "general-domain",
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
       allowNull: false,
       primaryKey: true,

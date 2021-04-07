@@ -7,13 +7,13 @@ const SpecificRegion = sequelize.define(
   "specific-region",
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER.UNSIGNED,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true,
     },
     generalRegionId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER.UNSIGNED,
       reference: {
         model: GeneralRegion,
         key: "id",

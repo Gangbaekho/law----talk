@@ -6,7 +6,7 @@ const GeneralRegion = sequelize.define(
   "general-region",
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER.UNSIGNED,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true,

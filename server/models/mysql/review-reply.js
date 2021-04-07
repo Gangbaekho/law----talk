@@ -7,13 +7,13 @@ const sequelize = require("../../util/mysql");
 
 const ReviewReply = sequelize.define("review-reply", {
   id: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.INTEGER.UNSIGNED,
     allowNull: false,
     primaryKey: true,
     autoIncrement: true,
   },
   lawyerId: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.INTEGER.UNSIGNED,
     reference: {
       model: Lawyer,
       key: "id",
@@ -21,7 +21,7 @@ const ReviewReply = sequelize.define("review-reply", {
     allowNull: false,
   },
   reviewId: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.INTEGER.UNSIGNED,
     reference: {
       model: Review,
       key: "id",
