@@ -4,6 +4,10 @@ const Schema = mongoose.Schema;
 
 const lawyerSchema = new Schema(
   {
+    mysqlLaywerId: {
+      type: Schema.Types.Number,
+      required: true,
+    },
     lawyerName: {
       type: Schema.Types.String,
       required: true,
