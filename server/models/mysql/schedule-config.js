@@ -19,11 +19,19 @@ const ScheduleConfig = sequelize.define("schedule-config", {
     },
     allowNull: false,
   },
-  from: {
+  fifteenConsultingAvailableTimeFrom: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  to: {
+  fifteenConsultingAvailableTimeTo: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  thirtyConsultingAvailableTimeFrom: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  thirtyConsultingAvailableTimeTo: {
     type: DataTypes.STRING,
     allowNull: false,
   },
