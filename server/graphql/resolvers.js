@@ -5,6 +5,8 @@ const SpecificDomain = require("../models/mysql/specific-domain");
 const SpecificRegion = require("../models/mysql/specific-region");
 const ConsultingQuestion = require("../models/mysql/consulting-question");
 const ConsultingAnswer = require("../models/mysql/consulting-answer");
+const Post = require("../models/mysql/post");
+const Video = require("../models/mysql/video");
 
 const resolvers = {
   Query: {
@@ -64,6 +66,34 @@ const resolvers = {
         content,
       });
       return consultingAnwer.id;
+    },
+    createPost: async (
+      _,
+      { lawyerId, specificDomainId, postType, title, content, postImageUrl }
+    ) => {
+      const post = await Post.create({
+        lawyerId,
+        specificDomainId,
+        postType,
+        title,
+        content,
+        postImageUrl,
+      });
+      return post.id;
+    },
+    createVideo: async (
+      _,
+      { lawyerId, specificDomainId, videoType, title, content, videoImageUrl }
+    ) => {
+      const video = await Video.create({
+        lawyerId,
+        specificDomainId,
+        videoType,
+        title,
+        content,
+        videoImageUrl,
+      });
+      return video.id;
     },
   },
 };

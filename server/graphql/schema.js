@@ -28,6 +28,22 @@ const typeDefs = gql`
       consultingQuestionId: Int!
       content: String!
     ): Int!
+    createPost(
+      lawyerId: Int!
+      specificDomainId: Int!
+      postType: String!
+      title: String!
+      content: String!
+      postImageUrl: String!
+    ): Int!
+    createVideo(
+      lawyerId: Int!
+      specificDomainId: Int!
+      videoType: String!
+      title: String!
+      content: String!
+      videoImageUrl: String!
+    ): Int!
   }
 `;
 

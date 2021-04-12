@@ -6,7 +6,7 @@ const SpecificDomain = require("./specific-domain");
 
 const videoType = require("../../constants/videoType");
 
-const Video = sequelize.defind("video", {
+const Video = sequelize.define("video", {
   id: {
     type: DataTypes.INTEGER.UNSIGNED,
     allowNull: false,

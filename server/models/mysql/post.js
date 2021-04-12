@@ -6,7 +6,7 @@ const SpecificDomain = require("./specific-domain");
 
 const postType = require("../../constants/postType");
 
-const Post = sequelize.defind("post", {
+const Post = sequelize.define("post", {
   id: {
     type: DataTypes.INTEGER.UNSIGNED,
     allowNull: false,
