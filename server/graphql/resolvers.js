@@ -9,6 +9,8 @@ const Post = require("../models/mysql/post");
 const Video = require("../models/mysql/video");
 const Review = require("../models/mysql/review");
 const ReviewReply = require("../models/mysql/review-reply");
+const ScheduleConfig = require("../models/mysql/schedule-config");
+const Schedule = require("../models/mysql/schedule");
 
 const resolvers = {
   Query: {
@@ -136,6 +138,46 @@ const resolvers = {
         content,
       });
       return reviewReply.id;
+    },
+    createScheduleConfig: async (
+      _,
+      {
+        lawyerId,
+        fifteenConsultingAvailableTimeFrom,
+        fifteenConsultingAvailableTimeTo,
+        thirtyConsultingAvailableTimeFrom,
+        thirtyConsultingAvailableTimeTo,
+      }
+    ) => {
+      const scheduleConfig = await ScheduleConfig.create({
+        lawyerId,
+        fifteenConsultingAvailableTimeFrom,
+        fifteenConsultingAvailableTimeTo,
+        thirtyConsultingAvailableTimeFrom,
+        thirtyConsultingAvailableTimeTo,
+      });
+      return scheduleConfig.id;
+    },
+    createSchedule: async (
+      _,
+      {
+        userId,
+        lawyerId,
+        specificDomainId,
+        scheduleTime,
+        consultingTime,
+        content,
+      }
+    ) => {
+      const schedule = await Schedule.create({
+        userId,
+        lawyerId,
+        specificDomainId,
+        scheduleTime,
+        consultingTime,
+        content,
+      });
+      return schedule.id;
     },
   },
 };

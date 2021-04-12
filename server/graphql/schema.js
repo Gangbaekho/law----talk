@@ -57,6 +57,21 @@ const typeDefs = gql`
       estimateKeyword: String!
     ): Int!
     createReviewReply(lawyerId: Int!, reviewId: Int!, content: String!): Int!
+    createScheduleConfig(
+      lawyerId: Int!
+      fifteenConsultingAvailableTimeFrom: String!
+      fifteenConsultingAvailableTimeTo: String!
+      thirtyConsultingAvailableTimeFrom: String!
+      thirtyConsultingAvailableTimeTo: String!
+    ): Int!
+    createSchedule(
+      userId: Int!
+      lawyerId: Int!
+      specificDomainId: Int!
+      scheduleTime: String!
+      consultingTime: String!
+      content: String!
+    ): Int!
   }
 `;
 
