@@ -15,6 +15,8 @@ const typeDefs = gql`
   type Mutation {
     createGeneralDomain(domainName: String!): Int!
     createGeneralRegion(regionName: String!): Int!
+    createSpecificDomain(generalDomainId: Int!, domainName: String!): Int!
+    createSpecificRegion(generalRegionId: Int!, regionName: String!): Int!
   }
 `;
 

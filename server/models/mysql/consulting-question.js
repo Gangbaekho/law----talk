@@ -20,7 +20,7 @@ const ConsultingQuestion = sequelize.define("consulting-question", {
     },
     allowNull: false,
   },
-  specificDomain: {
+  specificDomainId: {
     type: DataTypes.INTEGER.UNSIGNED,
     reference: {
       model: SpecificDomain,

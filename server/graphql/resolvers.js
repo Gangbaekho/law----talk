@@ -1,6 +1,8 @@
 const User = require("../models/mysql/user");
 const GeneralDomain = require("../models/mysql/general-domain");
 const GeneralRegion = require("../models/mysql/general-region");
+const SpecificDomain = require("../models/mysql/specific-domain");
+const SpecificRegion = require("../models/mysql/specific-region");
 
 const resolvers = {
   Query: {
@@ -23,6 +25,20 @@ const resolvers = {
     createGeneralRegion: async (_, { regionName }) => {
       const generalRegion = await GeneralRegion.create({ regionName });
       return generalRegion.id;
+    },
+    createSpecificDomain: async (_, { generalDomainId, domainName }) => {
+      const specificDomain = await SpecificDomain.create({
+        generalDomainId,
+        domainName,
+      });
+      return specificDomain.id;
+    },
+    createSpecificRegion: async (_, { generalRegionId, regionName }) => {
+      const specificRegion = await SpecificRegion.create({
+        generalRegionId,
+        regionName,
+      });
+      return specificRegion.id;
     },
   },
 };
