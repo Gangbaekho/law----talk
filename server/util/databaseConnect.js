@@ -16,15 +16,6 @@ const databaseConnect = () => {
       });
       return;
     })
-    // .then((result) => {
-    //   return server.listen(4000);
-    // })
-    // .then(() => {
-    //   console.log(`
-    //   Server is running!
-    //   Listening on port 4000.
-    //   `);
-    // })
     .catch((error) => {
       console.log(error);
     });
