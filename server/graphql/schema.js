@@ -11,6 +11,11 @@ const typeDefs = gql`
   type Query {
     user(id: Int!): User!
   }
+
+  type Mutation {
+    createGeneralDomain(domainName: String!): Int!
+    createGeneralRegion(regionName: String!): Int!
+  }
 `;
 
 module.exports = typeDefs;
