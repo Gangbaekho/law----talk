@@ -17,6 +17,17 @@ const typeDefs = gql`
     createGeneralRegion(regionName: String!): Int!
     createSpecificDomain(generalDomainId: Int!, domainName: String!): Int!
     createSpecificRegion(generalRegionId: Int!, regionName: String!): Int!
+    createConsultingQuestion(
+      userId: Int!
+      specificDomainId: Int!
+      title: String!
+      content: String!
+    ): Int!
+    createConsultingAnswer(
+      lawyerId: Int!
+      consultingQuestionId: Int!
+      content: String!
+    ): Int!
   }
 `;
 

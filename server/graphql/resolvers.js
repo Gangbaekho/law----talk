@@ -3,6 +3,8 @@ const GeneralDomain = require("../models/mysql/general-domain");
 const GeneralRegion = require("../models/mysql/general-region");
 const SpecificDomain = require("../models/mysql/specific-domain");
 const SpecificRegion = require("../models/mysql/specific-region");
+const ConsultingQuestion = require("../models/mysql/consulting-question");
+const ConsultingAnswer = require("../models/mysql/consulting-answer");
 
 const resolvers = {
   Query: {
@@ -39,6 +41,29 @@ const resolvers = {
         regionName,
       });
       return specificRegion.id;
+    },
+    createConsultingQuestion: async (
+      _,
+      { userId, specificDomainId, title, content }
+    ) => {
+      const consultingQuestion = await ConsultingQuestion.create({
+        userId,
+        specificDomainId,
+        title,
+        content,
+      });
+      return consultingQuestion.id;
+    },
+    createConsultingAnswer: async (
+      _,
+      { lawyerId, consultingQuestionId, content }
+    ) => {
+      const consultingAnwer = await ConsultingAnswer.create({
+        lawyerId,
+        consultingQuestionId,
+        content,
+      });
+      return consultingAnwer.id;
     },
   },
 };
