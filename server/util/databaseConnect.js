@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const sequelize = require("./mysql");
 const redis = require("redis");
 
-const databaseConnect = (app) => {
+const databaseConnect = (server) => {
   mongoose
     .set("debug", true)
     .connect("mongodb://localhost:27017/lawtalk", { useNewUrlParser: true })
@@ -17,7 +17,13 @@ const databaseConnect = (app) => {
       return;
     })
     .then((result) => {
-      app.listen(3000);
+      return server.listen(4000);
+    })
+    .then(() => {
+      console.log(`
+      Server is running!
+      Listening on port 4000.
+      `);
     })
     .catch((error) => {
       console.log(error);
