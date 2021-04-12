@@ -7,6 +7,8 @@ const ConsultingQuestion = require("../models/mysql/consulting-question");
 const ConsultingAnswer = require("../models/mysql/consulting-answer");
 const Post = require("../models/mysql/post");
 const Video = require("../models/mysql/video");
+const Review = require("../models/mysql/review");
+const ReviewReply = require("../models/mysql/review-reply");
 
 const resolvers = {
   Query: {
@@ -94,6 +96,46 @@ const resolvers = {
         videoImageUrl,
       });
       return video.id;
+    },
+    createReview: async (
+      _,
+      {
+        userId,
+        lawyerId,
+        specificDomainId,
+        title,
+        content,
+        consultingType,
+        punctualTimeScore,
+        kindnessScore,
+        questionSolutionScore,
+        estimateKeyword,
+      }
+    ) => {
+      const averageScore =
+        (punctualTimeScore + kindnessScore + questionSolutionScore) / 3;
+      const review = await Review.create({
+        userId,
+        lawyerId,
+        specificDomainId,
+        title,
+        content,
+        consultingType,
+        punctualTimeScore,
+        kindnessScore,
+        questionSolutionScore,
+        averageScore,
+        estimateKeyword,
+      });
+      return review.id;
+    },
+    createReviewReply: async (_, { lawyerId, reviewId, content }) => {
+      const reviewReply = await ReviewReply.create({
+        lawyerId,
+        reviewId,
+        content,
+      });
+      return reviewReply.id;
     },
   },
 };

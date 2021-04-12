@@ -44,6 +44,19 @@ const typeDefs = gql`
       content: String!
       videoImageUrl: String!
     ): Int!
+    createReview(
+      userId: Int!
+      lawyerId: Int!
+      specificDomainId: Int!
+      title: String!
+      content: String!
+      consultingType: String!
+      punctualTimeScore: Int!
+      kindnessScore: Int!
+      questionSolutionScore: Int!
+      estimateKeyword: String!
+    ): Int!
+    createReviewReply(lawyerId: Int!, reviewId: Int!, content: String!): Int!
   }
 `;
 
