@@ -8,7 +8,7 @@ const sequelize = require("../../util/mysql");
 
 const estimateKeywords = require("../../constants/estimateKeywords");
 
-const Review = sequelize.define("Review", {
+const Review = sequelize.define("review", {
   id: {
     type: DataTypes.INTEGER.UNSIGNED,
     allowNull: false,

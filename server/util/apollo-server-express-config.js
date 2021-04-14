@@ -5,6 +5,8 @@ const { ApolloServer } = require("apollo-server-express");
 
 const databaseConnect = require("./databaseConnect");
 
+const associateTables = require("../models/mysql/association-config");
+
 async function startApolloServer() {
   const server = new ApolloServer({ typeDefs, resolvers });
   await server.start();
@@ -12,6 +14,7 @@ async function startApolloServer() {
   const app = express();
   server.applyMiddleware({ app });
 
+  associateTables();
   await databaseConnect();
 
   await new Promise((resolve) => app.listen({ port: 4000 }, resolve));
