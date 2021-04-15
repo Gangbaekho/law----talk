@@ -1,5 +1,7 @@
 const typeDefs = require("../graphql/schema");
 const resolvers = require("../graphql/resolvers");
+const newTypeDefs = require("../graphql/index-schema");
+const newResolvers = require("../graphql/index-resolver");
 const express = require("express");
 const { ApolloServer } = require("apollo-server-express");
 
@@ -8,7 +10,10 @@ const databaseConnect = require("./databaseConnect");
 const associateTables = require("../models/mysql/association-config");
 
 async function startApolloServer() {
-  const server = new ApolloServer({ typeDefs, resolvers });
+  const server = new ApolloServer({
+    typeDefs: newTypeDefs,
+    resolvers: newResolvers,
+  });
   await server.start();
 
   const app = express();

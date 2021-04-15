@@ -114,7 +114,7 @@ const typeDefs = gql`
     title: String!
     content: String!
     viewCount: Int!
-    consultingAnswers: [consultingAnswer!]!
+    consultingAnswers: [ConsultingAnswer!]!
     user: User!
     specificDomain: SpecificDomain!
     createdAt: String!
