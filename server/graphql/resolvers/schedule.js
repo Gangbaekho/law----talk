@@ -2,7 +2,7 @@ const Schedule = require("../../models/mysql/schedule");
 
 const scheduleResolver = {
   Query: {
-    user: async (_, { id }) => {
+    schedule: async (_, { id }) => {
       const schedule = await Schedule.findOne({ id });
       return schedule.id;
     },

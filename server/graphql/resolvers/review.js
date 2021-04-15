@@ -2,7 +2,7 @@ const Review = require("../../models/mysql/review");
 
 const reviewResolver = {
   Query: {
-    user: async (_, { id }) => {
+    review: async (_, { id }) => {
       const review = await Review.findOne({ id });
       return review.id;
     },

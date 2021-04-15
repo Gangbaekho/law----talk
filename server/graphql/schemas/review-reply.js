@@ -1,7 +1,7 @@
 const { gql } = require("apollo-server-express");
 
 const reviewReplySchema = gql`
-  type reviewReplySchema {
+  type ReviewReply {
     id: ID!
     content: String!
     review: Review!

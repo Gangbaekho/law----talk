@@ -11,6 +11,8 @@ const replyType = require("./schemas/review");
 const replyReplyType = require("./schemas/review-reply");
 const consultingQuestionType = require("./schemas/consulting-question");
 const consultingAnswerType = require("./schemas/consulting-answer");
+const postType = require("./schemas/post");
+const videoType = require("./schemas/video");
 
 const types = [
   userType,
@@ -25,6 +27,8 @@ const types = [
   replyReplyType,
   consultingQuestionType,
   consultingAnswerType,
+  postType,
+  videoType,
 ];
 
 module.exports = mergeTypeDefs(types);
