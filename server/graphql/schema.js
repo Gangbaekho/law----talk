@@ -14,6 +14,8 @@ const typeDefs = gql`
     email: String!
     isPremium: String!
     priorityScore: Int!
+    createdAt: String!
+    updatedAt: String!
   }
 
   type GeneralDomain {
@@ -44,6 +46,8 @@ const typeDefs = gql`
     fifteenConsultingAvailableTimeTo: String!
     thirtyConsultingAvailableTimeFrom: String!
     thirtyConsultingAvailableTimeTo: String!
+    createdAt: String!
+    updatedAt: String!
   }
 
   type Schedule {
@@ -51,6 +55,8 @@ const typeDefs = gql`
     scheduleTime: String!
     consultingTime: String!
     content: String!
+    createdAt: String!
+    updatedAt: String!
   }
 
   type Review {
@@ -63,24 +69,32 @@ const typeDefs = gql`
     questionSolutionScore: Int!
     averageScore: Float!
     estimateKeyword: String!
+    createdAt: String!
+    updatedAt: String!
   }
 
   type ReviewReply {
     id: ID!
     content: String!
+    createdAt: String!
+    updatedAt: String!
   }
 
-  type ConsultineQuestion {
+  type ConsultingQuestion {
     id: ID!
     title: String!
     content: String!
     viewCount: Int!
+    createdAt: String!
+    updatedAt: String!
   }
 
   type ConsultingAnswer {
     id: ID!
     content: String!
     recommendationCount: Int!
+    createdAt: String!
+    updatedAt: String!
   }
 
   type Post {
@@ -91,6 +105,8 @@ const typeDefs = gql`
     postImageUrl: String!
     reviewCount: Int!
     recommendationCount: Int!
+    createdAt: String!
+    updatedAt: String!
   }
 
   type Video {
@@ -102,6 +118,8 @@ const typeDefs = gql`
     videoThumbNailUrl: String!
     reviewCount: Int!
     recommendationCount: Int!
+    createdAt: String!
+    updatedAt: String!
   }
 
   type Query {
