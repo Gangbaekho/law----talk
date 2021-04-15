@@ -5,6 +5,8 @@ const generalDomainType = require("./schemas/general-domain");
 const generalRegionType = require("./schemas/general-region");
 const specificDomainType = require("./schemas/specific-domain");
 const specificRegionType = require("./schemas/specific-region");
+const scheduleConfigType = require("./schemas/schedule-config");
+const scheduleType = require("./schemas/schedule");
 
 const types = [
   userType,
@@ -13,6 +15,8 @@ const types = [
   generalRegionType,
   specificDomainType,
   specificRegionType,
+  scheduleConfigType,
+  scheduleType,
 ];
 
 module.exports = mergeTypeDefs(types);
