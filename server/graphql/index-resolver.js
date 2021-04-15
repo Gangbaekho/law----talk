@@ -7,6 +7,8 @@ const specificDomainResolver = require("./resolvers/specific-domain");
 const specificRegionResolver = require("./resolvers/specific-region");
 const scheduleConfigResolver = require("./resolvers/schedule-config");
 const scheduleResolver = require("./resolvers/schedule");
+const reviewResolver = require("./resolvers/review");
+const reviewReplyResolver = require("./resolvers/review-reply");
 
 const resolvers = [
   userResolver,
@@ -17,6 +19,8 @@ const resolvers = [
   specificRegionResolver,
   scheduleConfigResolver,
   scheduleResolver,
+  reviewResolver,
+  reviewReplyResolver,
 ];
 
 module.exports = mergeResolvers(resolvers);
