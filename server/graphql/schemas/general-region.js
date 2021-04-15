@@ -10,6 +10,10 @@ const generalRegionSchema = gql`
   type Query {
     generalRegion(id: Int!): Int!
   }
+
+  type Mutation {
+    createGeneralRegion(regionName: String!): Int!
+  }
 `;
 
 module.exports = generalRegionSchema;

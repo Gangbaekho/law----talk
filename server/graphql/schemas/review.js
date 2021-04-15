@@ -22,6 +22,23 @@ const reviewSchema = gql`
   type Query {
     review(id: Int!): Int!
   }
+
+  type ReviewInputType {
+    userId: Int!
+    lawyerId: Int!
+    specificDomainId: Int!
+    title: String!
+    content: String!
+    consultingType: String!
+    punctualTimeScore: Int!
+    kindnessScore: Int!
+    questionSolutionScore: Int!
+    estimateKeyword: String!
+  }
+
+  type Mutation {
+    createReview(reviewInput: ReviewInputType!): Int!
+  }
 `;
 
 module.exports = reviewSchema;

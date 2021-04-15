@@ -19,6 +19,19 @@ const videoSchema = gql`
   type Query {
     video(id: Int!): Int!
   }
+
+  input VideoInputType {
+    lawyerId: Int!
+    specificDomainId: Int!
+    videoType: String!
+    title: String!
+    content: String!
+    videoImageUrl: String!
+  }
+
+  type Mutation {
+    createVideo(videoInput: VideoInputType!): Int!
+  }
 `;
 
 module.exports = videoSchema;

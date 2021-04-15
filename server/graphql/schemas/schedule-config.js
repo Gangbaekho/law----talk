@@ -15,6 +15,18 @@ const scheduleConfigSchema = gql`
   type Query {
     scheduleConfig(id: Int!): Int!
   }
+
+  input ScheduleConfigInputType {
+    lawyerId: Int!
+    fifteenConsultingAvailableTimeFrom: String!
+    fifteenConsultingAvailableTimeTo: String!
+    thirtyConsultingAvailableTimeFrom: String!
+    thirtyConsultingAvailableTimeTo: String!
+  }
+
+  type Mutation {
+    createScheduleConfig(scheduleConfigInput: ScheduleConfigInputType!): Int!
+  }
 `;
 
 module.exports = scheduleConfigSchema;

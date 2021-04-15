@@ -13,6 +13,18 @@ const consultingQuestionSchema = gql`
   type Query {
     consultingQuestion(id: Int!): Int!
   }
+
+  input ConsultingAnswerInputType {
+    lawyerId: Int!
+    consultingQuestionId: Int!
+    content: String!
+  }
+
+  type Mutation {
+    createConsultingAnswer(
+      consultingAnswerInput: ConsultingAnswerInputType!
+    ): Int!
+  }
 `;
 
 module.exports = consultingQuestionSchema;

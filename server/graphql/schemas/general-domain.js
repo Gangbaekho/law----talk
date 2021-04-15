@@ -10,6 +10,10 @@ const generalDomainSchema = gql`
   type Query {
     generalDomain(id: Int!): Int!
   }
+
+  type Mutation {
+    createGeneralDomain(domainName: String!): Int!
+  }
 `;
 
 module.exports = generalDomainSchema;

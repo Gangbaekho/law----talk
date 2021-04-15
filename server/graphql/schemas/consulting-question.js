@@ -16,6 +16,19 @@ const consultingAnswerSchema = gql`
   type Query {
     consultingAnswer(id: Int!): Int!
   }
+
+  input ConsultingQuestionInputType {
+    userId: Int!
+    specificDomainId: Int!
+    title: String!
+    content: String!
+  }
+
+  type Mutation {
+    createConsultingQuestion(
+      consultingQuestionInput: ConsultingQuestionInputType!
+    ): Int!
+  }
 `;
 
 module.exports = consultingAnswerSchema;

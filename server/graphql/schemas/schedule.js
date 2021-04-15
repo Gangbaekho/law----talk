@@ -16,6 +16,19 @@ const scheduleSchema = gql`
   type Query {
     schedule(id: Int!): Int!
   }
+
+  input ScheduleInputType {
+    userId: Int!
+    lawyerId: Int!
+    specificDomainId: Int!
+    scheduleTime: String!
+    consultingTime: String!
+    content: String!
+  }
+
+  type Mutation {
+    createSchedule(scheduleInput: ScheduleInputType!): Int!
+  }
 `;
 
 module.exports = scheduleSchema;

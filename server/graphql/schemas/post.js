@@ -18,6 +18,19 @@ const postSchema = gql`
   type Query {
     post(id: Int!): Int!
   }
+
+  type PostInputType {
+    lawyerId: Int!
+    specificDomainId: Int!
+    postType: String!
+    title: String!
+    content: String!
+    postImageUrl: String!
+  }
+
+  type Mutation {
+    createPost(postInput: PostInputType!): Int!
+  }
 `;
 
 module.exports = postSchema;

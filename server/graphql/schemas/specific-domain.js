@@ -17,6 +17,9 @@ const specificDomainSchema = gql`
   type Query {
     specificDomain(id: Int!): Int!
   }
+  type Mutation {
+    createSpecificDomain(generalDomainId: Int!, domainName: String!): Int!
+  }
 `;
 
 module.exports = specificDomainSchema;

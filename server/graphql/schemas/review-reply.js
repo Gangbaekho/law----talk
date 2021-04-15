@@ -13,6 +13,16 @@ const reviewReplySchema = gql`
   type Query {
     reviewReply(id: Int!): Int!
   }
+
+  input ReviewReplyInputType {
+    lawyerId: Int!
+    reviewId: Int!
+    content: String!
+  }
+
+  type Mutation {
+    createReviewReply(reviewReplyInput: ReviewReplyInputType!): Int!
+  }
 `;
 
 module.exports = reviewReplySchema;
