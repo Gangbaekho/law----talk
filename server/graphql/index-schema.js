@@ -9,6 +9,8 @@ const scheduleConfigType = require("./schemas/schedule-config");
 const scheduleType = require("./schemas/schedule");
 const replyType = require("./schemas/review");
 const replyReplyType = require("./schemas/review-reply");
+const consultingQuestionType = require("./schemas/consulting-question");
+const consultingAnswerType = require("./schemas/consulting-answer");
 
 const types = [
   userType,
@@ -21,6 +23,8 @@ const types = [
   scheduleType,
   replyType,
   replyReplyType,
+  consultingQuestionType,
+  consultingAnswerType,
 ];
 
 module.exports = mergeTypeDefs(types);
