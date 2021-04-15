@@ -49,9 +49,10 @@ const associateTables = () => {
   // MongoDB로 이전해야 할 수 도 있음.
 
   // CONSULTING-ANSWER
-  ConsultingAnswer.belongsTo(ConsultingAnswer);
+  ConsultingAnswer.belongsTo(ConsultingQuestion);
 
   // CONSULTING-QUESTION
+  ConsultingQuestion.hasMany(ConsultingAnswer);
   ConsultingQuestion.belongsTo(User);
   ConsultingQuestion.belongsTo(SpecificDomain);
 
