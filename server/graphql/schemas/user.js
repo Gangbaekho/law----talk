@@ -4,9 +4,9 @@ const userSchema = gql`
   type User {
     id: ID!
     email: String!
-    # reviews: [Review!]!
-    # schedules: [Schedule!]!
-    # consultingQuestions: [ConsultingQuestion!]!
+    reviews: [Review!]!
+    schedules: [Schedule!]!
+    consultingQuestions: [ConsultingQuestion!]!
     createdAt: String!
     updatedAt: String!
   }

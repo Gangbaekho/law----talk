@@ -7,13 +7,13 @@ const lawyerSchema = gql`
     email: String!
     isPremium: String!
     priorityScore: Int!
-    # scheduleConfig: ScheduleConfig!
-    # posts: [Post!]!
-    # video: [Video]!
-    # schedules: [Schedule!]!
-    # reviews: [Review]!
-    # reviewReplies: [ReviewReply!]!
-    # consultingAnswers: [ConsultingAnswer!]!
+    scheduleConfig: ScheduleConfig!
+    posts: [Post!]!
+    video: [Video]!
+    schedules: [Schedule!]!
+    reviews: [Review]!
+    reviewReplies: [ReviewReply!]!
+    consultingAnswers: [ConsultingAnswer!]!
     createdAt: String!
     updatedAt: String!
   }
