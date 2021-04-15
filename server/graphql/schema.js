@@ -4,11 +4,11 @@ const typeDefs = gql`
   type User {
     id: ID!
     email: String!
-    createdAt: String!
-    updatedAt: String!
     reviews: [Review!]!
     schedules: [Schedule!]!
     consultingQuestions: [ConsultingQuestion!]!
+    createdAt: String!
+    updatedAt: String!
   }
 
   type Lawyer {
@@ -17,8 +17,6 @@ const typeDefs = gql`
     email: String!
     isPremium: String!
     priorityScore: Int!
-    createdAt: String!
-    updatedAt: String!
     scheduleConfig: ScheduleConfig!
     posts: [Post!]!
     video: [Video]!
@@ -26,6 +24,8 @@ const typeDefs = gql`
     reviews: [Review]!
     reviewReplies: [ReviewReply!]!
     consultingAnswers: [ConsultingAnswer!]!
+    createdAt: String!
+    updatedAt: String!
   }
 
   type GeneralDomain {
@@ -65,6 +65,7 @@ const typeDefs = gql`
     fifteenConsultingAvailableTimeTo: String!
     thirtyConsultingAvailableTimeFrom: String!
     thirtyConsultingAvailableTimeTo: String!
+    lawyer: Lawyer!
     createdAt: String!
     updatedAt: String!
   }
@@ -74,11 +75,11 @@ const typeDefs = gql`
     scheduleTime: String!
     consultingTime: String!
     content: String!
-    createdAt: String!
-    updatedAt: String!
     user: User!
     lawyer: Lawyer!
     specificDomain: SpecificDomain!
+    createdAt: String!
+    updatedAt: String!
   }
 
   type Review {
@@ -91,21 +92,21 @@ const typeDefs = gql`
     questionSolutionScore: Int!
     averageScore: Float!
     estimateKeyword: String!
-    createdAt: String!
-    updatedAt: String!
     reviewReplies: [ReviewReply!]!
     user: User!
     lawyer: Lawyer!
     specificDomain: SpecificDomain!
+    createdAt: String!
+    updatedAt: String!
   }
 
   type ReviewReply {
     id: ID!
     content: String!
-    createdAt: String!
-    updatedAt: String!
     review: Review!
     lawyer: Lawyer!
+    createdAt: String!
+    updatedAt: String!
   }
 
   type ConsultingQuestion {
@@ -113,20 +114,20 @@ const typeDefs = gql`
     title: String!
     content: String!
     viewCount: Int!
-    createdAt: String!
-    updatedAt: String!
     consultingAnswers: [consultingAnswer!]!
     user: User!
     specificDomain: SpecificDomain!
+    createdAt: String!
+    updatedAt: String!
   }
 
   type ConsultingAnswer {
     id: ID!
     content: String!
     recommendationCount: Int!
+    consultingQuestion: ConsultingQuestion!
     createdAt: String!
     updatedAt: String!
-    consultingQuestion: ConsultingQuestion!
   }
 
   type Post {
@@ -137,10 +138,10 @@ const typeDefs = gql`
     postImageUrl: String!
     reviewCount: Int!
     recommendationCount: Int!
-    createdAt: String!
-    updatedAt: String!
     lawyer: Lawyer!
     specificDomain: SpecificDomain!
+    createdAt: String!
+    updatedAt: String!
   }
 
   type Video {
@@ -152,10 +153,10 @@ const typeDefs = gql`
     videoThumbNailUrl: String!
     reviewCount: Int!
     recommendationCount: Int!
-    createdAt: String!
-    updatedAt: String!
     lawyer: Lawyer!
     specificDomain: SpecificDomain!
+    createdAt: String!
+    updatedAt: String!
   }
 
   type Query {
