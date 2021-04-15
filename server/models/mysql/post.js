@@ -49,7 +49,7 @@ const Post = sequelize.define("post", {
     type: DataTypes.INTEGER.UNSIGNED,
     defaultValue: 0,
   },
-  recommandationCount: {
+  recommendationCount: {
     type: DataTypes.INTEGER.UNSIGNED,
     defaultValue: 0,
   },

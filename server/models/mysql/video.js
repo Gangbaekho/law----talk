@@ -41,7 +41,11 @@ const Video = sequelize.define("video", {
     type: DataTypes.TEXT,
     allowNull: true,
   },
-  videoImageUrl: {
+  videoUrl: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  videoThumbNailUrl: {
     type: DataTypes.STRING,
     allowNull: false,
   },
@@ -49,7 +53,7 @@ const Video = sequelize.define("video", {
     type: DataTypes.INTEGER.UNSIGNED,
     defaultValue: 0,
   },
-  recommandationCount: {
+  recommendationCount: {
     type: DataTypes.INTEGER.UNSIGNED,
     defaultValue: 0,
   },

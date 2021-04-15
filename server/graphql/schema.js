@@ -2,10 +2,106 @@ const { gql } = require("apollo-server");
 
 const typeDefs = gql`
   type User {
-    id: Int!
+    id: ID!
     email: String!
     createdAt: String!
     updatedAt: String!
+  }
+
+  type Lawyer {
+    id: ID!
+    mongodbId: ID!
+    email: String!
+    isPremium: String!
+    priorityScore: Int!
+  }
+
+  type GeneralDomain {
+    id: ID!
+    domainName: String!
+  }
+
+  type GeneralRegion {
+    id: ID!
+    regionName: String!
+  }
+
+  type SpecificDomain {
+    id: ID!
+    domainName: String!
+    lawyerCount: Int!
+    caseCount: Int!
+  }
+
+  type SpecificRegion {
+    id: ID!
+    regionName: String!
+  }
+
+  type ScheduleConfig {
+    id: ID!
+    fifteenConsultingAvailableTimeFrom: String!
+    fifteenConsultingAvailableTimeTo: String!
+    thirtyConsultingAvailableTimeFrom: String!
+    thirtyConsultingAvailableTimeTo: String!
+  }
+
+  type Schedule {
+    id: ID!
+    scheduleTime: String!
+    consultingTime: String!
+    content: String!
+  }
+
+  type Review {
+    id: ID!
+    title: String!
+    content: String!
+    consultingType: String!
+    punctualTimeScore: Int!
+    kindnessScore: Int!
+    questionSolutionScore: Int!
+    averageScore: Float!
+    estimateKeyword: String!
+  }
+
+  type ReviewReply {
+    id: ID!
+    content: String!
+  }
+
+  type ConsultineQuestion {
+    id: ID!
+    title: String!
+    content: String!
+    viewCount: Int!
+  }
+
+  type ConsultingAnswer {
+    id: ID!
+    content: String!
+    recommendationCount: Int!
+  }
+
+  type Post {
+    id: ID!
+    postType: String!
+    title: String!
+    content: String!
+    postImageUrl: String!
+    reviewCount: Int!
+    recommendationCount: Int!
+  }
+
+  type Video {
+    id: ID!
+    videoType: String!
+    title: String!
+    content: String!
+    videoUrl: String!
+    videoThumbNailUrl: String!
+    reviewCount: Int!
+    recommendationCount: Int!
   }
 
   type Query {
