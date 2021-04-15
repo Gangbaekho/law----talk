@@ -11,8 +11,17 @@ const userSchema = gql`
     updatedAt: String!
   }
 
+  input UserInputType {
+    email: String!
+    password: String!
+  }
+
   type Query {
     user(id: Int!): Int!
+  }
+
+  type Mutation {
+    createUser(userInput: UserInputType!): Int!
   }
 `;
 

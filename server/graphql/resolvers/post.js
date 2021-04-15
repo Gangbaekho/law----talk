@@ -7,6 +7,29 @@ const postResolver = {
       return post.id;
     },
   },
+  Mutation: {
+    createPost: async (_, { postInput }) => {
+      const {
+        lawyerId,
+        specificDomainId,
+        postType,
+        title,
+        content,
+        postImageUrl,
+      } = postInput;
+
+      const post = await Post.create({
+        lawyerId,
+        specificDomainId,
+        postType,
+        title,
+        content,
+        postImageUrl,
+      });
+
+      return post.id;
+    },
+  },
 };
 
 module.exports = postResolver;

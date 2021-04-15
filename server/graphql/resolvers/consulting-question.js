@@ -7,6 +7,23 @@ const consultingQuestionResolver = {
       return consultingQuestion.id;
     },
   },
+  Mutation: {
+    createConsultingQuestion: async (_, { consultingQuestionInput }) => {
+      const {
+        userId,
+        specificDomainId,
+        title,
+        content,
+      } = consultingQuestionInput;
+      const consultingQuestion = await ConsultingQuestion.create({
+        userId,
+        specificDomainId,
+        title,
+        content,
+      });
+      return consultingQuestion.id;
+    },
+  },
 };
 
 module.exports = consultingQuestionResolver;

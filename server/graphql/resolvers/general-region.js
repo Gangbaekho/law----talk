@@ -7,6 +7,12 @@ const generalRegionResolver = {
       return generalRegion.id;
     },
   },
+  Mutation: {
+    createGeneralRegion: async (_, { regionName }) => {
+      const generalRegion = await GeneralRegion.create({ regionName });
+      return generalRegion.id;
+    },
+  },
 };
 
 module.exports = generalRegionResolver;

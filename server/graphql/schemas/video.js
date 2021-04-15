@@ -26,7 +26,8 @@ const videoSchema = gql`
     videoType: String!
     title: String!
     content: String!
-    videoImageUrl: String!
+    videoUrl: String!
+    videoThumbNailUrl: String!
   }
 
   type Mutation {

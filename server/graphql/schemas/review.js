@@ -23,7 +23,7 @@ const reviewSchema = gql`
     review(id: Int!): Int!
   }
 
-  type ReviewInputType {
+  input ReviewInputType {
     userId: Int!
     lawyerId: Int!
     specificDomainId: Int!

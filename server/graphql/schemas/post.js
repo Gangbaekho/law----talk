@@ -19,7 +19,7 @@ const postSchema = gql`
     post(id: Int!): Int!
   }
 
-  type PostInputType {
+  input PostInputType {
     lawyerId: Int!
     specificDomainId: Int!
     postType: String!

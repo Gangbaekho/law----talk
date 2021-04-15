@@ -7,6 +7,18 @@ const userResolver = {
       return user.id;
     },
   },
+  Mutation: {
+    createUser: async (_, { userInput }) => {
+      const { email, password } = userInput;
+
+      const user = await User.create({
+        email,
+        password,
+      });
+
+      return user.id;
+    },
+  },
 };
 
 module.exports = userResolver;

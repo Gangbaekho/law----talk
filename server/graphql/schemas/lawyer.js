@@ -21,6 +21,18 @@ const lawyerSchema = gql`
   type Query {
     lawyer(id: Int!): Int!
   }
+
+  input LawyerInputType {
+    mongodbId: String!
+    email: String!
+    password: String!
+    isPremium: String!
+    priorityScore: Int!
+  }
+
+  type Mutation {
+    createLawyer(lawyerInput: LawyerInputType!): Int!
+  }
 `;
 
 module.exports = lawyerSchema;

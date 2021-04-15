@@ -7,6 +7,19 @@ const reviewReplyResolver = {
       return reviewReply.id;
     },
   },
+  Mutation: {
+    createReviewReply: async (_, { reviewReplyInput }) => {
+      const { lawyerId, reviewId, content } = reviewReplyInput;
+
+      const reviewReply = await ReviewReply.create({
+        lawyerId,
+        reviewId,
+        content,
+      });
+
+      return reviewReply.id;
+    },
+  },
 };
 
 module.exports = reviewReplyResolver;

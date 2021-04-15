@@ -7,6 +7,27 @@ const lawyerResolver = {
       return lawyer.id;
     },
   },
+  Mutation: {
+    createLawyer: async (_, { lawyerInput }) => {
+      const {
+        mongodbId,
+        email,
+        password,
+        isPremium,
+        priorityScore,
+      } = lawyerInput;
+
+      const lawyer = await Lawyer.create({
+        mongodbId,
+        email,
+        password,
+        isPremium,
+        priorityScore,
+      });
+
+      return lawyer.id;
+    },
+  },
 };
 
 module.exports = lawyerResolver;

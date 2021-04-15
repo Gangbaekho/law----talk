@@ -7,6 +7,31 @@ const videoResolver = {
       return video.id;
     },
   },
+  Mutation: {
+    createVideo: async (_, { videoInput }) => {
+      const {
+        lawyerId,
+        specificDomainId,
+        videoType,
+        title,
+        content,
+        videoUrl,
+        videoThumbNailUrl,
+      } = videoInput;
+
+      const video = await Video.create({
+        lawyerId,
+        specificDomainId,
+        videoType,
+        title,
+        content,
+        videoUrl,
+        videoThumbNailUrl,
+      });
+
+      return video.id;
+    },
+  },
 };
 
 module.exports = videoResolver;

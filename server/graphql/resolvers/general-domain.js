@@ -7,6 +7,12 @@ const generalDomainResolver = {
       return generalDomain.id;
     },
   },
+  Mutation: {
+    createGeneralDomain: async (_, { domainName }) => {
+      const generalDomain = await GeneralDomain.create({ domainName });
+      return generalDomain.id;
+    },
+  },
 };
 
 module.exports = generalDomainResolver;

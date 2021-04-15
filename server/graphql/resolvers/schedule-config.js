@@ -7,6 +7,27 @@ const scheduleConfigResolver = {
       return scheduleConfig.id;
     },
   },
+  Mutation: {
+    createScheduleConfig: async (_, { scheduleConfigInput }) => {
+      const {
+        lawyerId,
+        fifteenConsultingAvailableTimeFrom,
+        fifteenConsultingAvailableTimeTo,
+        thirtyConsultingAvailableTimeFrom,
+        thirtyConsultingAvailableTimeTo,
+      } = scheduleConfigInput;
+
+      const scheduleConfig = await ScheduleConfig.create({
+        lawyerId,
+        fifteenConsultingAvailableTimeFrom,
+        fifteenConsultingAvailableTimeTo,
+        thirtyConsultingAvailableTimeFrom,
+        thirtyConsultingAvailableTimeTo,
+      });
+
+      return scheduleConfig.id;
+    },
+  },
 };
 
 module.exports = scheduleConfigResolver;

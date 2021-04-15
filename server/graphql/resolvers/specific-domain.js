@@ -7,6 +7,16 @@ const SpecificDomainResolver = {
       return specificDomain.id;
     },
   },
+  Mutation: {
+    createSpecificDomain: async (_, { generalDomainId, domainName }) => {
+      const specificDomain = await SpecificDomain.create({
+        generalDomainId,
+        domainName,
+      });
+
+      return specificDomain.id;
+    },
+  },
 };
 
 module.exports = SpecificDomainResolver;

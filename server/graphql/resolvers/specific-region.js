@@ -7,6 +7,16 @@ const SpecificRegionResolver = {
       return specificRegion.id;
     },
   },
+  Mutation: {
+    createSpecificRegion: async (_, { generalRegionId, regionName }) => {
+      const specificRegion = await SpecificRegion.create({
+        generalRegionId,
+        regionName,
+      });
+
+      return specificRegion.id;
+    },
+  },
 };
 
 module.exports = SpecificRegionResolver;

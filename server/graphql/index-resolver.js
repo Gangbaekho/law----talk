@@ -11,6 +11,8 @@ const reviewResolver = require("./resolvers/review");
 const reviewReplyResolver = require("./resolvers/review-reply");
 const consultingQuestionResolver = require("./resolvers/consulting-question");
 const consultingAnswerResolver = require("./resolvers/consulting-answer");
+const postResolver = require("./resolvers/post");
+const videoResolver = require("./resolvers/video");
 
 const resolvers = [
   userResolver,
@@ -25,6 +27,8 @@ const resolvers = [
   reviewReplyResolver,
   consultingQuestionResolver,
   consultingAnswerResolver,
+  postResolver,
+  videoResolver,
 ];
 
 module.exports = mergeResolvers(resolvers);
