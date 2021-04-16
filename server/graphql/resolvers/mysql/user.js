@@ -32,13 +32,11 @@ const userResolver = {
 
       return user.id;
     },
-    loginUser: async (_, { userInput }) => {
+    loginUser: async (_, { userInput }, { myToken }) => {
+      console.log(myToken);
       const { email, password } = userInput;
-      console.log(email);
-      console.log(password);
 
       const user = await User.findOne({ where: { email } });
-      console.log(user);
 
       if (!user) {
         const error = new Error("user does not exists.");

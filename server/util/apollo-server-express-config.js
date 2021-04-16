@@ -11,10 +11,14 @@ async function startApolloServer() {
   const server = new ApolloServer({
     typeDefs,
     resolvers,
+    context: ({ req }) => ({
+      myToken: req.headers.authorization,
+    }),
   });
   await server.start();
 
   const app = express();
+
   server.applyMiddleware({ app });
 
   associateTables();
