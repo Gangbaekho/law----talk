@@ -22,6 +22,7 @@ const userSchema = gql`
 
   type Mutation {
     createUser(userInput: UserInputType!): Int!
+    loginUser(userInput: UserInputType!): String!
   }
 `;
 
