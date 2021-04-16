@@ -1,4 +1,4 @@
-const SpecificDomain = require("../../models/mysql/specific-domain");
+const SpecificDomain = require("../../../models/mysql/specific-domain");
 
 const SpecificDomainResolver = {
   Query: {

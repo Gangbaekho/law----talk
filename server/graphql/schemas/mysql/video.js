@@ -16,10 +16,6 @@ const videoSchema = gql`
     updatedAt: String!
   }
 
-  type Query {
-    video(id: Int!): Int!
-  }
-
   input VideoInputType {
     lawyerId: Int!
     specificDomainId: Int!
@@ -28,6 +24,10 @@ const videoSchema = gql`
     content: String!
     videoUrl: String!
     videoThumbNailUrl: String!
+  }
+
+  type Query {
+    video(id: Int!): Int!
   }
 
   type Mutation {

@@ -1,4 +1,4 @@
-const GeneralDomain = require("../../models/mysql/general-domain");
+const GeneralDomain = require("../../../models/mysql/general-domain");
 
 const generalDomainResolver = {
   Query: {

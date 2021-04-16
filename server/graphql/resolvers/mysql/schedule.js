@@ -1,4 +1,4 @@
-const Schedule = require("../../models/mysql/schedule");
+const Schedule = require("../../../models/mysql/schedule");
 
 const scheduleResolver = {
   Query: {

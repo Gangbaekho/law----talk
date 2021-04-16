@@ -1,4 +1,4 @@
-const Lawyer = require("../../models/mysql/lawyer");
+const Lawyer = require("../../../models/mysql/lawyer");
 
 const lawyerResolver = {
   Query: {

@@ -1,18 +1,20 @@
 const { mergeResolvers } = require("@graphql-tools/merge");
-const userResolver = require("./resolvers/user");
-const lawyerResolver = require("./resolvers/lawyer");
-const generalDomainResolver = require("./resolvers/general-domain");
-const generalRegionResolver = require("./resolvers/general-region");
-const specificDomainResolver = require("./resolvers/specific-domain");
-const specificRegionResolver = require("./resolvers/specific-region");
-const scheduleConfigResolver = require("./resolvers/schedule-config");
-const scheduleResolver = require("./resolvers/schedule");
-const reviewResolver = require("./resolvers/review");
-const reviewReplyResolver = require("./resolvers/review-reply");
-const consultingQuestionResolver = require("./resolvers/consulting-question");
-const consultingAnswerResolver = require("./resolvers/consulting-answer");
-const postResolver = require("./resolvers/post");
-const videoResolver = require("./resolvers/video");
+const userResolver = require("./resolvers/mysql/user");
+const lawyerResolver = require("./resolvers/mysql/lawyer");
+const generalDomainResolver = require("./resolvers/mysql/general-domain");
+const generalRegionResolver = require("./resolvers/mysql/general-region");
+const specificDomainResolver = require("./resolvers/mysql/specific-domain");
+const specificRegionResolver = require("./resolvers/mysql/specific-region");
+const scheduleConfigResolver = require("./resolvers/mysql/schedule-config");
+const scheduleResolver = require("./resolvers/mysql/schedule");
+const reviewResolver = require("./resolvers/mysql/review");
+const reviewReplyResolver = require("./resolvers/mysql/review-reply");
+const consultingQuestionResolver = require("./resolvers/mysql/consulting-question");
+const consultingAnswerResolver = require("./resolvers/mysql/consulting-answer");
+const postResolver = require("./resolvers/mysql/post");
+const videoResolver = require("./resolvers/mysql/video");
+const mongoLawyerResolver = require("./resolvers/mongo/lawyer");
+const mongoScheduleResolver = require("./resolvers/mongo/schedule");
 
 const resolvers = [
   userResolver,
@@ -29,6 +31,8 @@ const resolvers = [
   consultingAnswerResolver,
   postResolver,
   videoResolver,
+  mongoLawyerResolver,
+  mongoScheduleResolver,
 ];
 
 module.exports = mergeResolvers(resolvers);

@@ -1,4 +1,4 @@
-const Video = require("../../models/mysql/video");
+const Video = require("../../../models/mysql/video");
 
 const videoResolver = {
   Query: {

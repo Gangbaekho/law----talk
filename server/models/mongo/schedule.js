@@ -9,8 +9,8 @@ const scheduleSchema = new Schema(
       ref: "Lawyer",
       required: true,
     },
-    mysqlLaywerId: {
-      type: Schema.Types.ObjectId,
+    mysqlLawyerId: {
+      type: Schema.Types.Number,
       required: true,
     },
     fifteenConsultingAvaliableTime: {
@@ -21,6 +21,7 @@ const scheduleSchema = new Schema(
         },
       ],
       required: true,
+      _id: false,
     },
     thirtyConsultingAvaliableTime: {
       type: [
@@ -30,6 +31,7 @@ const scheduleSchema = new Schema(
         },
       ],
       required: true,
+      _id: false,
     },
   },
   {

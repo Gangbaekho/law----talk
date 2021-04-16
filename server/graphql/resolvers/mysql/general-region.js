@@ -1,4 +1,4 @@
-const GeneralRegion = require("../../models/mysql/general-region");
+const GeneralRegion = require("../../../models/mysql/general-region");
 
 const generalRegionResolver = {
   Query: {

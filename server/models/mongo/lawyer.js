@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const lawyerSchema = new Schema(
   {
-    mysqlLaywerId: {
+    mysqlLawyerId: {
       type: Schema.Types.Number,
       required: true,
     },
@@ -12,12 +12,12 @@ const lawyerSchema = new Schema(
       type: Schema.Types.String,
       required: true,
     },
-    laywerProfileImageUrl: {
+    lawyerProfileImageUrl: {
       type: Schema.Types.String,
       required: true,
     },
     // 답변가, 크리에이터, 예약준수 뭐 이런거.
-    laywerCharacters: {
+    lawyerCharacters: {
       type: [Schema.Types.String],
       default: [],
     },
@@ -59,6 +59,7 @@ const lawyerSchema = new Schema(
           capabilities: [Schema.Types.String],
         },
       ],
+      _id: false,
     },
     // 학력
     graduation: {
@@ -72,6 +73,7 @@ const lawyerSchema = new Schema(
           serviceTime: Schema.Types.String,
         },
       ],
+      _id: false,
     },
     // 변호사 정보에서의 자격
     detailCertification: {
@@ -81,6 +83,7 @@ const lawyerSchema = new Schema(
           content: Schema.Types.String,
         },
       ],
+      _id: false,
     },
     // 변호사 정보에서의 학력
     detailGraduation: {
@@ -90,6 +93,7 @@ const lawyerSchema = new Schema(
           content: Schema.Types.String,
         },
       ],
+      _id: false,
     },
     // 변호사 정보에서의 활동사항
     activities: {
@@ -99,6 +103,7 @@ const lawyerSchema = new Schema(
           content: Schema.Types.String,
         },
       ],
+      _id: false,
     },
     // 필터 검색을 위한 전문 인증여부
     expertCertification: {
@@ -132,7 +137,7 @@ const lawyerSchema = new Schema(
       required: true,
     },
     priorityScore: {
-      type: Schema.Types.Boolean,
+      type: Schema.Types.Number,
       default: 0,
     },
   },

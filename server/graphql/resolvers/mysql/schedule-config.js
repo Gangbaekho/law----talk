@@ -1,4 +1,4 @@
-const ScheduleConfig = require("../../models/mysql/schedule-config");
+const ScheduleConfig = require("../../../models/mysql/schedule-config");
 
 const scheduleConfigResolver = {
   Query: {

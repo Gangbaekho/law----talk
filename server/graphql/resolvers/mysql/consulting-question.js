@@ -1,4 +1,4 @@
-const ConsultingQuestion = require("../../models/mysql/consulting-question");
+const ConsultingQuestion = require("../../../models/mysql/consulting-question");
 
 const consultingQuestionResolver = {
   Query: {

@@ -1,4 +1,4 @@
-const SpecificRegion = require("../../models/mysql/specific-region");
+const SpecificRegion = require("../../../models/mysql/specific-region");
 
 const SpecificRegionResolver = {
   Query: {

@@ -1,4 +1,4 @@
-const Review = require("../../models/mysql/review");
+const Review = require("../../../models/mysql/review");
 
 const reviewResolver = {
   Query: {
