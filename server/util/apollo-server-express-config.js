@@ -7,12 +7,14 @@ const databaseConnect = require("./databaseConnect");
 
 const associateTables = require("../models/mysql/association-config");
 
+const isAuth = require("../middleware/is-auth");
+
 async function startApolloServer() {
   const server = new ApolloServer({
     typeDefs,
     resolvers,
     context: ({ req }) => ({
-      myToken: req.headers.authorization,
+      Id: isAuth(req),
     }),
   });
   await server.start();
