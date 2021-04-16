@@ -3,6 +3,7 @@ const User = require("../../../models/mysql/user");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const JWT_SECRET_CODE = require("../../../util/jwt-secret-code");
+const validator = require("validator");
 
 const userResolver = {
   Query: {
@@ -15,7 +16,25 @@ const userResolver = {
     createUser: async (_, { userInput }) => {
       const { email, password } = userInput;
 
-      const isExist = await User.findOne({ email });
+      const errors = [];
+      if (!validator.isEmail(email)) {
+        errors.push({ message: "E-Mail is invalid" });
+      }
+
+      if (
+        validator.isEmpty(password) ||
+        !validator.isLength(password, { min: 5 })
+      ) {
+        errors.push({ message: "Password too short." });
+      }
+
+      if (errors.length > 0) {
+        const error = new Error("Invalid input");
+        error.validations = errors;
+        throw error;
+      }
+
+      const isExist = await User.findOne({ where: { email } });
 
       if (isExist) {
         const error = new Error("email exists already");
