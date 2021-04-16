@@ -1,185 +1,38 @@
-const User = require("../models/mysql/user");
-const GeneralDomain = require("../models/mysql/general-domain");
-const GeneralRegion = require("../models/mysql/general-region");
-const SpecificDomain = require("../models/mysql/specific-domain");
-const SpecificRegion = require("../models/mysql/specific-region");
-const ConsultingQuestion = require("../models/mysql/consulting-question");
-const ConsultingAnswer = require("../models/mysql/consulting-answer");
-const Post = require("../models/mysql/post");
-const Video = require("../models/mysql/video");
-const Review = require("../models/mysql/review");
-const ReviewReply = require("../models/mysql/review-reply");
-const ScheduleConfig = require("../models/mysql/schedule-config");
-const Schedule = require("../models/mysql/schedule");
+const { mergeResolvers } = require("@graphql-tools/merge");
+const userResolver = require("./resolvers/mysql/user");
+const lawyerResolver = require("./resolvers/mysql/lawyer");
+const generalDomainResolver = require("./resolvers/mysql/general-domain");
+const generalRegionResolver = require("./resolvers/mysql/general-region");
+const specificDomainResolver = require("./resolvers/mysql/specific-domain");
+const specificRegionResolver = require("./resolvers/mysql/specific-region");
+const scheduleConfigResolver = require("./resolvers/mysql/schedule-config");
+const scheduleResolver = require("./resolvers/mysql/schedule");
+const reviewResolver = require("./resolvers/mysql/review");
+const reviewReplyResolver = require("./resolvers/mysql/review-reply");
+const consultingQuestionResolver = require("./resolvers/mysql/consulting-question");
+const consultingAnswerResolver = require("./resolvers/mysql/consulting-answer");
+const postResolver = require("./resolvers/mysql/post");
+const videoResolver = require("./resolvers/mysql/video");
+const mongoLawyerResolver = require("./resolvers/mongo/lawyer");
+const mongoScheduleResolver = require("./resolvers/mongo/schedule");
 
-const resolvers = {
-  Query: {
-    user: async (_, { userId }) => {
-      const user = await User.findOne({ id: userId });
-      const { id, email, createdAt, updatedAt } = user;
-      return {
-        id,
-        email,
-        createdAt,
-        updatedAt,
-      };
-    },
-  },
-  Mutation: {
-    createGeneralDomain: async (_, { domainName }) => {
-      const generalDomain = await GeneralDomain.create({ domainName });
-      return generalDomain.id;
-    },
-    createGeneralRegion: async (_, { regionName }) => {
-      const generalRegion = await GeneralRegion.create({ regionName });
-      return generalRegion.id;
-    },
-    createSpecificDomain: async (_, { generalDomainId, domainName }) => {
-      const specificDomain = await SpecificDomain.create({
-        generalDomainId,
-        domainName,
-      });
-      return specificDomain.id;
-    },
-    createSpecificRegion: async (_, { generalRegionId, regionName }) => {
-      const specificRegion = await SpecificRegion.create({
-        generalRegionId,
-        regionName,
-      });
-      return specificRegion.id;
-    },
-    createConsultingQuestion: async (
-      _,
-      { userId, specificDomainId, title, content }
-    ) => {
-      const consultingQuestion = await ConsultingQuestion.create({
-        userId,
-        specificDomainId,
-        title,
-        content,
-      });
-      return consultingQuestion.id;
-    },
-    createConsultingAnswer: async (
-      _,
-      { lawyerId, consultingQuestionId, content }
-    ) => {
-      const consultingAnwer = await ConsultingAnswer.create({
-        lawyerId,
-        consultingQuestionId,
-        content,
-      });
-      return consultingAnwer.id;
-    },
-    createPost: async (
-      _,
-      { lawyerId, specificDomainId, postType, title, content, postImageUrl }
-    ) => {
-      const post = await Post.create({
-        lawyerId,
-        specificDomainId,
-        postType,
-        title,
-        content,
-        postImageUrl,
-      });
-      return post.id;
-    },
-    createVideo: async (
-      _,
-      { lawyerId, specificDomainId, videoType, title, content, videoImageUrl }
-    ) => {
-      const video = await Video.create({
-        lawyerId,
-        specificDomainId,
-        videoType,
-        title,
-        content,
-        videoImageUrl,
-      });
-      return video.id;
-    },
-    createReview: async (
-      _,
-      {
-        userId,
-        lawyerId,
-        specificDomainId,
-        title,
-        content,
-        consultingType,
-        punctualTimeScore,
-        kindnessScore,
-        questionSolutionScore,
-        estimateKeyword,
-      }
-    ) => {
-      const averageScore =
-        (punctualTimeScore + kindnessScore + questionSolutionScore) / 3;
-      const review = await Review.create({
-        userId,
-        lawyerId,
-        specificDomainId,
-        title,
-        content,
-        consultingType,
-        punctualTimeScore,
-        kindnessScore,
-        questionSolutionScore,
-        averageScore,
-        estimateKeyword,
-      });
-      return review.id;
-    },
-    createReviewReply: async (_, { lawyerId, reviewId, content }) => {
-      const reviewReply = await ReviewReply.create({
-        lawyerId,
-        reviewId,
-        content,
-      });
-      return reviewReply.id;
-    },
-    createScheduleConfig: async (
-      _,
-      {
-        lawyerId,
-        fifteenConsultingAvailableTimeFrom,
-        fifteenConsultingAvailableTimeTo,
-        thirtyConsultingAvailableTimeFrom,
-        thirtyConsultingAvailableTimeTo,
-      }
-    ) => {
-      const scheduleConfig = await ScheduleConfig.create({
-        lawyerId,
-        fifteenConsultingAvailableTimeFrom,
-        fifteenConsultingAvailableTimeTo,
-        thirtyConsultingAvailableTimeFrom,
-        thirtyConsultingAvailableTimeTo,
-      });
-      return scheduleConfig.id;
-    },
-    createSchedule: async (
-      _,
-      {
-        userId,
-        lawyerId,
-        specificDomainId,
-        scheduleTime,
-        consultingTime,
-        content,
-      }
-    ) => {
-      const schedule = await Schedule.create({
-        userId,
-        lawyerId,
-        specificDomainId,
-        scheduleTime,
-        consultingTime,
-        content,
-      });
-      return schedule.id;
-    },
-  },
-};
+const resolvers = [
+  userResolver,
+  lawyerResolver,
+  generalDomainResolver,
+  generalRegionResolver,
+  specificDomainResolver,
+  specificRegionResolver,
+  scheduleConfigResolver,
+  scheduleResolver,
+  reviewResolver,
+  reviewReplyResolver,
+  consultingQuestionResolver,
+  consultingAnswerResolver,
+  postResolver,
+  videoResolver,
+  mongoLawyerResolver,
+  mongoScheduleResolver,
+];
 
-module.exports = resolvers;
+module.exports = mergeResolvers(resolvers);
