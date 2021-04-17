@@ -11,7 +11,7 @@ const mongoLaywerResolver = {
   Mutation: {
     createMongoLawyer: async (_, { mongoLawyerInput }) => {
       const {
-        mysqlLaywerId,
+        mysqlLawyerId,
         lawyerName,
         lawyerProfileImageUrl,
         lawyerCharacters,
@@ -39,7 +39,7 @@ const mongoLaywerResolver = {
       } = mongoLawyerInput;
 
       const lawyer = new Lawyer({
-        mysqlLaywerId,
+        mysqlLawyerId,
         lawyerName,
         lawyerProfileImageUrl,
         lawyerCharacters,
