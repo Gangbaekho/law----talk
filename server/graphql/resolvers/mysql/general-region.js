@@ -1,4 +1,9 @@
 const GeneralRegion = require("../../../models/mysql/general-region");
+const yup = require("yup");
+
+const schema = yup.object().shape({
+  regionName: yup.string().min(1).required(),
+});
 
 const generalRegionResolver = {
   Query: {
@@ -9,6 +14,16 @@ const generalRegionResolver = {
   },
   Mutation: {
     createGeneralRegion: async (_, { regionName }) => {
+      await schema.validate({ regionName });
+
+      const doesExist = await GeneralRegion.findOne({ where: { regionName } });
+
+      if (doesExist) {
+        const error = new Error("general region already exist");
+        error.statusCode = 422;
+        throw error;
+      }
+
       const generalRegion = await GeneralRegion.create({ regionName });
       return generalRegion.id;
     },
