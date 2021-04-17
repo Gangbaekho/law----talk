@@ -3,7 +3,12 @@ const User = require("../../../models/mysql/user");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const JWT_SECRET_CODE = require("../../../util/jwt-secret-code");
-const validator = require("validator");
+const yup = require("yup");
+
+const schema = yup.object().shape({
+  email: yup.string().email().required(),
+  password: yup.string().min(5).required(),
+});
 
 const userResolver = {
   Query: {
@@ -16,23 +21,7 @@ const userResolver = {
     createUser: async (_, { userInput }) => {
       const { email, password } = userInput;
 
-      const errors = [];
-      if (!validator.isEmail(email)) {
-        errors.push({ message: "E-Mail is invalid" });
-      }
-
-      if (
-        validator.isEmpty(password) ||
-        !validator.isLength(password, { min: 5 })
-      ) {
-        errors.push({ message: "Password too short." });
-      }
-
-      if (errors.length > 0) {
-        const error = new Error("Invalid input");
-        error.validations = errors;
-        throw error;
-      }
+      await schema.validate({ email, password });
 
       const isExist = await User.findOne({ where: { email } });
 
