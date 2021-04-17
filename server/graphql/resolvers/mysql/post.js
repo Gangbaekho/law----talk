@@ -1,5 +1,13 @@
 const Post = require("../../../models/mysql/post");
 
+const yup = require("yup");
+const schema = yup.object().shape({
+  postType: yup.string().min(1).required(),
+  title: yup.string().min(5).max(255).required(),
+  content: yup.string().min(5).required(),
+  postImageUrl: yup.string().url().required(),
+});
+
 const postResolver = {
   Query: {
     post: async (_, { id }) => {
@@ -17,6 +25,8 @@ const postResolver = {
         content,
         postImageUrl,
       } = postInput;
+
+      await schema.validate({ postType, title, content, postImageUrl });
 
       const post = await Post.create({
         lawyerId,

@@ -2,7 +2,7 @@ const SpecificDomain = require("../../../models/mysql/specific-domain");
 const yup = require("yup");
 
 const schema = yup.object().shape({
-  domainName: yup.string().min(1).required(),
+  domainName: yup.string().min(1).max(255).required(),
 });
 
 const SpecificDomainResolver = {
