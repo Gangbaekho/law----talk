@@ -1,5 +1,12 @@
 const Schedule = require("../../../models/mysql/schedule");
 
+const yup = require("yup");
+
+const schema = yup.object().shape({
+  scheduleTime: yup.string().trim().min(1).max(255).required(),
+  content: yup.string().trim().min(1).required(),
+});
+
 const scheduleResolver = {
   Query: {
     schedule: async (_, { id }) => {
@@ -17,6 +24,8 @@ const scheduleResolver = {
         consultingTime,
         content,
       } = scheduleInput;
+
+      await schema.validate({ scheduleTime, content });
 
       const schedule = await Schedule.create({
         userId,
