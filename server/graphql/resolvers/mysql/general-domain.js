@@ -3,7 +3,7 @@ const GeneralDomain = require("../../../models/mysql/general-domain");
 const yup = require("yup");
 
 const schema = yup.object().shape({
-  domainName: yup.string().min(1).max(255).required(),
+  domainName: yup.string().trim().min(1).max(255).required(),
 });
 
 const generalDomainResolver = {

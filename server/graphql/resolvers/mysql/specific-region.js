@@ -2,7 +2,7 @@ const SpecificRegion = require("../../../models/mysql/specific-region");
 const yup = require("yup");
 
 const schema = yup.object().shape({
-  regionName: yup.string().min(1).max(255).required(),
+  regionName: yup.string().trim().min(1).max(255).required(),
 });
 
 const SpecificRegionResolver = {

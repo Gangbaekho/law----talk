@@ -3,8 +3,8 @@ const Video = require("../../../models/mysql/video");
 const yup = require("yup");
 const schema = yup.object().shape({
   videoType: yup.string().min(1).required(),
-  title: yup.string().min(5).max(255).required(),
-  content: yup.string().min(5).required(),
+  title: yup.string().trim().min(5).max(255).required(),
+  content: yup.string().trim().min(5).required(),
   videoUrl: yup.string().url().required(),
   videoThumbNailUrl: yup.string().url().required(),
 });

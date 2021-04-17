@@ -3,8 +3,8 @@ const Post = require("../../../models/mysql/post");
 const yup = require("yup");
 const schema = yup.object().shape({
   postType: yup.string().min(1).required(),
-  title: yup.string().min(5).max(255).required(),
-  content: yup.string().min(5).required(),
+  title: yup.string().trim().min(5).max(255).required(),
+  content: yup.string().trim().min(5).required(),
   postImageUrl: yup.string().url().required(),
 });
 
