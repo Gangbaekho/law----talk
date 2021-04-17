@@ -1,7 +1,7 @@
 const { gql } = require("apollo-server-express");
 
-const consultingQuestionSchema = gql`
-  type ConsultingQuestion {
+const consultingAnswerSchema = gql`
+  type ConsultingAnswer {
     id: ID!
     content: String!
     recommendationCount: Int!
@@ -10,14 +10,14 @@ const consultingQuestionSchema = gql`
     updatedAt: String!
   }
 
-  type Query {
-    consultingQuestion(id: Int!): Int!
-  }
-
   input ConsultingAnswerInputType {
     lawyerId: Int!
     consultingQuestionId: Int!
     content: String!
+  }
+
+  type Query {
+    consultingAnswer(id: Int!): Int!
   }
 
   type Mutation {
@@ -27,4 +27,4 @@ const consultingQuestionSchema = gql`
   }
 `;
 
-module.exports = consultingQuestionSchema;
+module.exports = consultingAnswerSchema;

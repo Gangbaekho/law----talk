@@ -1,4 +1,5 @@
 const ConsultingAnswer = require("../../../models/mysql/consulting-answer");
+const ConsultingQuestion = require("../../../models/mysql/consulting-question");
 
 const yup = require("yup");
 
@@ -27,6 +28,15 @@ const consultingAnswerResolver = {
       });
 
       return consultingAnswer.id;
+    },
+  },
+
+  ConsultingAnswer: {
+    consultingQuestion: async ({ consultingQuestionId }) => {
+      const consultingQuestion = await ConsultingQuestion.findOne({
+        where: { id: consultingQuestionId },
+      });
+      return consultingQuestion;
     },
   },
 };

@@ -1,4 +1,6 @@
 const ConsultingQuestion = require("../../../models/mysql/consulting-question");
+const ConsultingAnswer = require("../../../models/mysql/consulting-answer");
+const SpecificDomain = require("../../../models/mysql/specific-domain");
 
 const yup = require("yup");
 
@@ -12,6 +14,14 @@ const consultingQuestionResolver = {
     consultingQuestion: async (_, { id }) => {
       const consultingQuestion = await ConsultingQuestion.findOne({ id });
       return consultingQuestion.id;
+    },
+    getConsultingQuestions: async (_, { specificDomainId, offset }) => {
+      const consultingQuestions = await ConsultingQuestion.findAll({
+        where: { specificDomainId },
+        offset: offset,
+      });
+
+      return consultingQuestions;
     },
   },
   Mutation: {
@@ -32,6 +42,21 @@ const consultingQuestionResolver = {
         content,
       });
       return consultingQuestion.id;
+    },
+  },
+  ConsultingQuestion: {
+    specificDomain: async ({ specificDomainId }) => {
+      const specificDomain = await SpecificDomain.findOne({
+        where: { id: specificDomainId },
+      });
+      return specificDomain;
+    },
+    consultingAnswers: async ({ id }) => {
+      const consultingAnswers = await ConsultingAnswer.findAll({
+        where: { consultingQuestionId: id },
+        limit: 10,
+      });
+      return consultingAnswers;
     },
   },
 };
