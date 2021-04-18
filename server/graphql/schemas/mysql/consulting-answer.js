@@ -6,6 +6,8 @@ const consultingAnswerSchema = gql`
     content: String!
     recommendationCount: Int!
     consultingQuestion: ConsultingQuestion!
+    lawyer: Lawyer!
+    mongoLawyer: MongoLawyer!
     createdAt: String!
     updatedAt: String!
   }

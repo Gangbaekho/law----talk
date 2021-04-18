@@ -21,6 +21,10 @@ const Post = sequelize.define("post", {
     },
     allowNull: false,
   },
+  mongoLawyerId: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
   specificDomainId: {
     type: DataTypes.INTEGER.UNSIGNED,
     reference: {

@@ -1,7 +1,7 @@
 const { gql } = require("apollo-server-express");
 
 const mongoLawyerSchema = gql`
-  type MongoLaywer {
+  type MongoLawyer {
     _id: String!
     mysqlLaywerId: Int!
     lawyerName: String!

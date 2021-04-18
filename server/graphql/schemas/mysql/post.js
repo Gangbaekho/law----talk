@@ -10,6 +10,7 @@ const postSchema = gql`
     reviewCount: Int!
     recommendationCount: Int!
     lawyer: Lawyer!
+    mongoLawyer: MongoLawyer!
     specificDomain: SpecificDomain!
     createdAt: String!
     updatedAt: String!

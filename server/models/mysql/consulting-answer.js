@@ -20,6 +20,9 @@ const ConsultingAnswer = sequelize.define("consulting-answer", {
     },
     allowNull: false,
   },
+  mongoLawyerId: {
+    type: DataTypes.STRING,
+  },
   consultingQuestionId: {
     type: DataTypes.INTEGER.UNSIGNED,
     reference: {

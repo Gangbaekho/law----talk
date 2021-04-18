@@ -21,6 +21,9 @@ const Video = sequelize.define("video", {
     },
     allowNull: false,
   },
+  mongoLawyerId: {
+    type: DataTypes.STRING,
+  },
   specificDomainId: {
     type: DataTypes.INTEGER.UNSIGNED,
     reference: {
