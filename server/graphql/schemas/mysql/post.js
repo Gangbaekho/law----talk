@@ -17,6 +17,7 @@ const postSchema = gql`
 
   type Query {
     post(id: Int!): Int!
+    getPosts(specificDomainId: Int!, offset: Int): [Post!]!
   }
 
   input PostInputType {

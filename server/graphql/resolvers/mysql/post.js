@@ -1,5 +1,7 @@
 const Post = require("../../../models/mysql/post");
 
+const POSTS_PER_PAGE = 10;
+
 const yup = require("yup");
 const schema = yup.object().shape({
   postType: yup.string().min(1).required(),
@@ -13,6 +15,15 @@ const postResolver = {
     post: async (_, { id }) => {
       const post = await Post.findOne({ id });
       return post.id;
+    },
+    getPosts: async (_, { specificDomainId, offset }) => {
+      const posts = await Post.findAll({
+        where: { specificDomainId },
+        offset,
+        limit: POSTS_PER_PAGE,
+      });
+
+      return posts;
     },
   },
   Mutation: {
