@@ -23,6 +23,7 @@ const postSchema = gql`
 
   input PostInputType {
     lawyerId: Int!
+    mongoLawyerId: String!
     specificDomainId: Int!
     postType: String!
     title: String!

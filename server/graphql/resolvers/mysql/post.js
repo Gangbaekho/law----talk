@@ -1,4 +1,5 @@
 const Post = require("../../../models/mysql/post");
+const MongoLawyer = require("../../../models/mongo/lawyer");
 
 const POSTS_PER_PAGE = 10;
 
@@ -30,6 +31,7 @@ const postResolver = {
     createPost: async (_, { postInput }) => {
       const {
         lawyerId,
+        mongoLawyerId,
         specificDomainId,
         postType,
         title,
@@ -41,6 +43,7 @@ const postResolver = {
 
       const post = await Post.create({
         lawyerId,
+        mongoLawyerId,
         specificDomainId,
         postType,
         title,
@@ -49,6 +52,12 @@ const postResolver = {
       });
 
       return post.id;
+    },
+  },
+  Post: {
+    mongoLawyer: async ({ mongoLawyerId }) => {
+      const lawyer = await MongoLawyer.findOne({ _id: mongoLawyerId });
+      return lawyer;
     },
   },
 };
