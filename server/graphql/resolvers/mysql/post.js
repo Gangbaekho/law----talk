@@ -55,9 +55,10 @@ const postResolver = {
     },
   },
   Post: {
-    mongoLawyer: async ({ mongoLawyerId }) => {
-      const lawyer = await MongoLawyer.findOne({ _id: mongoLawyerId });
-      return lawyer;
+    mongoLawyer: async ({ mongoLawyerId }, _, { dataLoaders }) => {
+      // const lawyer = await MongoLawyer.findOne({ _id: mongoLawyerId });
+      // return lawyer;
+      return dataLoaders.mongoLawyerLoader.load(mongoLawyerId);
     },
     lawyer: async ({ lawyerId }, _, { dataLoaders }) => {
       return dataLoaders.lawyerLoader.load(lawyerId);
