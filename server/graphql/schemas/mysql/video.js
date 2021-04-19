@@ -19,6 +19,7 @@ const videoSchema = gql`
 
   input VideoInputType {
     lawyerId: Int!
+    mongoLawyerId: String!
     specificDomainId: Int!
     videoType: String!
     title: String!
@@ -29,6 +30,7 @@ const videoSchema = gql`
 
   type Query {
     video(id: Int!): Int!
+    getVideos(specificDomainId: Int!, offset: Int): [Video!]!
   }
 
   type Mutation {

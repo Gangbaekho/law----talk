@@ -9,17 +9,28 @@ const schema = yup.object().shape({
   videoThumbNailUrl: yup.string().url().required(),
 });
 
+const VIDEOS_PER_PAGE = 10;
+
 const videoResolver = {
   Query: {
     video: async (_, { id }) => {
       const video = await Video.findOne({ id });
       return video.id;
     },
+    getVideos: async (_, { specificDomainId, offset }) => {
+      const videos = await Video.findAll({
+        where: { specificDomainId },
+        offset,
+        limit: VIDEOS_PER_PAGE,
+      });
+      return videos;
+    },
   },
   Mutation: {
     createVideo: async (_, { videoInput }) => {
       const {
         lawyerId,
+        mongoLawyerId,
         specificDomainId,
         videoType,
         title,
@@ -38,6 +49,7 @@ const videoResolver = {
 
       const video = await Video.create({
         lawyerId,
+        mongoLawyerId,
         specificDomainId,
         videoType,
         title,
@@ -47,6 +59,14 @@ const videoResolver = {
       });
 
       return video.id;
+    },
+  },
+  Video: {
+    lawyer: async ({ lawyerId }, _, { dataLoaders }) => {
+      return dataLoaders.lawyerLoader.load(lawyerId);
+    },
+    mongoLawyer: async ({ mongoLawyerId }, _, { dataLoaders }) => {
+      return dataLoaders.mongoLawyerLoader.load(mongoLawyerId);
     },
   },
 };
