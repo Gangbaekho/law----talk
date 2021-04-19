@@ -32,11 +32,16 @@ const consultingAnswerResolver = {
   },
 
   ConsultingAnswer: {
-    consultingQuestion: async ({ consultingQuestionId }) => {
-      const consultingQuestion = await ConsultingQuestion.findOne({
-        where: { id: consultingQuestionId },
-      });
-      return consultingQuestion;
+    consultingQuestion: async (
+      { consultingQuestionId },
+      _,
+      { dataLoaders }
+    ) => {
+      // const consultingQuestion = await ConsultingQuestion.findOne({
+      //   where: { id: consultingQuestionId },
+      // });
+      // return consultingQuestion;
+      return dataLoaders.consultingQuestionLoader.load(consultingQuestionId);
     },
   },
 };

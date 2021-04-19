@@ -1,17 +1,20 @@
 const DataLoader = require("dataloader");
 
-const batchConsultingAnswers = async (ids, { ConsultingAnswer }) => {
+const batchConsultingAnswersWithConsultingQuestionIds = async (
+  consultingQuestionIds,
+  { ConsultingAnswer }
+) => {
   const consultingAnswers = await ConsultingAnswer.findAll({
-    where: { consultingQuestionId: ids },
+    where: { consultingQuestionId: consultingQuestionIds },
   });
-  return ids.map((id) =>
+  return consultingQuestionIds.map((id) =>
     consultingAnswers.filter((c) => c.consultingQuestionId === id)
   );
 };
 
 const consultingAnswerLoader = (models) => ({
   consultingQuestion: new DataLoader((ids) =>
-    batchConsultingAnswers(ids, models)
+    batchConsultingAnswersWithConsultingQuestionIds(ids, models)
   ),
 });
 
