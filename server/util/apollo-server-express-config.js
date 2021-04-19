@@ -9,12 +9,17 @@ const associateTables = require("../models/mysql/association-config");
 
 const isAuth = require("../middleware/is-auth");
 
+const consultingAnswerLoader = require("../graphql/data-loaders/consulting-answer");
+
 async function startApolloServer() {
   const server = new ApolloServer({
     typeDefs,
     resolvers,
     context: ({ req }) => ({
       Id: isAuth(req),
+      loaders: {
+        consultingAnswerLoader: consultingAnswerLoader(),
+      },
     }),
   });
   await server.start();

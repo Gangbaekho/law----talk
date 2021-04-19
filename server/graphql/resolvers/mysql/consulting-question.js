@@ -1,5 +1,4 @@
 const ConsultingQuestion = require("../../../models/mysql/consulting-question");
-const ConsultingAnswer = require("../../../models/mysql/consulting-answer");
 const SpecificDomain = require("../../../models/mysql/specific-domain");
 
 const yup = require("yup");
@@ -51,12 +50,8 @@ const consultingQuestionResolver = {
       });
       return specificDomain;
     },
-    consultingAnswers: async ({ id }) => {
-      const consultingAnswers = await ConsultingAnswer.findAll({
-        where: { consultingQuestionId: id },
-        limit: 10,
-      });
-      return consultingAnswers;
+    consultingAnswers: async ({ id }, _, { loaders }) => {
+      return loaders.consultingAnswerLoader.load(id);
     },
   },
 };
