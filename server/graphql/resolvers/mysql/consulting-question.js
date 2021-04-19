@@ -50,12 +50,8 @@ const consultingQuestionResolver = {
       });
       return specificDomain;
     },
-    consultingAnswers: async (
-      { id },
-      _,
-      { loaders, consultingAnswerLoader }
-    ) => {
-      return consultingAnswerLoader.consultingQuestion.load(id);
+    consultingAnswers: async ({ id }, _, { dataLoaders }) => {
+      return dataLoaders.consultingAnswerLoader.consultingQuestion.load(id);
       // return loaders.consultingAnswerLoader.load(id);
     },
   },
