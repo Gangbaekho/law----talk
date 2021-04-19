@@ -14,7 +14,6 @@ const GeneralDomain = sequelize.define(
     domainName: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
     },
   },
   { timestamps: false }

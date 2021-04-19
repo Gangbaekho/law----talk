@@ -10,6 +10,18 @@ const associateTables = require("../models/mysql/association-config");
 const isAuth = require("../middleware/is-auth");
 
 const consultingAnswerLoader = require("../graphql/data-loaders/consulting-answer");
+const DataLoader = require("dataloader");
+const models = require("../models");
+const _ = require("lodash");
+
+const batchConsultingAnswers = async (ids, { ConsultingAnswer }) => {
+  const consultingAnswers = await ConsultingAnswer.findAll({
+    where: { consultingQuestionId: ids },
+  });
+  return ids.map((id) =>
+    consultingAnswers.filter((c) => c.consultingQuestionId === id)
+  );
+};
 
 async function startApolloServer() {
   const server = new ApolloServer({
@@ -17,8 +29,11 @@ async function startApolloServer() {
     resolvers,
     context: ({ req }) => ({
       Id: isAuth(req),
-      loaders: {
-        consultingAnswerLoader: consultingAnswerLoader(),
+      models,
+      consultingAnswerLoader: {
+        consultingQuestion: new DataLoader((ids) =>
+          batchConsultingAnswers(ids, models)
+        ),
       },
     }),
   });

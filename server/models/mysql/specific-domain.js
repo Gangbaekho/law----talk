@@ -22,7 +22,6 @@ const SpecificDomain = sequelize.define(
     domainName: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
     },
     lawyerCount: {
       type: DataTypes.INTEGER,

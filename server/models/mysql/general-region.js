@@ -14,7 +14,6 @@ const GeneralRegion = sequelize.define(
     regionName: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
     },
   },
   {
