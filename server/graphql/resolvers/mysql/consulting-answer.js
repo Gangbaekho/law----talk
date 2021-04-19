@@ -37,10 +37,6 @@ const consultingAnswerResolver = {
       _,
       { dataLoaders }
     ) => {
-      // const consultingQuestion = await ConsultingQuestion.findOne({
-      //   where: { id: consultingQuestionId },
-      // });
-      // return consultingQuestion;
       return dataLoaders.consultingQuestionLoader.load(consultingQuestionId);
     },
   },

@@ -59,6 +59,9 @@ const postResolver = {
       const lawyer = await MongoLawyer.findOne({ _id: mongoLawyerId });
       return lawyer;
     },
+    lawyer: async ({ lawyerId }, _, { dataLoaders }) => {
+      return dataLoaders.lawyerLoader.load(lawyerId);
+    },
   },
 };
 
