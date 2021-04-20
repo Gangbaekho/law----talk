@@ -68,6 +68,9 @@ const videoResolver = {
     mongoLawyer: async ({ mongoLawyerId }, _, { dataLoaders }) => {
       return dataLoaders.mongoLawyerLoader.load(mongoLawyerId);
     },
+    specificDomain: async ({ specificDomainId }, _, { dataLoaders }) => {
+      return dataLoaders.specificDomainLoader.load(specificDomainId);
+    },
   },
 };
 
