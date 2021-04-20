@@ -8,7 +8,7 @@ const generalRegionSchema = gql`
   }
 
   type Query {
-    generalRegion(id: Int!): Int!
+    generalRegion(id: Int!): GeneralRegion!
   }
 
   type Mutation {

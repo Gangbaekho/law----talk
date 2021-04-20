@@ -1,4 +1,3 @@
-const GeneralRegion = require("../../../models/mysql/general-region");
 const yup = require("yup");
 
 const schema = yup.object().shape({
@@ -7,9 +6,11 @@ const schema = yup.object().shape({
 
 const generalRegionResolver = {
   Query: {
-    generalRegion: async (_, { id }) => {
-      const generalRegion = await GeneralRegion.findOne({ id });
-      return generalRegion.id;
+    generalRegion: async (_, { id }, { models }) => {
+      const generalRegion = await models.GeneralRegion.findOne({
+        where: { id },
+      });
+      return generalRegion;
     },
   },
   Mutation: {
@@ -26,6 +27,14 @@ const generalRegionResolver = {
 
       const generalRegion = await GeneralRegion.create({ regionName });
       return generalRegion.id;
+    },
+  },
+  GeneralRegion: {
+    specificRegions: async ({ id }, _, { models }) => {
+      const specificRegions = await models.SpecificRegion.findAll({
+        where: { generalRegionId: id },
+      });
+      return specificRegions;
     },
   },
 };
