@@ -7,6 +7,7 @@ const lawyerSchema = gql`
     email: String!
     isPremium: String!
     priorityScore: Int!
+    mongoLawyer: MongoLawyer!
     scheduleConfig: ScheduleConfig!
     posts: [Post!]!
     videos: [Video]!
@@ -19,7 +20,7 @@ const lawyerSchema = gql`
   }
 
   type Query {
-    lawyer(id: Int!): Int!
+    lawyer(id: Int!): Lawyer!
   }
 
   input LawyerInputType {
