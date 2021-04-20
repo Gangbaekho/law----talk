@@ -17,7 +17,7 @@ const userSchema = gql`
   }
 
   type Query {
-    user(id: Int!): Int!
+    user(id: Int!): User!
   }
 
   type Mutation {

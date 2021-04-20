@@ -14,7 +14,7 @@ const userResolver = {
   Query: {
     user: async (_, { id }) => {
       const user = await User.findOne({ id });
-      return user.id;
+      return user;
     },
   },
   Mutation: {
@@ -70,6 +70,24 @@ const userResolver = {
       );
 
       return token;
+    },
+  },
+  User: {
+    reviews: async ({ id }, _, { models }) => {
+      const reviews = await models.Review.findAll({ where: { userId: id } });
+      return reviews;
+    },
+    schedules: async ({ id }, _, { models }) => {
+      const schedules = await models.Schedule.findAll({
+        where: { userId: id },
+      });
+      return schedules;
+    },
+    consultingQuestions: async ({ id }, _, { models }) => {
+      const consultingQuestions = await models.ConsultingQuestion.findAll({
+        where: { userId: id },
+      });
+      return consultingQuestions;
     },
   },
 };
