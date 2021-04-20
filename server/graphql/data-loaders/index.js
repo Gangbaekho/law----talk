@@ -5,6 +5,7 @@ const mongoLawyerLoader = require("./mongo-lawyer");
 const userLoader = require("./user");
 const reviewReplyLoader = require("./review-reply");
 const specificDomainLoader = require("./specific-domain");
+const reviewLoader = require("./review");
 
 module.exports = (models) => ({
   consultingAnswerLoader: consultingAnswerLoader(models),
@@ -14,4 +15,5 @@ module.exports = (models) => ({
   userLoader: userLoader(models),
   reviewReplyLoader: reviewReplyLoader(models),
   specificDomainLoader: specificDomainLoader(models),
+  reviewLoader: reviewLoader(models),
 });

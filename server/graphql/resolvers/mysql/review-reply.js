@@ -9,8 +9,8 @@ const schema = yup.object().shape({
 const reviewReplyResolver = {
   Query: {
     reviewReply: async (_, { id }) => {
-      const reviewReply = await ReviewReply.findOne({ id });
-      return reviewReply.id;
+      const reviewReply = await ReviewReply.findOne({ where: { id } });
+      return reviewReply;
     },
   },
   Mutation: {
@@ -26,6 +26,14 @@ const reviewReplyResolver = {
       });
 
       return reviewReply.id;
+    },
+  },
+  ReviewReply: {
+    review: async ({ reviewId }, _, { dataLoaders }) => {
+      return dataLoaders.reviewLoader.load(reviewId);
+    },
+    lawyer: async ({ lawyerId }, _, { dataLoaders }) => {
+      return dataLoaders.lawyerLoader.load(lawyerId);
     },
   },
 };

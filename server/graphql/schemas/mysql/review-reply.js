@@ -11,7 +11,7 @@ const reviewReplySchema = gql`
   }
 
   type Query {
-    reviewReply(id: Int!): Int!
+    reviewReply(id: Int!): ReviewReply!
   }
 
   input ReviewReplyInputType {
