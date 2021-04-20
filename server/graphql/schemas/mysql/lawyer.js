@@ -9,7 +9,7 @@ const lawyerSchema = gql`
     priorityScore: Int!
     scheduleConfig: ScheduleConfig!
     posts: [Post!]!
-    video: [Video]!
+    videos: [Video]!
     schedules: [Schedule!]!
     reviews: [Review]!
     reviewReplies: [ReviewReply!]!

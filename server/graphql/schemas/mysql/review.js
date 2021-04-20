@@ -11,6 +11,7 @@ const reviewSchema = gql`
     questionSolutionScore: Int!
     averageScore: Float!
     estimateKeyword: String!
+    likePoints: String!
     reviewReplies: [ReviewReply!]!
     user: User!
     lawyer: Lawyer!
@@ -21,6 +22,7 @@ const reviewSchema = gql`
 
   type Query {
     review(id: Int!): Int!
+    getReviews(lawyerId: Int!, offset: Int): [Review!]!
   }
 
   input ReviewInputType {
@@ -34,6 +36,7 @@ const reviewSchema = gql`
     kindnessScore: Int!
     questionSolutionScore: Int!
     estimateKeyword: String!
+    likePoints: String!
   }
 
   type Mutation {

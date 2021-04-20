@@ -71,6 +71,9 @@ const Review = sequelize.define("review", {
     type: DataTypes.ENUM(estimateKeywords),
     allowNull: false,
   },
+  likePoints: {
+    type: DataTypes.TEXT,
+  },
 });
 
 module.exports = Review;
