@@ -21,7 +21,7 @@ const consultingQuestionSchema = gql`
   }
 
   type Query {
-    consultingQuestion(id: Int!): Int!
+    consultingQuestion(id: Int!): ConsultingQuestion!
     getConsultingQuestions(
       specificDomainId: Int!
       offset: Int

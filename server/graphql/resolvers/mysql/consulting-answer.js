@@ -17,12 +17,18 @@ const consultingAnswerResolver = {
 
   Mutation: {
     createConsultingAnswer: async (_, { consultingAnswerInput }) => {
-      const { lawyerId, consultingQuestionId, content } = consultingAnswerInput;
+      const {
+        lawyerId,
+        mongoLawyerId,
+        consultingQuestionId,
+        content,
+      } = consultingAnswerInput;
 
       await schema.validate({ content });
 
       const consultingAnswer = await ConsultingAnswer.create({
         lawyerId,
+        mongoLawyerId,
         consultingQuestionId,
         content,
       });
@@ -38,6 +44,12 @@ const consultingAnswerResolver = {
       { dataLoaders }
     ) => {
       return dataLoaders.consultingQuestionLoader.load(consultingQuestionId);
+    },
+    lawyer: async ({ lawyerId }, _, { dataLoaders }) => {
+      return dataLoaders.lawyerLoader.load(lawyerId);
+    },
+    mongoLawyer: async ({ mongoLawyerId }, _, { dataLoaders }) => {
+      return dataLoaders.mongoLawyerLoader.load(mongoLawyerId);
     },
   },
 };

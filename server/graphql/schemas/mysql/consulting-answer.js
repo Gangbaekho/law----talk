@@ -14,6 +14,7 @@ const consultingAnswerSchema = gql`
 
   input ConsultingAnswerInputType {
     lawyerId: Int!
+    mongoLawyerId: String!
     consultingQuestionId: Int!
     content: String!
   }

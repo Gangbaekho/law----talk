@@ -12,7 +12,7 @@ const consultingQuestionResolver = {
   Query: {
     consultingQuestion: async (_, { id }) => {
       const consultingQuestion = await ConsultingQuestion.findOne({ id });
-      return consultingQuestion.id;
+      return consultingQuestion;
     },
     getConsultingQuestions: async (_, { specificDomainId, offset }) => {
       const consultingQuestions = await ConsultingQuestion.findAll({
