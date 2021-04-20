@@ -13,7 +13,7 @@ const scheduleConfigSchema = gql`
   }
 
   type Query {
-    scheduleConfig(id: Int!): Int!
+    scheduleConfig(id: Int!): ScheduleConfig!
   }
 
   input ScheduleConfigInputType {

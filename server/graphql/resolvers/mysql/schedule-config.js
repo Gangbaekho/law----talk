@@ -17,8 +17,8 @@ const schema = yup.object().shape({
 const scheduleConfigResolver = {
   Query: {
     scheduleConfig: async (_, { id }) => {
-      const scheduleConfig = await ScheduleConfig.findOne({ id });
-      return scheduleConfig.id;
+      const scheduleConfig = await ScheduleConfig.findOne({ where: { id } });
+      return scheduleConfig;
     },
   },
   Mutation: {
@@ -47,6 +47,14 @@ const scheduleConfigResolver = {
       });
 
       return scheduleConfig.id;
+    },
+  },
+  ScheduleConfig: {
+    lawyer: async ({ lawyerId }, _, { models }) => {
+      const lawyer = await models.Lawyer.findOne({
+        where: { id: lawyerId },
+      });
+      return lawyer;
     },
   },
 };
