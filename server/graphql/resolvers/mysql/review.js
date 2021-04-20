@@ -85,6 +85,9 @@ const reviewResolver = {
     reviewReply: async ({ id }, _, { dataLoaders }) => {
       return dataLoaders.reviewReplyLoader.load(id);
     },
+    specificDomain: async ({ specificDomainId }, _, { dataLoaders }) => {
+      return dataLoaders.specificDomainLoader.load(specificDomainId);
+    },
   },
 };
 
