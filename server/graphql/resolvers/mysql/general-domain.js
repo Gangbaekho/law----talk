@@ -9,8 +9,8 @@ const schema = yup.object().shape({
 const generalDomainResolver = {
   Query: {
     generalDomain: async (_, { id }) => {
-      const generalDomain = await GeneralDomain.findOne({ id });
-      return generalDomain.id;
+      const generalDomain = await GeneralDomain.findOne({ where: { id } });
+      return generalDomain;
     },
   },
   Mutation: {
@@ -27,6 +27,13 @@ const generalDomainResolver = {
 
       const generalDomain = await GeneralDomain.create({ domainName });
       return generalDomain.id;
+    },
+  },
+  GeneralDomain: {
+    specificDomains: async ({ id }, _, { models }) => {
+      return (specificDomains = await models.SpecificDomain.findAll({
+        where: { generalDomainId: id },
+      }));
     },
   },
 };

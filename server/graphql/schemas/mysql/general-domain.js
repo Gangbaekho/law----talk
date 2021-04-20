@@ -8,7 +8,7 @@ const generalDomainSchema = gql`
   }
 
   type Query {
-    generalDomain(id: Int!): Int!
+    generalDomain(id: Int!): GeneralDomain!
   }
 
   type Mutation {
