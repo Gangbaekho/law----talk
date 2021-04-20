@@ -65,7 +65,7 @@ const associateTables = () => {
   Video.belongsTo(SpecificDomain);
 
   // REVIEW
-  Review.hasMany(ReviewReply, { foreignKey: "reviewId" });
+  Review.hasOne(ReviewReply, { foreignKey: "reviewId" });
   Review.belongsTo(User);
   Review.belongsTo(Lawyer);
   Review.belongsTo(SpecificDomain);

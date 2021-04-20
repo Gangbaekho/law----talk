@@ -79,6 +79,12 @@ const reviewResolver = {
     user: async ({ userId }, _, { dataLoaders }) => {
       return dataLoaders.userLoader.load(userId);
     },
+    lawyer: async ({ lawyerId }, _, { dataLoaders }) => {
+      return dataLoaders.lawyerLoader.load(lawyerId);
+    },
+    reviewReply: async ({ id }, _, { dataLoaders }) => {
+      return dataLoaders.reviewReplyLoader.load(id);
+    },
   },
 };
 

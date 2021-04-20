@@ -12,7 +12,7 @@ const reviewSchema = gql`
     averageScore: Float!
     estimateKeyword: String!
     likePoints: String!
-    reviewReplies: [ReviewReply!]!
+    reviewReply: ReviewReply!
     user: User!
     lawyer: Lawyer!
     specificDomain: SpecificDomain!
