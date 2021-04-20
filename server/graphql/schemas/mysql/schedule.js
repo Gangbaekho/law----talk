@@ -14,7 +14,7 @@ const scheduleSchema = gql`
   }
 
   type Query {
-    schedule(id: Int!): Int!
+    schedule(id: Int!): Schedule!
   }
 
   input ScheduleInputType {
