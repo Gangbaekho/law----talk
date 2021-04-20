@@ -20,6 +20,9 @@ const ReviewReply = sequelize.define("review-reply", {
     },
     allowNull: false,
   },
+  mongoLawyerId: {
+    type: DataTypes.STRING,
+  },
   reviewId: {
     type: DataTypes.INTEGER.UNSIGNED,
     reference: {

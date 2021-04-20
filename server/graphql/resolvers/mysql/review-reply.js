@@ -15,12 +15,13 @@ const reviewReplyResolver = {
   },
   Mutation: {
     createReviewReply: async (_, { reviewReplyInput }) => {
-      const { lawyerId, reviewId, content } = reviewReplyInput;
+      const { lawyerId, mongoLawyerId, reviewId, content } = reviewReplyInput;
 
       await schema.validate({ content });
 
       const reviewReply = await ReviewReply.create({
         lawyerId,
+        mongoLawyerId,
         reviewId,
         content,
       });
@@ -34,6 +35,9 @@ const reviewReplyResolver = {
     },
     lawyer: async ({ lawyerId }, _, { dataLoaders }) => {
       return dataLoaders.lawyerLoader.load(lawyerId);
+    },
+    mongoLawyer: async ({ mongoLawyerId }, _, { dataLoaders }) => {
+      return dataLoaders.mongoLawyerLoader.load(mongoLawyerId);
     },
   },
 };
