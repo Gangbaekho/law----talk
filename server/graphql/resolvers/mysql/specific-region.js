@@ -8,8 +8,8 @@ const schema = yup.object().shape({
 const SpecificRegionResolver = {
   Query: {
     specificRegion: async (_, { id }) => {
-      const specificRegion = await SpecificRegion.findOne({ id });
-      return specificRegion.id;
+      const specificRegion = await SpecificRegion.findOne({ where: { id } });
+      return specificRegion;
     },
   },
   Mutation: {
@@ -30,6 +30,14 @@ const SpecificRegionResolver = {
       });
 
       return specificRegion.id;
+    },
+  },
+  SpecificRegion: {
+    generalRegion: async ({ generalRegionId }, _, { models }) => {
+      const generalRegion = await models.GeneralRegion.findOne({
+        where: { id: generalRegionId },
+      });
+      return generalRegion;
     },
   },
 };
