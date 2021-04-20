@@ -61,6 +61,9 @@ const postResolver = {
     lawyer: async ({ lawyerId }, _, { dataLoaders }) => {
       return dataLoaders.lawyerLoader.load(lawyerId);
     },
+    specificDomain: async ({ specificDomainId }, _, { dataLoaders }) => {
+      return dataLoaders.specificDomainLoader.load(specificDomainId);
+    },
   },
 };
 
