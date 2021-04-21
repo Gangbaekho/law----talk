@@ -13,6 +13,8 @@ const models = require("../models");
 
 const dataLoaders = require("../graphql/data-loaders");
 
+const testRoutes = require("../routes/test");
+
 async function startApolloServer() {
   const server = new ApolloServer({
     typeDefs,
@@ -26,6 +28,8 @@ async function startApolloServer() {
   await server.start();
 
   const app = express();
+
+  app.use("/test", testRoutes);
 
   server.applyMiddleware({ app });
 
