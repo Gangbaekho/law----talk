@@ -1,5 +1,3 @@
-const Lawyer = require("../../../models/mysql/lawyer");
-const MongoLawyer = require("../../../models/mongo/lawyer");
 const yup = require("yup");
 
 const schema = yup.object().shape({
@@ -9,13 +7,15 @@ const schema = yup.object().shape({
 
 const lawyerResolver = {
   Query: {
-    lawyer: async (_, { id }) => {
-      const lawyer = await Lawyer.findOne({ id });
-      return lawyer;
+    lawyer: async (_, { id }, { models, transaction }) => {
+      return await transaction.repeatableReadTransaction(async () => {
+        const lawyer = await models.Lawyer.findOne({ id });
+        return lawyer;
+      });
     },
   },
   Mutation: {
-    createLawyer: async (_, { lawyerInput }) => {
+    createLawyer: async (_, { lawyerInput }, { models, transaction }) => {
       const {
         mongodbId,
         email,
@@ -26,61 +26,79 @@ const lawyerResolver = {
 
       await schema.validate({ email, password });
 
-      const mongoLawyer = await MongoLawyer.findOne({ _id: mongodbId });
+      return await transaction.serializableTransaction(async () => {
+        const mongoLawyer = await MongoLawyer.findOne({ _id: mongodbId });
 
-      if (!mongoLawyer) {
-        const error = new Error("invalid mongodbId");
-        error.statusCode = 422;
-        throw error;
-      }
+        if (!mongoLawyer) {
+          const error = new Error("invalid mongodbId");
+          error.statusCode = 422;
+          throw error;
+        }
 
-      const lawyer = await Lawyer.create({
-        mongodbId,
-        email,
-        password,
-        isPremium,
-        priorityScore,
+        const lawyer = await Lawyer.create({
+          mongodbId,
+          email,
+          password,
+          isPremium,
+          priorityScore,
+        });
+
+        return lawyer.id;
       });
-
-      return lawyer.id;
     },
   },
   Lawyer: {
-    scheduleConfig: async ({ id }, _, { models }) => {
-      const scheduleConfig = await models.ScheduleConfig.findOne({
-        where: { lawyerId: id },
+    scheduleConfig: async ({ id }, _, { models, transaction }) => {
+      return await transaction.repeatableReadTransaction(async () => {
+        const scheduleConfig = await models.ScheduleConfig.findOne({
+          where: { lawyerId: id },
+        });
+        return scheduleConfig;
       });
-      return scheduleConfig;
     },
-    posts: async ({ id }, _, { models }) => {
-      const posts = await models.Post.findAll({ where: { lawyerId: id } });
-      return posts;
-    },
-    videos: async ({ id }, _, { models }) => {
-      const videos = await models.Video.findAll({ where: { lawyerId: id } });
-      return videos;
-    },
-    schedules: async ({ id }, _, { models }) => {
-      const schedules = await models.Schedule.findAll({
-        where: { lawyerId: id },
+    posts: async ({ id }, _, { models, transaction }) => {
+      return await transaction.repeatableReadTransaction(async () => {
+        const posts = await models.Post.findAll({ where: { lawyerId: id } });
+        return posts;
       });
-      return schedules;
     },
-    reviews: async ({ id }, _, { models }) => {
-      const reviews = await models.Review.findAll({ where: { lawyerId: id } });
-      return reviews;
-    },
-    reviewReplies: async ({ id }, _, { models }) => {
-      const reviewReplies = await models.ReviewReply.findAll({
-        where: { lawyerId: id },
+    videos: async ({ id }, _, { models, transaction }) => {
+      return await transaction.repeatableReadTransaction(async () => {
+        const videos = await models.Video.findAll({ where: { lawyerId: id } });
+        return videos;
       });
-      return reviewReplies;
     },
-    consultingAnswers: async ({ id }, _, { models }) => {
-      const consultingAnswers = await models.ConsultingAnswer.findAll({
-        where: { lawyerId: id },
+    schedules: async ({ id }, _, { models, transaction }) => {
+      return await transaction.repeatableReadTransaction(async () => {
+        const schedules = await models.Schedule.findAll({
+          where: { lawyerId: id },
+        });
+        return schedules;
       });
-      return consultingAnswers;
+    },
+    reviews: async ({ id }, _, { models, transaction }) => {
+      return await transaction.repeatableReadTransaction(async () => {
+        const reviews = await models.Review.findAll({
+          where: { lawyerId: id },
+        });
+        return reviews;
+      });
+    },
+    reviewReplies: async ({ id }, _, { models, transaction }) => {
+      return await transaction.repeatableReadTransaction(async () => {
+        const reviewReplies = await models.ReviewReply.findAll({
+          where: { lawyerId: id },
+        });
+        return reviewReplies;
+      });
+    },
+    consultingAnswers: async ({ id }, _, { models, transaction }) => {
+      return await transaction.repeatableReadTransaction(async () => {
+        const consultingAnswers = await models.ConsultingAnswer.findAll({
+          where: { lawyerId: id },
+        });
+        return consultingAnswers;
+      });
     },
     mongoLawyer: async ({ mongodbId }, _, { models }) => {
       const mongoLawyer = await models.MongoLawyer.findOne({ _id: mongodbId });
