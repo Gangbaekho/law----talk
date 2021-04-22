@@ -1,6 +1,3 @@
-const ConsultingAnswer = require("../../../models/mysql/consulting-answer");
-const ConsultingQuestion = require("../../../models/mysql/consulting-question");
-
 const yup = require("yup");
 
 const schema = yup.object().shape({
@@ -9,14 +6,22 @@ const schema = yup.object().shape({
 
 const consultingAnswerResolver = {
   Query: {
-    consultingAnswer: async (_, { id }) => {
-      const consultingAnswer = await ConsultingAnswer.findOne({ id });
-      return consultingAnswer.id;
+    consultingAnswer: async (_, { id }, { models, transaction }) => {
+      return await transaction.repeatableReadTransaction(async () => {
+        const consultingAnswer = await models.ConsultingAnswer.findOne({
+          where: { id },
+        });
+        return consultingAnswer;
+      });
     },
   },
 
   Mutation: {
-    createConsultingAnswer: async (_, { consultingAnswerInput }) => {
+    createConsultingAnswer: async (
+      _,
+      { consultingAnswerInput },
+      { models, transaction }
+    ) => {
       const {
         lawyerId,
         mongoLawyerId,
@@ -26,14 +31,16 @@ const consultingAnswerResolver = {
 
       await schema.validate({ content });
 
-      const consultingAnswer = await ConsultingAnswer.create({
-        lawyerId,
-        mongoLawyerId,
-        consultingQuestionId,
-        content,
-      });
+      return await transaction.serializableTransaction(async () => {
+        const consultingAnswer = await models.ConsultingAnswer.create({
+          lawyerId,
+          mongoLawyerId,
+          consultingQuestionId,
+          content,
+        });
 
-      return consultingAnswer.id;
+        return consultingAnswer.id;
+      });
     },
   },
 

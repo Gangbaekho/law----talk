@@ -20,7 +20,7 @@ const consultingAnswerSchema = gql`
   }
 
   type Query {
-    consultingAnswer(id: Int!): Int!
+    consultingAnswer(id: Int!): ConsultingAnswer!
   }
 
   type Mutation {

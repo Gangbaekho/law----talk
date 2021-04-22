@@ -1,13 +1,16 @@
 const DataLoader = require("dataloader");
+const { repeatableReadTransaction } = require("../../util/transaction");
 
 const batchConsultingQuestions = async (
   consultingQuestionIds,
   { ConsultingQuestion }
 ) => {
-  const consultingQuestion = await ConsultingQuestion.findOne({
-    where: { id: consultingQuestionIds },
+  return await repeatableReadTransaction(async () => {
+    const consultingQuestion = await ConsultingQuestion.findOne({
+      where: { id: consultingQuestionIds },
+    });
+    return [consultingQuestion];
   });
-  return [consultingQuestion];
 };
 
 const consultingQuestionLoader = (models) =>
