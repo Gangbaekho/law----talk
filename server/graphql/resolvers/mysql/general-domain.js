@@ -1,5 +1,3 @@
-
-
 const yup = require("yup");
 
 const schema = yup.object().shape({
@@ -38,10 +36,13 @@ const generalDomainResolver = {
     },
   },
   GeneralDomain: {
-    specificDomains: async ({ id }, _, { models,transaction }) => {
-      return await transaction.repeatableReadTransaction(async ()=> {
-        const specificDomains = await models.SpecificDomain.findAll({where:generalDomainId:id});
-      })
+    specificDomains: async ({ id }, _, { models, transaction }) => {
+      return await transaction.repeatableReadTransaction(async () => {
+        const specificDomains = await models.SpecificDomain.findAll({
+          where: { generalDomainId: id },
+        });
+        return specificDomains;
+      });
     },
   },
 };

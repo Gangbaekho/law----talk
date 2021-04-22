@@ -6,35 +6,43 @@ const schema = yup.object().shape({
 
 const generalRegionResolver = {
   Query: {
-    generalRegion: async (_, { id }, { models }) => {
-      const generalRegion = await models.GeneralRegion.findOne({
-        where: { id },
+    generalRegion: async (_, { id }, { models, transaction }) => {
+      return await transaction.repeatableReadTransaction(async () => {
+        const generalRegion = await models.GeneralRegion.findOne({
+          where: { id },
+        });
+        return generalRegion;
       });
-      return generalRegion;
     },
   },
   Mutation: {
-    createGeneralRegion: async (_, { regionName }) => {
+    createGeneralRegion: async (_, { regionName }, { models, transaction }) => {
       await schema.validate({ regionName });
 
-      const doesExist = await GeneralRegion.findOne({ where: { regionName } });
+      return await transaction.serializableTransaction(async () => {
+        const doesExist = await models.GeneralRegion.findOne({
+          where: { regionName },
+        });
 
-      if (doesExist) {
-        const error = new Error("general region already exist");
-        error.statusCode = 422;
-        throw error;
-      }
+        if (doesExist) {
+          const error = new Error("general region already exist");
+          error.statusCode = 422;
+          throw error;
+        }
 
-      const generalRegion = await GeneralRegion.create({ regionName });
-      return generalRegion.id;
+        const generalRegion = await models.GeneralRegion.create({ regionName });
+        return generalRegion.id;
+      });
     },
   },
   GeneralRegion: {
-    specificRegions: async ({ id }, _, { models }) => {
-      const specificRegions = await models.SpecificRegion.findAll({
-        where: { generalRegionId: id },
+    specificRegions: async ({ id }, _, { models, transaction }) => {
+      return await transaction.repeatableReadTransaction(async () => {
+        const specificRegions = await models.SpecificRegion.findAll({
+          where: { generalRegionId: id },
+        });
+        return specificRegions;
       });
-      return specificRegions;
     },
   },
 };
