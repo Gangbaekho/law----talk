@@ -1,5 +1,3 @@
-const Video = require("../../../models/mysql/video");
-
 const yup = require("yup");
 const schema = yup.object().shape({
   videoType: yup.string().min(1).required(),
@@ -13,21 +11,29 @@ const VIDEOS_PER_PAGE = 10;
 
 const videoResolver = {
   Query: {
-    video: async (_, { id }) => {
-      const video = await Video.findOne({ id });
-      return video.id;
-    },
-    getVideos: async (_, { specificDomainId, offset }) => {
-      const videos = await Video.findAll({
-        where: { specificDomainId },
-        offset,
-        limit: VIDEOS_PER_PAGE,
+    video: async (_, { id }, { models, transaction }) => {
+      return await transaction.repeatableReadTransaction(async () => {
+        const video = await models.Video.findOne({ id });
+        return video;
       });
-      return videos;
+    },
+    getVideos: async (
+      _,
+      { specificDomainId, offset },
+      { models, transaction }
+    ) => {
+      return await transaction.repeatableReadTransaction(async () => {
+        const videos = await models.Video.findAll({
+          where: { specificDomainId },
+          offset,
+          limit: VIDEOS_PER_PAGE,
+        });
+        return videos;
+      });
     },
   },
   Mutation: {
-    createVideo: async (_, { videoInput }) => {
+    createVideo: async (_, { videoInput }, { models, transaction }) => {
       const {
         lawyerId,
         mongoLawyerId,
@@ -47,18 +53,20 @@ const videoResolver = {
         videoThumbNailUrl,
       });
 
-      const video = await Video.create({
-        lawyerId,
-        mongoLawyerId,
-        specificDomainId,
-        videoType,
-        title,
-        content,
-        videoUrl,
-        videoThumbNailUrl,
-      });
+      return await transaction.serializableTransaction(async () => {
+        const video = await models.Video.create({
+          lawyerId,
+          mongoLawyerId,
+          specificDomainId,
+          videoType,
+          title,
+          content,
+          videoUrl,
+          videoThumbNailUrl,
+        });
 
-      return video.id;
+        return video.id;
+      });
     },
   },
   Video: {

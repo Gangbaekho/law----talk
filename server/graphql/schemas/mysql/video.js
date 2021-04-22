@@ -29,7 +29,7 @@ const videoSchema = gql`
   }
 
   type Query {
-    video(id: Int!): Int!
+    video(id: Int!): Video!
     getVideos(specificDomainId: Int!, offset: Int): [Video!]!
   }
 
