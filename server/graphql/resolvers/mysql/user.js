@@ -75,22 +75,22 @@ const userResolver = {
     },
   },
   User: {
-    reviews: async ({ id }, _, { models, sequelize }) => {
-      return await sequelize.transaction(async (t) => {
+    reviews: async ({ id }, _, { models, transaction }) => {
+      return await transaction.repeatableReadTransaction(async (t) => {
         const reviews = await models.Review.findAll({ where: { userId: id } });
         return reviews;
       });
     },
-    schedules: async ({ id }, _, { models, sequelize }) => {
-      return await sequelize.transaction(async (t) => {
+    schedules: async ({ id }, _, { models, transaction }) => {
+      return await transaction.repeatableReadTransaction(async (t) => {
         const schedules = await models.Schedule.findAll({
           where: { userId: id },
         });
         return schedules;
       });
     },
-    consultingQuestions: async ({ id }, _, { models, sequelize }) => {
-      return await sequelize.transaction(async (t) => {
+    consultingQuestions: async ({ id }, _, { models, transaction }) => {
+      return await transaction.repeatableReadTransaction(async (t) => {
         const consultingQuestions = await models.ConsultingQuestion.findAll({
           where: { userId: id },
         });
