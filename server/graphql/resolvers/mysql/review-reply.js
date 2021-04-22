@@ -1,5 +1,3 @@
-const ReviewReply = require("../../../models/mysql/review-reply");
-
 const yup = require("yup");
 
 const schema = yup.object().shape({
@@ -8,25 +6,33 @@ const schema = yup.object().shape({
 
 const reviewReplyResolver = {
   Query: {
-    reviewReply: async (_, { id }) => {
-      const reviewReply = await ReviewReply.findOne({ where: { id } });
-      return reviewReply;
+    reviewReply: async (_, { id }, { models, transaction }) => {
+      return await transaction.repeatableReadTransaction(async () => {
+        const reviewReply = await models.ReviewReply.findOne({ where: { id } });
+        return reviewReply;
+      });
     },
   },
   Mutation: {
-    createReviewReply: async (_, { reviewReplyInput }) => {
+    createReviewReply: async (
+      _,
+      { reviewReplyInput },
+      { models, transaction }
+    ) => {
       const { lawyerId, mongoLawyerId, reviewId, content } = reviewReplyInput;
 
       await schema.validate({ content });
 
-      const reviewReply = await ReviewReply.create({
-        lawyerId,
-        mongoLawyerId,
-        reviewId,
-        content,
-      });
+      return await transaction.serializableTransaction(async () => {
+        const reviewReply = await models.ReviewReply.create({
+          lawyerId,
+          mongoLawyerId,
+          reviewId,
+          content,
+        });
 
-      return reviewReply.id;
+        return reviewReply.id;
+      });
     },
   },
   ReviewReply: {
