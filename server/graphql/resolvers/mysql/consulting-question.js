@@ -10,21 +10,35 @@ const schema = yup.object().shape({
 
 const consultingQuestionResolver = {
   Query: {
-    consultingQuestion: async (_, { id }) => {
-      const consultingQuestion = await ConsultingQuestion.findOne({ id });
-      return consultingQuestion;
-    },
-    getConsultingQuestions: async (_, { specificDomainId, offset }) => {
-      const consultingQuestions = await ConsultingQuestion.findAll({
-        where: { specificDomainId },
-        offset: offset,
+    consultingQuestion: async (_, { id }, { models, transaction }) => {
+      return await transaction.repeatableReadTransaction(async () => {
+        const consultingQuestion = await models.ConsultingQuestion.findOne({
+          id,
+        });
+        return consultingQuestion;
       });
+    },
+    getConsultingQuestions: async (
+      _,
+      { specificDomainId, offset },
+      { models, transaction }
+    ) => {
+      return await transaction.repeatableReadTransaction(async () => {
+        const consultingQuestions = await models.ConsultingQuestion.findAll({
+          where: { specificDomainId },
+          offset: offset,
+        });
 
-      return consultingQuestions;
+        return consultingQuestions;
+      });
     },
   },
   Mutation: {
-    createConsultingQuestion: async (_, { consultingQuestionInput }) => {
+    createConsultingQuestion: async (
+      _,
+      { consultingQuestionInput },
+      { models, transaction }
+    ) => {
       const {
         userId,
         specificDomainId,
@@ -34,25 +48,26 @@ const consultingQuestionResolver = {
 
       await schema.validate({ title, content });
 
-      const consultingQuestion = await ConsultingQuestion.create({
-        userId,
-        specificDomainId,
-        title,
-        content,
+      return await transaction.serializableTransaction(async () => {
+        const consultingQuestion = await models.ConsultingQuestion.create({
+          userId,
+          specificDomainId,
+          title,
+          content,
+        });
+        return consultingQuestion.id;
       });
-      return consultingQuestion.id;
     },
   },
   ConsultingQuestion: {
-    specificDomain: async ({ specificDomainId }) => {
-      const specificDomain = await SpecificDomain.findOne({
-        where: { id: specificDomainId },
-      });
-      return specificDomain;
+    specificDomain: async ({ specificDomainId }, _, { dataLoaders }) => {
+      return dataLoaders.specificDomainLoader.load(specificDomainId);
     },
     consultingAnswers: async ({ id }, _, { dataLoaders }) => {
-      return dataLoaders.consultingAnswerLoader.consultingQuestion.load(id);
-      // return loaders.consultingAnswerLoader.load(id);
+      return dataLoaders.consultingAnswerLoader.load(id);
+    },
+    user: async ({ userId }, _, { dataLoaders }) => {
+      return dataLoaders.userLoader.load(userId);
     },
   },
 };

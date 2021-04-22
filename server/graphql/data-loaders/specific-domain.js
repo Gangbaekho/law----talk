@@ -1,12 +1,15 @@
 const DataLoader = require("dataloader");
+const { repeatableReadTransaction } = require("../../util/transaction");
 
 const batchSpecificDomains = async (specificDomainIds, { SpecificDomain }) => {
-  const specificDomains = await SpecificDomain.findAll({
-    where: { id: specificDomainIds },
+  return await repeatableReadTransaction(async () => {
+    const specificDomains = await SpecificDomain.findAll({
+      where: { id: specificDomainIds },
+    });
+    return specificDomainIds.map((id) =>
+      specificDomains.find((specificDomain) => specificDomain.id === id)
+    );
   });
-  return specificDomainIds.map((id) =>
-    specificDomains.find((specificDomain) => specificDomain.id === id)
-  );
 };
 
 const specificDomainLoader = (models) =>
