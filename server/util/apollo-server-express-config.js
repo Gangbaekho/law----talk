@@ -10,12 +10,9 @@ const associateTables = require("../models/mysql/association-config");
 const isAuth = require("../middleware/is-auth");
 
 const models = require("../models");
-
 const dataLoaders = require("../graphql/data-loaders");
-
 const testRoutes = require("../routes/test");
-
-const sequelize = require("../util/mysql");
+const transaction = require("../util/transaction");
 
 async function startApolloServer() {
   const server = new ApolloServer({
@@ -25,7 +22,7 @@ async function startApolloServer() {
       Id: isAuth(req),
       models,
       dataLoaders: dataLoaders(models),
-      sequelize,
+      transaction,
     }),
   });
   await server.start();

@@ -12,7 +12,6 @@ const sequelize = new Sequelize("lawtalk", "jinsoo", "jinsoo", {
     acquire: 30000,
     idle: 10000,
   },
-  isolationLevel: Transaction.ISOLATION_LEVELS.REPEATABLE_READ,
 });
 
 module.exports = sequelize;

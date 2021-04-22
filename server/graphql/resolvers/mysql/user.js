@@ -2,7 +2,6 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const JWT_SECRET_CODE = require("../../../util/jwt-secret-code");
 const yup = require("yup");
-const { Transaction } = require("sequelize");
 
 const schema = yup.object().shape({
   email: yup.string().trim().email().required(),
@@ -11,42 +10,37 @@ const schema = yup.object().shape({
 
 const userResolver = {
   Query: {
-    user: async (_, { id }, { models, sequelize }) => {
-      return await sequelize.transaction(async (t) => {
+    user: async (_, { id }, { models, transaction }) => {
+      return await transaction.repeatableReadTransaction(async () => {
         user = await models.User.findOne({ where: { id } });
         return user;
       });
     },
   },
   Mutation: {
-    createUser: async (_, { userInput }, { models, sequelize }) => {
+    createUser: async (_, { userInput }, { models, transaction }) => {
       const { email, password } = userInput;
 
       await schema.validate({ email, password });
 
-      return await sequelize.transaction(
-        {
-          isolationLevel: Transaction.ISOLATION_LEVELS.SERIALIZABLE,
-        },
-        async (t) => {
-          const isExist = await models.User.findOne({ where: { email } });
+      return await transaction.serializableTransaction(async () => {
+        const isExist = await models.User.findOne({ where: { email } });
 
-          if (isExist) {
-            const error = new Error("email exists already");
-            error.statusCode = 422;
-            throw error;
-          }
-
-          const encodedPassword = await bcrypt.hash(password, 12);
-
-          const user = await models.User.create({
-            email,
-            password: encodedPassword,
-          });
-
-          return user.id;
+        if (isExist) {
+          const error = new Error("email exists already");
+          error.statusCode = 422;
+          throw error;
         }
-      );
+
+        const encodedPassword = await bcrypt.hash(password, 12);
+
+        const user = await models.User.create({
+          email,
+          password: encodedPassword,
+        });
+
+        return user.id;
+      });
     },
     loginUser: async (_, { userInput }, { myToken }) => {
       console.log(myToken);
