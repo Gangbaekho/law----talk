@@ -21,7 +21,7 @@ const reviewSchema = gql`
   }
 
   type Query {
-    review(id: Int!): Int!
+    review(id: Int!): Review!
     getReviews(lawyerId: Int!, offset: Int): [Review!]!
   }
 

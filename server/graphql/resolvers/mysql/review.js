@@ -1,5 +1,3 @@
-const Review = require("../../../models/mysql/review");
-
 const yup = require("yup");
 
 const scheam = yup.object().shape({
@@ -15,21 +13,25 @@ const REVIEWS_PER_PAGE = 10;
 
 const reviewResolver = {
   Query: {
-    review: async (_, { id }) => {
-      const review = await Review.findOne({ where: { id } });
-      return review.id;
-    },
-    getReviews: async (_, { lawyerId, offset }) => {
-      const reviews = await Review.findAll({
-        where: { lawyerId },
-        offset,
-        limit: REVIEWS_PER_PAGE,
+    review: async (_, { id }, { models, transaction }) => {
+      return await transaction.repeatableReadTransaction(async () => {
+        const review = await models.Review.findOne({ where: { id } });
+        return review;
       });
-      return reviews;
+    },
+    getReviews: async (_, { lawyerId, offset }, { models, transaction }) => {
+      return await transaction.repeatableReadTransaction(async () => {
+        const reviews = await models.Review.findAll({
+          where: { lawyerId },
+          offset,
+          limit: REVIEWS_PER_PAGE,
+        });
+        return reviews;
+      });
     },
   },
   Mutation: {
-    createReview: async (_, { reviewInput }) => {
+    createReview: async (_, { reviewInput }, { models, transaction }) => {
       const {
         userId,
         lawyerId,
@@ -57,22 +59,24 @@ const reviewResolver = {
       const averageScore =
         (punctualTimeScore + kindnessScore + questionSolutionScore) / 3;
 
-      const review = await Review.create({
-        userId,
-        lawyerId,
-        specificDomainId,
-        title,
-        content,
-        consultingType,
-        punctualTimeScore,
-        kindnessScore,
-        questionSolutionScore,
-        averageScore,
-        estimateKeyword,
-        likePoints,
-      });
+      return await transaction.serializableTransaction(async () => {
+        const review = await models.Review.create({
+          userId,
+          lawyerId,
+          specificDomainId,
+          title,
+          content,
+          consultingType,
+          punctualTimeScore,
+          kindnessScore,
+          questionSolutionScore,
+          averageScore,
+          estimateKeyword,
+          likePoints,
+        });
 
-      return review.id;
+        return review.id;
+      });
     },
   },
   Review: {
