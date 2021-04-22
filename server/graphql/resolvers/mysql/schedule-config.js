@@ -1,5 +1,3 @@
-const ScheduleConfig = require("../../../models/mysql/schedule-config");
-
 const yup = require("yup");
 
 const timeRegexValidation = yup
@@ -16,13 +14,21 @@ const schema = yup.object().shape({
 
 const scheduleConfigResolver = {
   Query: {
-    scheduleConfig: async (_, { id }) => {
-      const scheduleConfig = await ScheduleConfig.findOne({ where: { id } });
-      return scheduleConfig;
+    scheduleConfig: async (_, { id }, { models, transaction }) => {
+      return await transaction.repeatableReadTransaction(async () => {
+        const scheduleConfig = await models.ScheduleConfig.findOne({
+          where: { id },
+        });
+        return scheduleConfig;
+      });
     },
   },
   Mutation: {
-    createScheduleConfig: async (_, { scheduleConfigInput }) => {
+    createScheduleConfig: async (
+      _,
+      { scheduleConfigInput },
+      { models, transaction }
+    ) => {
       const {
         lawyerId,
         fifteenConsultingAvailableTimeFrom,
@@ -38,23 +44,27 @@ const scheduleConfigResolver = {
         thirtyConsultingAvailableTimeTo,
       });
 
-      const scheduleConfig = await ScheduleConfig.create({
-        lawyerId,
-        fifteenConsultingAvailableTimeFrom,
-        fifteenConsultingAvailableTimeTo,
-        thirtyConsultingAvailableTimeFrom,
-        thirtyConsultingAvailableTimeTo,
-      });
+      return await transaction.serializableTransaction(async () => {
+        const scheduleConfig = await models.ScheduleConfig.create({
+          lawyerId,
+          fifteenConsultingAvailableTimeFrom,
+          fifteenConsultingAvailableTimeTo,
+          thirtyConsultingAvailableTimeFrom,
+          thirtyConsultingAvailableTimeTo,
+        });
 
-      return scheduleConfig.id;
+        return scheduleConfig.id;
+      });
     },
   },
   ScheduleConfig: {
-    lawyer: async ({ lawyerId }, _, { models }) => {
-      const lawyer = await models.Lawyer.findOne({
-        where: { id: lawyerId },
+    lawyer: async ({ lawyerId }, _, { models, transaction }) => {
+      return await transaction.repeatableReadTransaction(async () => {
+        const lawyer = await models.Lawyer.findOne({
+          where: { id: lawyerId },
+        });
+        return lawyer;
       });
-      return lawyer;
     },
   },
 };
