@@ -15,6 +15,8 @@ const dataLoaders = require("../graphql/data-loaders");
 
 const testRoutes = require("../routes/test");
 
+const sequelize = require("../util/mysql");
+
 async function startApolloServer() {
   const server = new ApolloServer({
     typeDefs,
@@ -23,6 +25,7 @@ async function startApolloServer() {
       Id: isAuth(req),
       models,
       dataLoaders: dataLoaders(models),
+      sequelize,
     }),
   });
   await server.start();
