@@ -81,21 +81,27 @@ const userResolver = {
     },
   },
   User: {
-    reviews: async ({ id }, _, { models }) => {
-      const reviews = await models.Review.findAll({ where: { userId: id } });
-      return reviews;
-    },
-    schedules: async ({ id }, _, { models }) => {
-      const schedules = await models.Schedule.findAll({
-        where: { userId: id },
+    reviews: async ({ id }, _, { models, sequelize }) => {
+      return await sequelize.transaction(async (t) => {
+        const reviews = await models.Review.findAll({ where: { userId: id } });
+        return reviews;
       });
-      return schedules;
     },
-    consultingQuestions: async ({ id }, _, { models }) => {
-      const consultingQuestions = await models.ConsultingQuestion.findAll({
-        where: { userId: id },
+    schedules: async ({ id }, _, { models, sequelize }) => {
+      return await sequelize.transaction(async (t) => {
+        const schedules = await models.Schedule.findAll({
+          where: { userId: id },
+        });
+        return schedules;
       });
-      return consultingQuestions;
+    },
+    consultingQuestions: async ({ id }, _, { models, sequelize }) => {
+      return await sequelize.transaction(async (t) => {
+        const consultingQuestions = await models.ConsultingQuestion.findAll({
+          where: { userId: id },
+        });
+        return consultingQuestions;
+      });
     },
   },
 };
