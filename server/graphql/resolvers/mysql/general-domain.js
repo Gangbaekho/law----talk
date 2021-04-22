@@ -1,4 +1,4 @@
-const GeneralDomain = require("../../../models/mysql/general-domain");
+
 
 const yup = require("yup");
 
@@ -8,32 +8,40 @@ const schema = yup.object().shape({
 
 const generalDomainResolver = {
   Query: {
-    generalDomain: async (_, { id }) => {
-      const generalDomain = await GeneralDomain.findOne({ where: { id } });
-      return generalDomain;
+    generalDomain: async (_, { id }, { models, transaction }) => {
+      return await transaction.repeatableReadTransaction(async () => {
+        const generalDomain = await models.GeneralDomain.findOne({
+          where: { id },
+        });
+        return generalDomain;
+      });
     },
   },
   Mutation: {
-    createGeneralDomain: async (_, { domainName }) => {
+    createGeneralDomain: async (_, { domainName }, { models, transaction }) => {
       await schema.validate({ domainName });
 
-      const doesExist = await GeneralDomain.findOne({ where: { domainName } });
+      return await transaction.serializableTransaction(async () => {
+        const doesExist = await models.GeneralDomain.findOne({
+          where: { domainName },
+        });
 
-      if (doesExist) {
-        const error = new Error("general domain already exist");
-        error.statusCode = 422;
-        throw error;
-      }
+        if (doesExist) {
+          const error = new Error("general domain already exist");
+          error.statusCode = 422;
+          throw error;
+        }
 
-      const generalDomain = await GeneralDomain.create({ domainName });
-      return generalDomain.id;
+        const generalDomain = await models.GeneralDomain.create({ domainName });
+        return generalDomain.id;
+      });
     },
   },
   GeneralDomain: {
-    specificDomains: async ({ id }, _, { models }) => {
-      return (specificDomains = await models.SpecificDomain.findAll({
-        where: { generalDomainId: id },
-      }));
+    specificDomains: async ({ id }, _, { models,transaction }) => {
+      return await transaction.repeatableReadTransaction(async ()=> {
+        const specificDomains = await models.SpecificDomain.findAll({where:generalDomainId:id});
+      })
     },
   },
 };
