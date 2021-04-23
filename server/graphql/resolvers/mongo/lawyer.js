@@ -1,5 +1,3 @@
-const Lawyer = require("../../../models/mongo/lawyer");
-
 const mongoLaywerResolver = {
   Query: {
     mongoLawyer: async (_, { _id }) => {
@@ -9,7 +7,7 @@ const mongoLaywerResolver = {
   },
 
   Mutation: {
-    createMongoLawyer: async (_, { mongoLawyerInput }) => {
+    createMongoLawyer: async (_, { mongoLawyerInput }, { models }) => {
       const {
         mysqlLawyerId,
         lawyerName,
@@ -38,7 +36,7 @@ const mongoLaywerResolver = {
         priorityScore,
       } = mongoLawyerInput;
 
-      const lawyer = new Lawyer({
+      const lawyer = new models.MongoLawyer({
         mysqlLawyerId,
         lawyerName,
         lawyerProfileImageUrl,
