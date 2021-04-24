@@ -1,12 +1,11 @@
-const ConsultingQuestion = require("../../../models/mysql/consulting-question");
-const SpecificDomain = require("../../../models/mysql/specific-domain");
-
 const yup = require("yup");
 
 const schema = yup.object().shape({
   title: yup.string().trim().min(5).required(),
   content: yup.string().trim().min(5).required(),
 });
+
+const ITEMS_PER_PAGE = 10;
 
 const consultingQuestionResolver = {
   Query: {
@@ -30,6 +29,31 @@ const consultingQuestionResolver = {
         });
 
         return consultingQuestions;
+      });
+    },
+    getCurrentPageConsultingQuestions: async (
+      _,
+      { specificDomainId, page = 1 },
+      { models, transaction }
+    ) => {
+      return await transaction.repeatableReadTransaction(async () => {
+        const totalItems = await models.ConsultingQuestion.count({
+          where: { specificDomainId },
+        });
+        const consultingQuestions = await models.ConsultingQuestion.findAll({
+          where: { specificDomainId },
+          offset: (page - 1) * ITEMS_PER_PAGE,
+          limit: ITEMS_PER_PAGE,
+        });
+        return {
+          consultingQuestions: consultingQuestions,
+          currentPage: page,
+          hasNextPage: ITEMS_PER_PAGE * page < totalItems,
+          hasPreviousPage: page > 1,
+          nextPage: page + 1,
+          previousPage: page - 1,
+          lastPage: Math.ceil(totalItems / ITEMS_PER_PAGE),
+        };
       });
     },
   },
