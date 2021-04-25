@@ -1,4 +1,4 @@
-const POSTS_PER_PAGE = 10;
+const ITEMS_PER_PAGE = 9;
 
 const yup = require("yup");
 const schema = yup.object().shape({
@@ -31,6 +31,31 @@ const postResolver = {
         return posts;
       });
     },
+    getCurrentPagePosts: async (
+      _,
+      { specificDomainId, page = 1 },
+      { models, transaction }
+    ) => {
+      return await transaction.repeatableReadTransaction(async () => {
+        const totalItems = await models.Post.count({
+          where: { specificDomainId },
+        });
+        const posts = await models.Post.findAll({
+          where: { specificDomainId },
+          offset: (page - 1) * ITEMS_PER_PAGE,
+          limit: ITEMS_PER_PAGE,
+        });
+        return {
+          posts: posts,
+          currentPage: page,
+          hasNextPage: ITEMS_PER_PAGE * page < totalItems,
+          hasPreviousPage: page > 1,
+          nextPage: page + 1,
+          previousPage: page - 1,
+          lastPage: Math.ceil(totalItems / ITEMS_PER_PAGE),
+        };
+      });
+    },
   },
   Mutation: {
     createPost: async (_, { postInput }, { models, transaction }) => {
@@ -47,7 +72,7 @@ const postResolver = {
       await schema.validate({ postType, title, content, postImageUrl });
 
       return await transaction.serializableTransaction(async () => {
-        const post = await Post.create({
+        const post = await models.Post.create({
           lawyerId,
           mongoLawyerId,
           specificDomainId,

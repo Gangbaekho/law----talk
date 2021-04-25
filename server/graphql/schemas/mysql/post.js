@@ -16,11 +16,6 @@ const postSchema = gql`
     updatedAt: String!
   }
 
-  type Query {
-    post(id: Int!): Int!
-    getPosts(specificDomainId: Int!, offset: Int): [Post!]!
-  }
-
   input PostInputType {
     lawyerId: Int!
     mongoLawyerId: String!
@@ -29,6 +24,25 @@ const postSchema = gql`
     title: String!
     content: String!
     postImageUrl: String!
+  }
+
+  type CurrentPagePostsResponse {
+    posts: [Post!]!
+    currentPage: Int!
+    hasNextPage: Boolean!
+    hasPreviousPage: Boolean!
+    nextPage: Int!
+    previousPage: Int!
+    lastPage: Int!
+  }
+
+  type Query {
+    post(id: Int!): Int!
+    getPosts(specificDomainId: Int!, offset: Int): [Post!]!
+    getCurrentPagePosts(
+      specificDomainId: Int!
+      page: Int
+    ): CurrentPagePostsResponse!
   }
 
   type Mutation {
