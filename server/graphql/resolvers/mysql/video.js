@@ -7,7 +7,7 @@ const schema = yup.object().shape({
   videoThumbNailUrl: yup.string().url().required(),
 });
 
-const VIDEOS_PER_PAGE = 10;
+const ITEMS_PER_PAGE = 10;
 
 const videoResolver = {
   Query: {
@@ -29,6 +29,31 @@ const videoResolver = {
           limit: VIDEOS_PER_PAGE,
         });
         return videos;
+      });
+    },
+    getCurrentPageVideos: async (
+      _,
+      { specificDomainId, page = 1 },
+      { models, transaction }
+    ) => {
+      return await transaction.repeatableReadTransaction(async () => {
+        const totalItems = await models.Video.count({
+          where: { specificDomainId },
+        });
+        const videos = await models.Video.findAll({
+          where: { specificDomainId },
+          offset: (page - 1) * ITEMS_PER_PAGE,
+          limit: ITEMS_PER_PAGE,
+        });
+        return {
+          videos: videos,
+          currentPage: page,
+          hasNextPage: ITEMS_PER_PAGE * page < totalItems,
+          hasPreviousPage: page > 1,
+          nextPage: page + 1,
+          previousPage: page - 1,
+          lastPage: Math.ceil(totalItems / ITEMS_PER_PAGE),
+        };
       });
     },
   },

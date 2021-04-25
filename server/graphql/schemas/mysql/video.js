@@ -28,9 +28,23 @@ const videoSchema = gql`
     videoThumbNailUrl: String!
   }
 
+  type CurrentPageVideosResponse {
+    videos: [Video!]!
+    currentPage: Int!
+    hasNextPage: Boolean!
+    hasPreviousPage: Boolean!
+    nextPage: Int!
+    previousPage: Int!
+    lastPage: Int!
+  }
+
   type Query {
     video(id: Int!): Video!
     getVideos(specificDomainId: Int!, offset: Int): [Video!]!
+    getCurrentPageVideos(
+      specificDomainId: Int!
+      page: Int
+    ): CurrentPageVideosResponse!
   }
 
   type Mutation {
