@@ -12,6 +12,7 @@ const Review = require("./review");
 const ReviewReply = require("./review-reply");
 const ScheduleConfig = require("./schedule-config");
 const Schedule = require("./schedule");
+const LawyerSpecificDomain = require("./lawyer-specific-domian");
 
 const associateTables = () => {
   // USER
@@ -27,6 +28,7 @@ const associateTables = () => {
   Lawyer.hasMany(Review, { foreignKey: "lawyerId" });
   Lawyer.hasMany(ReviewReply, { foreignKey: "lawyerId" });
   Lawyer.hasMany(ConsultingAnswer, { foreignKey: "lawyerId" });
+  Lawyer.belongsToMany(SpecificDomain, { through: LawyerSpecificDomain });
 
   // GERERAL-DOMAIN
   GeneralDomain.hasMany(SpecificDomain, { foreignKey: "generalDomainId" });
@@ -43,6 +45,7 @@ const associateTables = () => {
     foreignKey: "specificDomainId",
   });
   SpecificDomain.belongsTo(GeneralDomain);
+  SpecificDomain.belongsToMany(Lawyer, { through: LawyerSpecificDomain });
 
   // SPECIFIC-REGION
   SpecificRegion.belongsTo(GeneralRegion);
