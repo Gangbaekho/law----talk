@@ -12,6 +12,7 @@ const ScheduleConfig = require("./mysql/schedule-config");
 const Schedule = require("./mysql/schedule");
 const Review = require("./mysql/review");
 const ReviewReply = require("./mysql/review-reply");
+const LawyerSpecificDomain = require("./mysql/lawyer-specific-domian");
 const MongoLawyer = require("./mongo/lawyer");
 const MongoSchedule = require("./mongo/schedule");
 
@@ -30,6 +31,7 @@ const models = {
   Schedule,
   Review,
   ReviewReply,
+  LawyerSpecificDomain,
   MongoLawyer,
   MongoSchedule,
 };

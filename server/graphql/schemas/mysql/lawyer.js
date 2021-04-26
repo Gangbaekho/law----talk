@@ -21,6 +21,8 @@ const lawyerSchema = gql`
 
   type Query {
     lawyer(id: Int!): Lawyer!
+    getLawyers(specificDomainId: Int!): [Lawyer!]!
+    getMoreLawyers(specificDomainId: Int!, offset: Int!): [Lawyer!]!
   }
 
   input LawyerInputType {

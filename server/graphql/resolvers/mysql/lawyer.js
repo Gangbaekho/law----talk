@@ -1,9 +1,36 @@
 const yup = require("yup");
+const Lawyer = require("../../../models/mysql/lawyer");
 
 const schema = yup.object().shape({
   email: yup.string().trim().email().required(),
   password: yup.string().trim().min(5).required(),
 });
+
+const lawyerSortFunction = (a, b) => {
+  if (
+    (a.isPremium === "Y" && b.isPremium === "N") ||
+    (a.isPremium === "Y" &&
+      b.isPremium === "Y" &&
+      a.priorityScore > b.priorityScore) ||
+    (a.isPremium === "N" &&
+      b.isPremium === "N" &&
+      a.priorityScore > b.priorityScore)
+  ) {
+    return -1;
+  } else if (
+    (a.isPremium === "N" && b.isPremium === "Y") ||
+    (a.isPremium === "Y" &&
+      b.isPremium === "Y" &&
+      a.priorityScore < b.priorityScore) ||
+    (a.isPremium === "N" &&
+      b.isPremium === "N" &&
+      a.priorityScore < b.priorityScore)
+  ) {
+    return 1;
+  } else {
+    return 0;
+  }
+};
 
 const lawyerResolver = {
   Query: {
@@ -11,6 +38,23 @@ const lawyerResolver = {
       return await transaction.repeatableReadTransaction(async () => {
         const lawyer = await models.Lawyer.findOne({ id });
         return lawyer;
+      });
+    },
+    getLawyers: async (_, { specificDomainId }, { models, transaction }) => {
+      return await transaction.repeatableReadTransaction(async () => {
+        const lawyerSpecificDomains = await models.LawyerSpecificDomain.findAll(
+          {
+            where: { specificDomainId },
+            include: { model: Lawyer, required: true },
+          }
+        );
+
+        const lawyers = lawyerSpecificDomains.map(
+          (lawyerSpecificDomain) => lawyerSpecificDomain.lawyer
+        );
+
+        lawyers.sort(lawyerSortFunction);
+        return lawyers;
       });
     },
   },
