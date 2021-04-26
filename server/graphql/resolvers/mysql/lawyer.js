@@ -1,6 +1,9 @@
 const yup = require("yup");
 const Lawyer = require("../../../models/mysql/lawyer");
 
+const { QueryTypes } = require("sequelize");
+const sequelize = require("../../../util/mysql");
+
 const schema = yup.object().shape({
   email: yup.string().trim().email().required(),
   password: yup.string().trim().min(5).required(),
@@ -49,6 +52,37 @@ const lawyerResolver = {
         const lawyers = specificDomainWithLawyers.lawyers;
         lawyers.sort(lawyerSortFunction);
         return lawyers;
+      });
+    },
+    getMoreLawyers: async (
+      _,
+      { specificDomainId, offset },
+      { models, transaction }
+    ) => {
+      return await transaction.repeatableReadTransaction(async () => {
+        const lawyers = await sequelize.query(
+          "SELECT L.id, L.mongodbId,L.email, L.isPremium, L.priorityScore, L.createdAt, L.updatedAt FROM `lawyer-specific-domains` LSD JOIN lawyers L ON LSD.lawyerId = L.id WHERE LSD.specificDomainId = ? AND L.isPremium = 'N' LIMIT ?,10",
+          {
+            replacements: [specificDomainId, offset],
+            type: QueryTypes.SELECT,
+          }
+        );
+
+        return lawyers;
+
+        // const lawyerSpecificDomains = await models.LawyerSpecificDomain.findAll({where:{specificDomainId}});
+        // const lawyerIds = lawyerSpecificDomains.map(lawyerSpecificDomain=> lawyerSpecificDomain.lawyerId);
+
+        // const lawyers =
+
+        // const specificDomainWithLawyers = await models.SpecificDomain.findOne({
+        //   where: { id: specificDomainId },
+        //   include: { model: Lawyer, where: { isPremium: "N" }, required: true },
+        //   offset: offset,
+        //   limit: 10,
+        // });
+        // const lawyers = specificDomainWithLawyers.lawyers;
+        // return lawyers;
       });
     },
   },
@@ -142,8 +176,6 @@ const lawyerResolver = {
     },
     mongoLawyer: async ({ mongodbId }, _, { models, dataLoaders }) => {
       return dataLoaders.mongoLawyerLoader.load(mongodbId);
-      // const mongoLawyer = await models.MongoLawyer.findOne({ _id: mongodbId });
-      // return mongoLawyer;
     },
   },
 };
