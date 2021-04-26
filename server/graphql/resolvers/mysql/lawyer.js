@@ -42,17 +42,11 @@ const lawyerResolver = {
     },
     getLawyers: async (_, { specificDomainId }, { models, transaction }) => {
       return await transaction.repeatableReadTransaction(async () => {
-        const lawyerSpecificDomains = await models.LawyerSpecificDomain.findAll(
-          {
-            where: { specificDomainId },
-            include: { model: Lawyer, required: true },
-          }
-        );
-
-        const lawyers = lawyerSpecificDomains.map(
-          (lawyerSpecificDomain) => lawyerSpecificDomain.lawyer
-        );
-
+        const specificDomainWithLawyers = await models.SpecificDomain.findOne({
+          where: { id: specificDomainId },
+          include: { model: Lawyer, required: true },
+        });
+        const lawyers = specificDomainWithLawyers.lawyers;
         lawyers.sort(lawyerSortFunction);
         return lawyers;
       });
@@ -71,7 +65,9 @@ const lawyerResolver = {
       await schema.validate({ email, password });
 
       return await transaction.serializableTransaction(async () => {
-        const mongoLawyer = await MongoLawyer.findOne({ _id: mongodbId });
+        const mongoLawyer = await models.MongoLawyer.findOne({
+          _id: mongodbId,
+        });
 
         if (!mongoLawyer) {
           const error = new Error("invalid mongodbId");
@@ -79,7 +75,7 @@ const lawyerResolver = {
           throw error;
         }
 
-        const lawyer = await Lawyer.create({
+        const lawyer = await models.Lawyer.create({
           mongodbId,
           email,
           password,

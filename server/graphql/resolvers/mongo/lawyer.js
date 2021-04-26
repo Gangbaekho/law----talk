@@ -65,6 +65,7 @@ const mongoLaywerResolver = {
       });
 
       const createdLawyer = await lawyer.save();
+
       return createdLawyer._id;
     },
   },
