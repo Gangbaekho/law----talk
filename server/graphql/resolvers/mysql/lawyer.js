@@ -140,9 +140,10 @@ const lawyerResolver = {
         return consultingAnswers;
       });
     },
-    mongoLawyer: async ({ mongodbId }, _, { models }) => {
-      const mongoLawyer = await models.MongoLawyer.findOne({ _id: mongodbId });
-      return mongoLawyer;
+    mongoLawyer: async ({ mongodbId }, _, { models, dataLoaders }) => {
+      return dataLoaders.mongoLawyerLoader.load(mongodbId);
+      // const mongoLawyer = await models.MongoLawyer.findOne({ _id: mongodbId });
+      // return mongoLawyer;
     },
   },
 };
