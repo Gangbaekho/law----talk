@@ -70,11 +70,7 @@ const lawyerResolver = {
 
         return lawyers;
 
-        // const lawyerSpecificDomains = await models.LawyerSpecificDomain.findAll({where:{specificDomainId}});
-        // const lawyerIds = lawyerSpecificDomains.map(lawyerSpecificDomain=> lawyerSpecificDomain.lawyerId);
-
-        // const lawyers =
-
+        // 아래있는것도 같은 결과가 나오긴 하나, 쿼리가 이상하게 너무 복잡하다.
         // const specificDomainWithLawyers = await models.SpecificDomain.findOne({
         //   where: { id: specificDomainId },
         //   include: { model: Lawyer, where: { isPremium: "N" }, required: true },
@@ -150,13 +146,8 @@ const lawyerResolver = {
         return schedules;
       });
     },
-    reviews: async ({ id }, _, { models, transaction }) => {
-      return await transaction.repeatableReadTransaction(async () => {
-        const reviews = await models.Review.findAll({
-          where: { lawyerId: id },
-        });
-        return reviews;
-      });
+    reviews: async ({ id }, _, { dataLoaders }) => {
+      return dataLoaders.reviewLoader.byLawyerId.load(id);
     },
     reviewReplies: async ({ id }, _, { models, transaction }) => {
       return await transaction.repeatableReadTransaction(async () => {
@@ -174,7 +165,7 @@ const lawyerResolver = {
         return consultingAnswers;
       });
     },
-    mongoLawyer: async ({ mongodbId }, _, { models, dataLoaders }) => {
+    mongoLawyer: async ({ mongodbId }, _, { dataLoaders }) => {
       return dataLoaders.mongoLawyerLoader.load(mongodbId);
     },
   },

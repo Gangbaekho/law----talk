@@ -1,7 +1,7 @@
 const DataLoader = require("dataloader");
 const { repeatableReadTransaction } = require("../../util/transaction");
 
-const batchReviews = async (reviewIds, { Review }) => {
+const batchReviewsByReviewId = async (reviewIds, { Review }) => {
   return await repeatableReadTransaction(async () => {
     const reviews = await Review.findAll({
       where: { id: reviewIds },
@@ -10,7 +10,27 @@ const batchReviews = async (reviewIds, { Review }) => {
   });
 };
 
-const reviewLoader = (models) =>
-  new DataLoader((ids) => batchReviews(ids, models));
+const batchReviewsByLawyerId = async (lawyerIds, { Review }) => {
+  return await repeatableReadTransaction(async () => {
+    const reviews = await Review.findAll({
+      where: { lawyerId: lawyerIds },
+    });
+    return lawyerIds.map((id) =>
+      reviews.filter((review) => review.laweyrId === id)
+    );
+  });
+};
+
+const reviewLoader = (models) => ({
+  byReviewId: new DataLoader((reviewIds) =>
+    batchReviewsByReviewId(reviewIds, models)
+  ),
+  byLawyerId: new DataLoader((lawyerIds) =>
+    batchReviewsByLawyerId(lawyerIds, models)
+  ),
+});
+
+// const reviewLoader = (models) =>
+//   new DataLoader((ids) => batchReviews(ids, models));
 
 module.exports = reviewLoader;
