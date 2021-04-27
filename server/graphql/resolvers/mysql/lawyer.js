@@ -129,23 +129,18 @@ const lawyerResolver = {
     },
     schedules: async ({ id }, _, { dataLoaders }) => {
       return dataLoaders.scheduleLoader.byLawyerId.load(id);
-      // return await transaction.repeatableReadTransaction(async () => {
-      //   const schedules = await models.Schedule.findAll({
-      //     where: { lawyerId: id },
-      //   });
-      //   return schedules;
-      // });
     },
     reviews: async ({ id }, _, { dataLoaders }) => {
       return dataLoaders.reviewLoader.byLawyerId.load(id);
     },
-    reviewReplies: async ({ id }, _, { models, transaction }) => {
-      return await transaction.repeatableReadTransaction(async () => {
-        const reviewReplies = await models.ReviewReply.findAll({
-          where: { lawyerId: id },
-        });
-        return reviewReplies;
-      });
+    reviewReplies: async ({ id }, _, { dataLoaders }) => {
+      return dataLoaders.reviewReplyLoader.byLawyerId.load(id);
+      // return await transaction.repeatableReadTransaction(async () => {
+      //   const reviewReplies = await models.ReviewReply.findAll({
+      //     where: { lawyerId: id },
+      //   });
+      //   return reviewReplies;
+      // });
     },
     consultingAnswers: async ({ id }, _, { models, transaction }) => {
       return await transaction.repeatableReadTransaction(async () => {
