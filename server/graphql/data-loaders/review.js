@@ -21,6 +21,28 @@ const batchReviewsByLawyerId = async (lawyerIds, { Review }) => {
   });
 };
 
+const batchReviewBySpecificDomainId = async (specificDomainIds, { Review }) => {
+  return await repeatableReadTransaction(async () => {
+    const reviews = await Review.findAll({
+      where: { specificDomainId: specificDomainIds },
+    });
+    return specificDomainIds.map((id) =>
+      reviews.filter((review) => review.specificDomainId === id)
+    );
+  });
+};
+
+const batchReviewByUserId = async (userIds, { Review }) => {
+  return await repeatableReadTransaction(async () => {
+    const reviews = await Review.findAll({
+      where: { userId: userIds },
+    });
+    return userIds.map((id) =>
+      reviews.filter((review) => review.userId === id)
+    );
+  });
+};
+
 const reviewLoader = (models) => ({
   byReviewId: new DataLoader((reviewIds) =>
     batchReviewsByReviewId(reviewIds, models)
@@ -28,6 +50,10 @@ const reviewLoader = (models) => ({
   byLawyerId: new DataLoader((lawyerIds) =>
     batchReviewsByLawyerId(lawyerIds, models)
   ),
+  bySpecificDomainId: new DataLoader((specificDomainIds) =>
+    batchReviewBySpecificDomainId(specificDomainIds, models)
+  ),
+  byUserId: new DataLoader((userIds) => batchReviewByUserId(userIds, models)),
 });
 
 module.exports = reviewLoader;

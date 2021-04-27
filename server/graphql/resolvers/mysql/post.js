@@ -13,7 +13,7 @@ const postResolver = {
     post: async (_, { id }, { models, transaction }) => {
       return await transaction.repeatableReadTransaction(async () => {
         const post = await models.Post.findOne({ id });
-        return post.id;
+        return post;
       });
     },
     getPosts: async (
@@ -88,13 +88,15 @@ const postResolver = {
   },
   Post: {
     mongoLawyer: async ({ mongoLawyerId }, _, { dataLoaders }) => {
-      return dataLoaders.mongoLawyerLoader.load(mongoLawyerId);
+      return dataLoaders.mongoLawyerLoader.byMongoLawyerId.load(mongoLawyerId);
     },
     lawyer: async ({ lawyerId }, _, { dataLoaders }) => {
-      return dataLoaders.lawyerLoader.load(lawyerId);
+      return dataLoaders.lawyerLoader.byLawyerId.load(lawyerId);
     },
     specificDomain: async ({ specificDomainId }, _, { dataLoaders }) => {
-      return dataLoaders.specificDomainLoader.load(specificDomainId);
+      return dataLoaders.specificDomainLoader.bySpecificDomainId.load(
+        specificDomainId
+      );
     },
   },
 };

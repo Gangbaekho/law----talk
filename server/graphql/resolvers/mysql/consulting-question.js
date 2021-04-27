@@ -85,13 +85,15 @@ const consultingQuestionResolver = {
   },
   ConsultingQuestion: {
     specificDomain: async ({ specificDomainId }, _, { dataLoaders }) => {
-      return dataLoaders.specificDomainLoader.load(specificDomainId);
+      return dataLoaders.specificDomainLoader.bySpecificDomainId.load(
+        specificDomainId
+      );
     },
     consultingAnswers: async ({ id }, _, { dataLoaders }) => {
-      return dataLoaders.consultingAnswerLoader.load(id);
+      return dataLoaders.consultingAnswerLoader.byConsultingQuestionId.load(id);
     },
     user: async ({ userId }, _, { dataLoaders }) => {
-      return dataLoaders.userLoader.load(userId);
+      return dataLoaders.userLoader.byUserId.load(userId);
     },
   },
 };

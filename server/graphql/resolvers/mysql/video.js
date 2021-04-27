@@ -96,13 +96,15 @@ const videoResolver = {
   },
   Video: {
     lawyer: async ({ lawyerId }, _, { dataLoaders }) => {
-      return dataLoaders.lawyerLoader.load(lawyerId);
+      return dataLoaders.lawyerLoader.byLawyerId.load(lawyerId);
     },
     mongoLawyer: async ({ mongoLawyerId }, _, { dataLoaders }) => {
-      return dataLoaders.mongoLawyerLoader.load(mongoLawyerId);
+      return dataLoaders.mongoLawyerLoader.byMongoLawyerId.load(mongoLawyerId);
     },
     specificDomain: async ({ specificDomainId }, _, { dataLoaders }) => {
-      return dataLoaders.specificDomainLoader.load(specificDomainId);
+      return dataLoaders.specificDomainLoader.bySpecificDomainId.load(
+        specificDomainId
+      );
     },
   },
 };

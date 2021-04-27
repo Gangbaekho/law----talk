@@ -58,13 +58,8 @@ const scheduleConfigResolver = {
     },
   },
   ScheduleConfig: {
-    lawyer: async ({ lawyerId }, _, { models, transaction }) => {
-      return await transaction.repeatableReadTransaction(async () => {
-        const lawyer = await models.Lawyer.findOne({
-          where: { id: lawyerId },
-        });
-        return lawyer;
-      });
+    lawyer: async ({ lawyerId }, _, { dataLoaders }) => {
+      return dataLoaders.lawyerLoader.byLawyerId.load(lawyerId);
     },
   },
 };

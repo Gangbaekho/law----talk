@@ -1,8 +1,7 @@
 const mongoLaywerResolver = {
   Query: {
-    mongoLawyer: async (_, { _id }) => {
-      const laywer = await Lawyer.findOne({ _id });
-      return laywer._id;
+    mongoLawyer: async (_, { _id }, { dataLoaders }) => {
+      return dataLoaders.mongoLawyerLoader.byMongoLawyerId.load(_id);
     },
   },
 

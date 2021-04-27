@@ -138,12 +138,6 @@ const lawyerResolver = {
     },
     consultingAnswers: async ({ id }, _, { dataLoaders }) => {
       return dataLoaders.consultingAnswerLoader.byLawyerId.load(id);
-      // return await transaction.repeatableReadTransaction(async () => {
-      //   const consultingAnswers = await models.ConsultingAnswer.findAll({
-      //     where: { lawyerId: id },
-      //   });
-      //   return consultingAnswers;
-      // });
     },
     mongoLawyer: async ({ mongodbId }, _, { dataLoaders }) => {
       return dataLoaders.mongoLawyerLoader.load(mongodbId);

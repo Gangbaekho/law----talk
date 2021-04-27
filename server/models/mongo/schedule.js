@@ -13,7 +13,7 @@ const scheduleSchema = new Schema(
       type: Schema.Types.Number,
       required: true,
     },
-    fifteenConsultingAvaliableTime: {
+    fifteenConsultingAvailableTime: {
       type: [
         {
           time: Schema.Types.String,
@@ -23,7 +23,7 @@ const scheduleSchema = new Schema(
       required: true,
       _id: false,
     },
-    thirtyConsultingAvaliableTime: {
+    thirtyConsultingAvailableTime: {
       type: [
         {
           time: Schema.Types.String,

@@ -11,7 +11,7 @@ const batchUsersbyUserId = async (userIds, { User }) => {
 };
 
 const userLoader = (models) => ({
-  byUserId: new DataLoader((ids) => batchUsers(ids, models)),
+  byUserId: new DataLoader((ids) => batchUsersbyUserId(ids, models)),
 });
 
 module.exports = userLoader;

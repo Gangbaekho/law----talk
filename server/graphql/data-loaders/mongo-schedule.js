@@ -12,7 +12,7 @@ const batchMongoSchedulesByMongoScheduleIds = async (
 };
 
 const mongoScheduleLoader = (models) => ({
-  byMongoLawyerId: new DataLoader((mongoScheduleIds) =>
+  byMongoScheduleId: new DataLoader((mongoScheduleIds) =>
     batchMongoSchedulesByMongoScheduleIds(mongoScheduleIds, models)
   ),
 });

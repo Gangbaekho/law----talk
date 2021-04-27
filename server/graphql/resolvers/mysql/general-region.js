@@ -36,13 +36,8 @@ const generalRegionResolver = {
     },
   },
   GeneralRegion: {
-    specificRegions: async ({ id }, _, { models, transaction }) => {
-      return await transaction.repeatableReadTransaction(async () => {
-        const specificRegions = await models.SpecificRegion.findAll({
-          where: { generalRegionId: id },
-        });
-        return specificRegions;
-      });
+    specificRegions: async ({ id }, _, { dataLoaders }) => {
+      return dataLoaders.specificRegionLoader.byGeneralRegionId.load(id);
     },
   },
 };

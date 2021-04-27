@@ -5,8 +5,8 @@ const mongoScheduleSchema = gql`
     _id: String!
     lawyerId: String!
     mysqlLawyerId: Int!
-    fifteenConsultingAvaliableTime: [AvailableTime!]!
-    thirtyConsultingAvaliableTime: [AvailableTime!]!
+    fifteenConsultingAvailableTime: [AvailableTime!]!
+    thirtyConsultingAvailableTime: [AvailableTime!]!
     createdAt: String!
     updatedAt: String!
   }
@@ -29,7 +29,7 @@ const mongoScheduleSchema = gql`
   }
 
   type Query {
-    mongoSchedule(_id: String!): String!
+    mongoSchedule(_id: String!): MongoSchedule!
   }
 
   type Mutation {

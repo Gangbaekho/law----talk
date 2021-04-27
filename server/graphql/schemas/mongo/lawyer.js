@@ -3,7 +3,7 @@ const { gql } = require("apollo-server-express");
 const mongoLawyerSchema = gql`
   type MongoLawyer {
     _id: String!
-    mysqlLaywerId: Int!
+    mysqlLawyerId: Int!
     lawyerName: String!
     lawyerProfileImageUrl: String!
     lawyerCharacters: [String!]!
@@ -113,7 +113,7 @@ const mongoLawyerSchema = gql`
   }
 
   type Query {
-    mongoLawyer(_id: String!): String!
+    mongoLawyer(_id: String!): MongoLawyer!
   }
 
   type Mutation {

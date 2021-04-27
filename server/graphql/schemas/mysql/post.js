@@ -37,7 +37,7 @@ const postSchema = gql`
   }
 
   type Query {
-    post(id: Int!): Int!
+    post(id: Int!): Post!
     getPosts(specificDomainId: Int!, offset: Int): [Post!]!
     getCurrentPagePosts(
       specificDomainId: Int!

@@ -81,16 +81,18 @@ const reviewResolver = {
   },
   Review: {
     user: async ({ userId }, _, { dataLoaders }) => {
-      return dataLoaders.userLoader.load(userId);
+      return dataLoaders.userLoader.byUserId.load(userId);
     },
     lawyer: async ({ lawyerId }, _, { dataLoaders }) => {
-      return dataLoaders.lawyerLoader.load(lawyerId);
+      return dataLoaders.lawyerLoader.byLawyerId.load(lawyerId);
     },
     reviewReply: async ({ id }, _, { dataLoaders }) => {
-      return dataLoaders.reviewReplyLoader.load(id);
+      return dataLoaders.reviewReplyLoader.byReviewId.load(id);
     },
     specificDomain: async ({ specificDomainId }, _, { dataLoaders }) => {
-      return dataLoaders.specificDomainLoader.load(specificDomainId);
+      return dataLoaders.specificDomainLoader.bySpecificDomainId.load(
+        specificDomainId
+      );
     },
   },
 };

@@ -36,13 +36,14 @@ const generalDomainResolver = {
     },
   },
   GeneralDomain: {
-    specificDomains: async ({ id }, _, { models, transaction }) => {
-      return await transaction.repeatableReadTransaction(async () => {
-        const specificDomains = await models.SpecificDomain.findAll({
-          where: { generalDomainId: id },
-        });
-        return specificDomains;
-      });
+    specificDomains: async ({ id }, _, { dataLoaders }) => {
+      return dataLoaders.specificDomainLoader.byGeneralDomainId.load(id);
+      // return await transaction.repeatableReadTransaction(async () => {
+      //   const specificDomains = await models.SpecificDomain.findAll({
+      //     where: { generalDomainId: id },
+      //   });
+      //   return specificDomains;
+      // });
     },
   },
 };

@@ -31,12 +31,29 @@ const batchConsultingAnswersByLawyerId = async (
   });
 };
 
+const batchConsultingAnswersByConsultingAnswerId = async (
+  consultingAnswerIds,
+  { ConsultingAnswer }
+) => {
+  return await repeatableReadTransaction(async () => {
+    const consultingAnswers = await ConsultingAnswer.findAll({
+      where: { id: consultingAnswerIds },
+    });
+    return consultingAnswerIds.map((id) =>
+      consultingAnswers.find((consultingAnswer) => consultingAnswer.id === id)
+    );
+  });
+};
+
 const consultingAnswerLoader = (models) => ({
   byConsultingQuestionId: new DataLoader((consultingQuestionIds) =>
     batchConsultingAnswersByConsultingQuestionId(consultingQuestionIds, models)
   ),
   byLawyerId: new DataLoader((lawyerIds) =>
     batchConsultingAnswersByLawyerId(lawyerIds, models)
+  ),
+  byConsultingAnswerId: new DataLoader((consultingAnswerIds) =>
+    batchConsultingAnswersByConsultingAnswerId(consultingAnswerIds, models)
   ),
 });
 

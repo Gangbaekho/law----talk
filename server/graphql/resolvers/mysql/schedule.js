@@ -43,13 +43,15 @@ const scheduleResolver = {
   },
   Schedule: {
     user: async ({ userId }, _, { dataLoaders }) => {
-      return dataLoaders.userLoader.load(userId);
+      return dataLoaders.userLoader.byUserId.load(userId);
     },
     lawyer: async ({ lawyerId }, _, { dataLoaders }) => {
-      return dataLoaders.lawyerLoader.load(lawyerId);
+      return dataLoaders.lawyerLoader.byLawyerId.load(lawyerId);
     },
     specificDomain: async ({ specificDomainId }, _, { dataLoaders }) => {
-      return dataLoaders.specificDomainLoader.load(specificDomainId);
+      return dataLoaders.specificDomainLoader.bySpecificDomainId.load(
+        specificDomainId
+      );
     },
   },
 };

@@ -37,13 +37,13 @@ const reviewReplyResolver = {
   },
   ReviewReply: {
     review: async ({ reviewId }, _, { dataLoaders }) => {
-      return dataLoaders.reviewLoader.load(reviewId);
+      return dataLoaders.reviewLoader.byReviewId.load(reviewId);
     },
     lawyer: async ({ lawyerId }, _, { dataLoaders }) => {
-      return dataLoaders.lawyerLoader.load(lawyerId);
+      return dataLoaders.lawyerLoader.byLawyerId.load(lawyerId);
     },
     mongoLawyer: async ({ mongoLawyerId }, _, { dataLoaders }) => {
-      return dataLoaders.mongoLawyerLoader.load(mongoLawyerId);
+      return dataLoaders.mongoLawyerLoader.byMongoLawyerId.load(mongoLawyerId);
     },
   },
 };

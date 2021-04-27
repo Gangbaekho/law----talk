@@ -44,58 +44,25 @@ const SpecificDomainResolver = {
     },
   },
   SpecificDomain: {
-    posts: async ({ id }, _, { models, transaction }) => {
-      return await transaction.repeatableReadTransaction(async () => {
-        const posts = await models.Post.findAll({
-          where: { specificDomainId: id },
-          limit: 10,
-        });
-        return posts;
-      });
+    posts: async ({ id }, _, { dataLoaders }) => {
+      return dataLoaders.postLoader.bySpecificDomainId.load(id);
     },
-    videos: async ({ id }, _, { models, transaction }) => {
-      return await transaction.repeatableReadTransaction(async () => {
-        const videos = await models.Video.findAll({
-          where: { specificDomainId: id },
-          limit: 10,
-        });
-        return videos;
-      });
+    videos: async ({ id }, _, { dataLoaders }) => {
+      return dataLoaders.videoLoader.bySpecificDomainId.load(id);
     },
-    schedules: async ({ id }, _, { models, transaction }) => {
-      return await transaction.repeatableReadTransaction(async () => {
-        const schedules = await models.Schedule.findAll({
-          where: { specificDomainId: id },
-          limit: 10,
-        });
-        return schedules;
-      });
+    schedules: async ({ id }, _, { dataLoaders }) => {
+      return dataLoaders.scheduleLoader.bySpecificDomainId.load(id);
     },
-    reviews: async ({ id }, _, { models, transaction }) => {
-      return await transaction.repeatableReadTransaction(async () => {
-        const reviews = await models.Review.findAll({
-          where: { specificDomainId: id },
-          limit: 10,
-        });
-        return reviews;
-      });
+    reviews: async ({ id }, _, { dataLoaders }) => {
+      return dataLoaders.reviewLoader.bySpecificDomainId.load(id);
     },
-    consultingQuestions: async ({ id }, _, { models, transaction }) => {
-      return await transaction.repeatableReadTransaction(async () => {
-        const consultingQuestions = await models.ConsultingQuestion.findAll({
-          where: { specificDomainId: id },
-          limit: 10,
-        });
-        return consultingQuestions;
-      });
+    consultingQuestions: async ({ id }, _, { dataLoaders }) => {
+      return dataLoaders.consultingQuestionLoader.bySpecificDomainId.load(id);
     },
-    generalDomain: async ({ generalDomainId }, _, { models, transaction }) => {
-      return await transaction.repeatableReadTransaction(async () => {
-        const generalDomain = await models.GeneralDomain.findOne({
-          where: { id: generalDomainId },
-        });
-        return generalDomain;
-      });
+    generalDomain: async ({ generalDomainId }, _, { dataLoaders }) => {
+      return dataLoaders.generalDomainLoader.byGeneralDomainId.load(
+        generalDomainId
+      );
     },
   },
 };

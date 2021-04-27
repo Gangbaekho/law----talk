@@ -12,9 +12,23 @@ const batchVideosByLawyerId = async (lawyerIds, { Video }) => {
   });
 };
 
+const batchVideosBySpecificDomainId = async (specificDomainIds, { Video }) => {
+  return await repeatableReadTransaction(async () => {
+    const videos = await Video.findAll({
+      where: { specificDomainId: specificDomainIds },
+    });
+    return specificDomainIds.map((id) =>
+      videos.filter((video) => video.specificDomainId === id)
+    );
+  });
+};
+
 const videoLoader = (models) => ({
   byLawyerId: new DataLoader((lawyerIds) =>
     batchVideosByLawyerId(lawyerIds, models)
+  ),
+  bySpecificDomainId: new DataLoader((specificDomainIds) =>
+    batchVideosBySpecificDomainId(specificDomainIds, models)
   ),
 });
 

@@ -75,27 +75,14 @@ const userResolver = {
     },
   },
   User: {
-    reviews: async ({ id }, _, { models, transaction }) => {
-      return await transaction.repeatableReadTransaction(async (t) => {
-        const reviews = await models.Review.findAll({ where: { userId: id } });
-        return reviews;
-      });
+    reviews: async ({ id }, _, { dataLoaders }) => {
+      return dataLoaders.reviewLoader.byUserId.load(id);
     },
-    schedules: async ({ id }, _, { models, transaction }) => {
-      return await transaction.repeatableReadTransaction(async (t) => {
-        const schedules = await models.Schedule.findAll({
-          where: { userId: id },
-        });
-        return schedules;
-      });
+    schedules: async ({ id }, _, { dataLoaders }) => {
+      return dataLoaders.scheduleLoader.byUserId.load(id);
     },
-    consultingQuestions: async ({ id }, _, { models, transaction }) => {
-      return await transaction.repeatableReadTransaction(async (t) => {
-        const consultingQuestions = await models.ConsultingQuestion.findAll({
-          where: { userId: id },
-        });
-        return consultingQuestions;
-      });
+    consultingQuestions: async ({ id }, _, { dataLoaders }) => {
+      return dataLoaders.consultingQuestionLoader.byUserId.load(id);
     },
   },
 };

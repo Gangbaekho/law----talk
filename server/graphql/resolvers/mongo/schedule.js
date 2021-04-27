@@ -2,9 +2,8 @@ const Schedule = require("../../../models/mongo/schedule");
 
 const mongoScheduleResolver = {
   Query: {
-    mongoSchedule: async (_, { _id }) => {
-      const schedule = await Schedule.findOne({ _id });
-      return schedule._id;
+    mongoSchedule: async (_, { _id }, { dataLoaders }) => {
+      return dataLoaders.mongoScheduleLoader.byMongoScheduleId.load(_id);
     },
   },
   Mutation: {
