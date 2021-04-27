@@ -120,18 +120,13 @@ const lawyerResolver = {
   Lawyer: {
     scheduleConfig: async ({ id }, _, { dataLoaders }) => {
       return dataLoaders.scheduleConfigLoader.byLawyerId.load(id);
-      // return await transaction.repeatableReadTransaction(async () => {
-      //   const scheduleConfig = await models.ScheduleConfig.findOne({
-      //     where: { lawyerId: id },
-      //   });
-      //   return scheduleConfig;
-      // });
     },
-    posts: async ({ id }, _, { models, transaction }) => {
-      return await transaction.repeatableReadTransaction(async () => {
-        const posts = await models.Post.findAll({ where: { lawyerId: id } });
-        return posts;
-      });
+    posts: async ({ id }, _, { dataLoaders }) => {
+      return dataLoaders.postLoader.byLawyerId.load(id);
+      // return await transaction.repeatableReadTransaction(async () => {
+      //   const posts = await models.Post.findAll({ where: { lawyerId: id } });
+      //   return posts;
+      // });
     },
     videos: async ({ id }, _, { models, transaction }) => {
       return await transaction.repeatableReadTransaction(async () => {
