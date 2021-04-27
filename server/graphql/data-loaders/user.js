@@ -1,7 +1,7 @@
 const DataLoader = require("dataloader");
 const { repeatableReadTransaction } = require("../../util/transaction");
 
-const batchUsers = async (userIds, { User }) => {
+const batchUsersbyUserId = async (userIds, { User }) => {
   return await repeatableReadTransaction(async () => {
     const users = await User.findAll({
       where: { id: userIds },
@@ -10,6 +10,8 @@ const batchUsers = async (userIds, { User }) => {
   });
 };
 
-const userLoader = (models) => new DataLoader((ids) => batchUsers(ids, models));
+const userLoader = (models) => ({
+  byUserId: new DataLoader((ids) => batchUsers(ids, models)),
+});
 
 module.exports = userLoader;

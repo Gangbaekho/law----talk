@@ -1,6 +1,9 @@
 const DataLoader = require("dataloader");
 
-const batchMongoLawyers = async (mongoLawyerIds, { MongoLawyer }) => {
+const batchMongoLawyersByMongoLawyerIds = async (
+  mongoLawyerIds,
+  { MongoLawyer }
+) => {
   const lawyers = await MongoLawyer.find({ _id: mongoLawyerIds });
 
   return mongoLawyerIds.map((id) =>
@@ -8,7 +11,10 @@ const batchMongoLawyers = async (mongoLawyerIds, { MongoLawyer }) => {
   );
 };
 
-const mongoLawyerLoader = (models) =>
-  new DataLoader((ids) => batchMongoLawyers(ids, models));
+const mongoLawyerLoader = (models) => ({
+  byMongoLawyerId: new DataLoader((mongoLawyerIds) =>
+    batchMongoLawyersByMongoLawyerIds(mongoLawyerIds, models)
+  ),
+});
 
 module.exports = mongoLawyerLoader;

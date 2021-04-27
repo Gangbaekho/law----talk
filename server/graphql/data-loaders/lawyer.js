@@ -1,7 +1,7 @@
 const DataLoader = require("dataloader");
 const { repeatableReadTransaction } = require("../../util/transaction");
 
-const batchLawyers = async (lawyerIds, { Lawyer }) => {
+const batchLawyersByLawyerId = async (lawyerIds, { Lawyer }) => {
   return await repeatableReadTransaction(async () => {
     const lawyers = await Lawyer.findAll({
       where: { id: lawyerIds },
@@ -10,7 +10,10 @@ const batchLawyers = async (lawyerIds, { Lawyer }) => {
   });
 };
 
-const lawyerLoader = (models) =>
-  new DataLoader((ids) => batchLawyers(ids, models));
+const lawyerLoader = (models) => ({
+  byLawyerId: new DataLoader((lawyerIds) =>
+    batchLawyersByLawyerId(lawyerIds, models)
+  ),
+});
 
 module.exports = lawyerLoader;

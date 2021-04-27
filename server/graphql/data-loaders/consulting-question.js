@@ -1,7 +1,7 @@
 const DataLoader = require("dataloader");
 const { repeatableReadTransaction } = require("../../util/transaction");
 
-const batchConsultingQuestions = async (
+const batchConsultingQuestionsByConsultingQuestionId = async (
   consultingQuestionIds,
   { ConsultingQuestion }
 ) => {
@@ -13,7 +13,13 @@ const batchConsultingQuestions = async (
   });
 };
 
-const consultingQuestionLoader = (models) =>
-  new DataLoader((ids) => batchConsultingQuestions(ids, models));
+const consultingQuestionLoader = (models) => ({
+  byConsultingQuestionId: new DataLoader((consultingQuestionIds) =>
+    batchConsultingQuestionsByConsultingQuestionId(
+      consultingQuestionIds,
+      models
+    )
+  ),
+});
 
 module.exports = consultingQuestionLoader;

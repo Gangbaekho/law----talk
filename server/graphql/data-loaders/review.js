@@ -30,7 +30,4 @@ const reviewLoader = (models) => ({
   ),
 });
 
-// const reviewLoader = (models) =>
-//   new DataLoader((ids) => batchReviews(ids, models));
-
 module.exports = reviewLoader;
