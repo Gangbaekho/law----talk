@@ -126,18 +126,15 @@ const lawyerResolver = {
     },
     videos: async ({ id }, _, { dataLoaders }) => {
       return dataLoaders.videoLoader.byLawyerId.load(id);
-      // return await transaction.repeatableReadTransaction(async () => {
-      //   const videos = await models.Video.findAll({ where: { lawyerId: id } });
-      //   return videos;
-      // });
     },
-    schedules: async ({ id }, _, { models, transaction }) => {
-      return await transaction.repeatableReadTransaction(async () => {
-        const schedules = await models.Schedule.findAll({
-          where: { lawyerId: id },
-        });
-        return schedules;
-      });
+    schedules: async ({ id }, _, { dataLoaders }) => {
+      return dataLoaders.scheduleLoader.byLawyerId.load(id);
+      // return await transaction.repeatableReadTransaction(async () => {
+      //   const schedules = await models.Schedule.findAll({
+      //     where: { lawyerId: id },
+      //   });
+      //   return schedules;
+      // });
     },
     reviews: async ({ id }, _, { dataLoaders }) => {
       return dataLoaders.reviewLoader.byLawyerId.load(id);

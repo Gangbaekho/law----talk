@@ -9,6 +9,7 @@ const reviewLoader = require("./review");
 const scheduleConfigLoader = require("./schedule-config");
 const postLoader = require("./post");
 const videoLoader = require("./video");
+const scheduleLoader = require("./schedule");
 
 module.exports = (models) => ({
   consultingAnswerLoader: consultingAnswerLoader(models),
@@ -22,4 +23,5 @@ module.exports = (models) => ({
   scheduleConfigLoader: scheduleConfigLoader(models),
   postLoader: postLoader(models),
   videoLoader: videoLoader(models),
+  scheduleLoader: scheduleLoader(models),
 });
