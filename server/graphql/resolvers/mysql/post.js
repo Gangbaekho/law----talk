@@ -10,7 +10,8 @@ const schema = yup.object().shape({
 
 const postResolver = {
   Query: {
-    post: async (_, { id }, { models, transaction }) => {
+    post: async (_, { id }, { models, transaction, session }) => {
+      console.log(session.userId);
       return await transaction.repeatableReadTransaction(async () => {
         const post = await models.Post.findOne({ id });
         return post;

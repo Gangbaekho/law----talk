@@ -20,3 +20,8 @@ exports.test = async (req, res, next) => {
 
   res.json({ message: "success" });
 };
+
+exports.sessionTest = (req, res, next) => {
+  req.session.userId = 1;
+  res.json({ message: "session success!" });
+};

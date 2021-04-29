@@ -42,11 +42,10 @@ const userResolver = {
         return user.id;
       });
     },
-    loginUser: async (_, { userInput }, { myToken }) => {
-      console.log(myToken);
+    loginUser: async (_, { userInput }, { models, transaction, session }) => {
       const { email, password } = userInput;
 
-      const user = await User.findOne({ where: { email } });
+      const user = await models.User.findOne({ where: { email } });
 
       if (!user) {
         const error = new Error("user does not exists.");
@@ -62,16 +61,18 @@ const userResolver = {
         throw error;
       }
 
-      const token = jwt.sign(
-        {
-          email: user.email,
-          userId: user.id,
-        },
-        JWT_SECRET_CODE,
-        { expiresIn: "24h" }
-      );
+      // const token = jwt.sign(
+      //   {
+      //     email: user.email,
+      //     userId: user.id,
+      //   },
+      //   JWT_SECRET_CODE,
+      //   { expiresIn: "24h" }
+      // );
 
-      return token;
+      session.userId = user.id;
+
+      return user.id;
     },
   },
   User: {
