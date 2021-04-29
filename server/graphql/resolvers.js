@@ -13,6 +13,7 @@ const consultingQuestionResolver = require("./resolvers/mysql/consulting-questio
 const consultingAnswerResolver = require("./resolvers/mysql/consulting-answer");
 const postResolver = require("./resolvers/mysql/post");
 const videoResolver = require("./resolvers/mysql/video");
+const noticeResolver = require("./resolvers/mysql/notice");
 const mongoLawyerResolver = require("./resolvers/mongo/lawyer");
 const mongoScheduleResolver = require("./resolvers/mongo/schedule");
 
@@ -31,6 +32,7 @@ const resolvers = [
   consultingAnswerResolver,
   postResolver,
   videoResolver,
+  noticeResolver,
   mongoLawyerResolver,
   mongoScheduleResolver,
 ];

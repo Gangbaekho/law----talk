@@ -13,6 +13,7 @@ const consultingQuestionType = require("./schemas/mysql/consulting-question");
 const consultingAnswerType = require("./schemas/mysql/consulting-answer");
 const postType = require("./schemas/mysql/post");
 const videoType = require("./schemas/mysql/video");
+const noticeType = require("./schemas/mysql/notice");
 const mongoLawyerType = require("./schemas/mongo/lawyer");
 const mongoScheduleType = require("./schemas/mongo/schedule");
 
@@ -31,6 +32,7 @@ const types = [
   consultingAnswerType,
   postType,
   videoType,
+  noticeType,
   mongoLawyerType,
   mongoScheduleType,
 ];
