@@ -7,13 +7,13 @@ const schema = yup.object().shape({
 const consultingAnswerResolver = {
   Query: {
     consultingAnswer: async (_, { id }, { dataLoaders }) => {
-      return dataLoaders.consultingAnswerLoader.byConsultingAnswerId.load(id);
-      // return await transaction.repeatableReadTransaction(async () => {
-      //   const consultingAnswer = await models.ConsultingAnswer.findOne({
-      //     where: { id },
-      //   });
-      //   return consultingAnswer;
-      // });
+      // return dataLoaders.consultingAnswerLoader.byConsultingAnswerId.load(id);
+      return await transaction.repeatableReadTransaction(async () => {
+        const consultingAnswer = await models.ConsultingAnswer.findOne({
+          where: { id },
+        });
+        return consultingAnswer;
+      });
     },
   },
 

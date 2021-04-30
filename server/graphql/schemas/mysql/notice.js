@@ -23,3 +23,5 @@ const noticeSchema = gql`
     createNotice(noticeInput: NoticeInputType!): Int!
   }
 `;
+
+module.exports = noticeSchema;

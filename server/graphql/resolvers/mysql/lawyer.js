@@ -1,5 +1,7 @@
 const yup = require("yup");
 const Lawyer = require("../../../models/mysql/lawyer");
+const { Op } = require("sequelize");
+const moment = require("moment");
 
 const { QueryTypes } = require("sequelize");
 const sequelize = require("../../../util/mysql");
@@ -79,6 +81,32 @@ const lawyerResolver = {
         // });
         // const lawyers = specificDomainWithLawyers.lawyers;
         // return lawyers;
+      });
+    },
+    getLawyersByRecentAnswerCount: async (_, __, { models, transaction }) => {
+      return await transaction.repeatableReadTransaction(async () => {
+        const orderedLawyers = await models.ConsultingAnswer.findAll({
+          attributes: ["lawyerId"],
+          where: {
+            createdAt: {
+              [Op.and]: {
+                [Op.lte]: moment().subtract(9, "days").format("YYYY-MM-DD"),
+                [Op.gte]: moment().subtract(16, "days").format("YYYY-MM-DD"),
+              },
+            },
+          },
+          group: "lawyerId",
+          order: [sequelize.fn("count", sequelize.col("*"))],
+        });
+        const orderedLawyerIds = orderedLawyers.map(
+          (lawyer) => lawyer.lawyerId
+        );
+
+        const lawyers = await models.Lawyer.findAll({
+          where: { id: orderedLawyerIds.reverse() },
+        });
+
+        return lawyers;
       });
     },
   },
