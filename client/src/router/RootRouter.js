@@ -17,6 +17,7 @@ import SpecificRegionPage from "../page/SpecificRegionPage";
 import VideoPage from "../page/VideoPage";
 import PostDetailPage from "../page/PostDetailPage";
 import VideoDetailPage from "../page/VideoPage";
+import TestPage from "../page/TestPage";
 
 const RootRouter = () => {
   return (
@@ -38,6 +39,7 @@ const RootRouter = () => {
         <Route path="/video" component={VideoPage} exact />
         <Route path="/video/:videoId" component={VideoDetailPage} exact />
         <Route path="/notice" component={NoticePage} exact />
+        <Route path="/test" component={TestPage} exact />
         <Route component={NotExistPage} />
       </Switch>
     </BrowserRouter>
