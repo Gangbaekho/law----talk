@@ -1,10 +1,11 @@
 import React from "react";
-import MainHeader from "../component/MainHeader";
+// import MainHeader from "../component/MainHeader";
+import MainCarousel from "../component/MainCarousel";
 
 const TestPage = (props) => {
   return (
     <>
-      <MainHeader />
+      <MainCarousel />
     </>
   );
 };
