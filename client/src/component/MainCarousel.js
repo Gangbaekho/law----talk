@@ -8,13 +8,13 @@ const MainCarousel = (props) => {
     <CarouselContainer>
       <Carousel showThumbs={false} autoPlay={true} width={1080}>
         <div className="carousel-item">
-          <img src="images/image1.jpg" />
+          <img src="images/image1.s.jpg" />
         </div>
         <div className="carousel-item">
-          <img src="images/image1.jpg" />
+          <img src="images/image1.s.jpg" />
         </div>
         <div className="carousel-item">
-          <img src="images/image1.jpg" />
+          <img src="images/image1.s.jpg" />
         </div>
       </Carousel>
     </CarouselContainer>
@@ -22,6 +22,8 @@ const MainCarousel = (props) => {
 };
 
 const CarouselContainer = styled.div`
+  margin-top: 2rem;
+
   .carousel {
     margin: 0 auto;
   }

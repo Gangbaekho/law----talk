@@ -1,11 +1,12 @@
 import React from "react";
 // import MainHeader from "../component/MainHeader";
-import MainCarousel from "../component/MainCarousel";
+// import MainCarousel from "../component/MainCarousel";
+import SpecificDomainSection from "../component/SpecificDomainSection";
 
 const TestPage = (props) => {
   return (
     <>
-      <MainCarousel />
+      <SpecificDomainSection />
     </>
   );
 };
