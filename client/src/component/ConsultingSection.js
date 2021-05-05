@@ -48,7 +48,7 @@ const ConsultingSection = (props) => {
               <h4>30분 방문상담</h4>
               <p>
                 복잡한 사안이라면, 변호사 사무실로 방문하여 더 확실하고 깊이있게
-                문제를 해결하세요.
+                문제를 해결하세요.상담 중 파일공유도 가능합니다.
               </p>
               <Link className="link">분야찾고 예약하기 &#62;</Link>
             </div>
@@ -117,6 +117,7 @@ const ConsultingSectionContainer = styled.div`
   .link {
     color: #f84518;
     font-weight: bold;
+    text-decoration: none;
   }
 
   .online-consulting {

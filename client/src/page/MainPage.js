@@ -6,6 +6,7 @@ import SpecificDomainSection from "../component/SpecificDomainSection";
 import SepcificRegionSection from "../component/SpecificRegionSection";
 import ConsultingSection from "../component/ConsultingSection";
 import PredictionSection from "../component/PredictionSection";
+import LawyerBanner from "../component/LawyerBanner";
 
 const MainPage = (props) => {
   return (
@@ -16,6 +17,7 @@ const MainPage = (props) => {
       <SepcificRegionSection />
       <ConsultingSection />
       <PredictionSection />
+      <LawyerBanner />
     </>
   );
 };
