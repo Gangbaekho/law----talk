@@ -29,7 +29,6 @@ const SpecificRegionSection = (props) => {
 
 const SepcificRegionSectionContainer = styled.div`
   width: 1080px;
-  border: 2px solid black;
   margin: 2rem auto;
 `;
 

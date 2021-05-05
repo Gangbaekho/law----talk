@@ -30,10 +30,10 @@ const ConsultingSection = (props) => {
               </h3>
             </div>
             <div className="description">
-              <h4>15분 전화상담.</h4>
+              <h4>20분 영상상담</h4>
               <p>
-                예약한 시간에 변호사로부터 전화가 옵니다. 2만원 ~ 5만원 사이의
-                부담없는 상담비로 빠르게 해결책을 문의하세요.
+                사무실 방문이 어렵다면 영상상담으로 서로 마주보고 상담하세요.
+                상담 중 파일공유도 가능합니다.
               </p>
               <Link className="link">분야찾고 예약하기 &#62;</Link>
             </div>
@@ -45,10 +45,10 @@ const ConsultingSection = (props) => {
               </h3>
             </div>
             <div className="description">
-              <h4>15분 전화상담.</h4>
+              <h4>30분 방문상담</h4>
               <p>
-                예약한 시간에 변호사로부터 전화가 옵니다. 2만원 ~ 5만원 사이의
-                부담없는 상담비로 빠르게 해결책을 문의하세요.
+                복잡한 사안이라면, 변호사 사무실로 방문하여 더 확실하고 깊이있게
+                문제를 해결하세요.
               </p>
               <Link className="link">분야찾고 예약하기 &#62;</Link>
             </div>
@@ -124,21 +124,21 @@ const ConsultingSectionContainer = styled.div`
   }
 
   .image1 {
-    background-image: url("/images/bg1.jpg");
+    background-image: url("/images/bg1.s.jpg");
     background-repeat: none;
     background-size: cover;
     background-position: center;
   }
 
   .image2 {
-    background-image: url("/images/bg1.jpg");
+    background-image: url("/images/bg1.s.jpg");
     background-repeat: none;
     background-size: cover;
     background-position: center;
   }
 
   .image3 {
-    background-image: url("/images/bg1.jpg");
+    background-image: url("/images/bg1.s.jpg");
     background-repeat: none;
     background-size: cover;
     background-position: center;

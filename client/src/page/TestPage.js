@@ -3,12 +3,13 @@ import React from "react";
 // import MainCarousel from "../component/MainCarousel";
 // import SpecificDomainSection from "../component/SpecificDomainSection";
 // import SpecificRegionSection from "../component/SpecificRegionSection";
-import ConsultingSection from "../component/ConsultingSection";
+// import ConsultingSection from "../component/ConsultingSection";
+import PredictionSection from "../component/PredictionSection";
 
 const TestPage = (props) => {
   return (
     <>
-      <ConsultingSection />
+      <PredictionSection />
     </>
   );
 };

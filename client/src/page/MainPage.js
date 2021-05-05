@@ -5,6 +5,7 @@ import MainCarousel from "../component/MainCarousel";
 import SpecificDomainSection from "../component/SpecificDomainSection";
 import SepcificRegionSection from "../component/SpecificRegionSection";
 import ConsultingSection from "../component/ConsultingSection";
+import PredictionSection from "../component/PredictionSection";
 
 const MainPage = (props) => {
   return (
@@ -14,6 +15,7 @@ const MainPage = (props) => {
       <SpecificDomainSection />
       <SepcificRegionSection />
       <ConsultingSection />
+      <PredictionSection />
     </>
   );
 };
