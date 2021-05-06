@@ -7,6 +7,7 @@ import SepcificRegionSection from "../component/SpecificRegionSection";
 import ConsultingSection from "../component/ConsultingSection";
 import PredictionSection from "../component/PredictionSection";
 import LawyerBanner from "../component/LawyerBanner";
+import MainFooter from "../component/MainFooter";
 
 const MainPage = (props) => {
   return (
@@ -18,6 +19,7 @@ const MainPage = (props) => {
       <ConsultingSection />
       <PredictionSection />
       <LawyerBanner />
+      <MainFooter />
     </>
   );
 };
