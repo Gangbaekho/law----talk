@@ -36,7 +36,9 @@ const LoginPage = (props) => {
         </div>
         <div className="signup-section">
           <div>
-            <Link className="signup">회원가입</Link>
+            <Link to="/signup" className="signup">
+              회원가입
+            </Link>
           </div>
           <div>
             <Link className="company">JINTALK CO.Ltd</Link>
