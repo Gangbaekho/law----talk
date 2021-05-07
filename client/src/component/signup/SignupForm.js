@@ -1,23 +1,38 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { graphqlRequest } from "../../utils/fetchApis";
+import { useHistory } from "react-router-dom";
 
-const UserSignup = (props) => {
+const SignupForm = (props) => {
+  const { formPage } = props;
+  const history = useHistory();
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
 
   const formHandler = () => {
-    const graphqlMutation = {
-      query: `
-          mutation {
-            createUser(userInput:{email:"${userId}",password:"${password}"})
-          }
-        `,
-    };
+    let graphqlMutation;
+    if (formPage === "의뢰인") {
+      graphqlMutation = {
+        query: `
+            mutation {
+              createUser(userInput:{email:"${userId}",password:"${password}"})
+            }
+          `,
+      };
+    } else {
+      graphqlMutation = {
+        query: `
+            mutation {
+              createLawyer(lawyerInput:{mongodbId:"null",email:"${userId}",password:"${password}",isPremium:"N",priorityScore:0})
+            }
+          `,
+      };
+    }
 
     graphqlRequest(graphqlMutation)
       .then((data) => {
         console.log(data);
+        history.push("/");
       })
       .catch((error) => {
         console.log(error);
@@ -132,4 +147,4 @@ const StyleContainer = styled.div`
   }
 `;
 
-export default UserSignup;
+export default SignupForm;

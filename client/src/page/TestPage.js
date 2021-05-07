@@ -7,12 +7,12 @@ import React from "react";
 // import PredictionSection from "../component/PredictionSection";
 // import LawyerBanner from "../component/LawyerBanner";
 // import MainFooter from "../component/MainFooter";
-import UserSignup from "../component/signup/UserSignup";
+import SignupForm from "../component/signup/SignupForm";
 
 const TestPage = (props) => {
   return (
     <>
-      <UserSignup />
+      <SignupForm />
     </>
   );
 };

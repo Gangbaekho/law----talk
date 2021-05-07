@@ -1,47 +1,73 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import SingupForm from "../component/signup/SignupForm";
 
 const SignupPage = (props) => {
-  return (
-    <StyleContainer>
-      <div className="content">
-        <div className="banner">
-          <h3 className="logo">JINTALK</h3>
-          <h3 className="signup">무료회원가입</h3>
-        </div>
-        <div className="cards">
-          <div className="card">
-            <h2>
-              <span className="highlight">의뢰인</span>이신가요?
-            </h2>
-            <p>
-              로톡 이천여 명 변호사님들 중 나에게 꼭 맞는 변호사를 찾아보세요.
-            </p>
-            <button className="signup-button">의뢰인으로 가입하기</button>
+  const [formPage, setFormPage] = useState("");
+
+  if (formPage === "") {
+    return (
+      <StyleContainer>
+        <div className="content">
+          <div className="banner">
+            <h3 className="logo">JINTALK</h3>
+            <h3 className="signup">무료회원가입</h3>
           </div>
-          <div className="card">
-            <h2>
-              <span className="highlight">변호사</span>이신가요?
-            </h2>
-            <p>
-              로톡의 좋은 변호사가 되어 자신있는 분야의 의뢰인들을 만나보세요.
-            </p>
-            <button className="signup-button">변호사로 가입하기</button>
+          <div className="cards">
+            <div className="card">
+              <h2>
+                <span className="highlight">의뢰인</span>
+                이신가요?
+              </h2>
+              <p>
+                로톡 이천여 명 변호사님들 중 나에게 꼭 맞는 변호사를 찾아보세요.
+              </p>
+              <button
+                className="signup-button"
+                onClick={() => {
+                  console.log("의뢰인");
+                  setFormPage("의뢰인");
+                }}
+              >
+                의뢰인으로 가입하기
+              </button>
+            </div>
+            <div className="card">
+              <h2>
+                <span className="highlight">변호사</span>이신가요?
+              </h2>
+              <p>
+                로톡의 좋은 변호사가 되어 자신있는 분야의 의뢰인들을 만나보세요.
+              </p>
+              <button
+                className="signup-button"
+                onClick={() => {
+                  console.log("변호사");
+                  setFormPage("변호사");
+                }}
+              >
+                변호사로 가입하기
+              </button>
+            </div>
+          </div>
+          <div className="footer">
+            <ul>
+              <li>
+                <Link to="/login/" className="link">
+                  로그인
+                </Link>
+              </li>
+              <li>변호사 가입안내</li>
+            </ul>
+            <p>JINTALK Co., Ltd.</p>
           </div>
         </div>
-        <div className="footer">
-          <ul>
-            <li>
-              <Link className="link">로그인</Link>
-            </li>
-            <li>변호사 가입안내</li>
-          </ul>
-          <p>JINTALK Co., Ltd.</p>
-        </div>
-      </div>
-    </StyleContainer>
-  );
+      </StyleContainer>
+    );
+  }
+
+  return <SingupForm formPage={formPage} />;
 };
 
 const StyleContainer = styled.div`
