@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
+import { graphqlRequest } from "../utils/fetchApis";
 
 const LoginPage = (props) => {
   const history = useHistory();
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
 
-  const formHandler = (e) => {
+  const formHandler = async (e) => {
     const graphqlMutation = {
       query: `
         mutation {
@@ -16,22 +17,8 @@ const LoginPage = (props) => {
       `,
     };
 
-    fetch("http://localhost:4000/graphql", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(graphqlMutation),
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        console.log(data);
-        if (!data.errors) {
-          history.push("/");
-        }
-      })
+    graphqlRequest(graphqlMutation)
+      .then((data) => console.log(data))
       .catch((error) => {
         console.log(error);
       });
