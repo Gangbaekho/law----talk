@@ -1,14 +1,51 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 
 const LoginPage = (props) => {
+  const history = useHistory();
+  const [userId, setUserId] = useState("");
+  const [password, setPassword] = useState("");
+
+  const formHandler = (e) => {
+    const graphqlMutation = {
+      query: `
+        mutation {
+          loginUser(userInput:{email:"${userId}",password:"${password}"})
+        }
+      `,
+    };
+
+    fetch("http://localhost:4000/graphql", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(graphqlMutation),
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+        if (!data.errors) {
+          history.push("/");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <StyleContainer>
       <div className="content">
         <div className="login-section">
           <div>
-            <Link className="link"> &#60; 로톡으로</Link>
+            <Link to="/" className="link">
+              {" "}
+              &#60; 로톡으로
+            </Link>
           </div>
           <h1>
             LOGIN<span className="dot">.</span>
@@ -22,12 +59,26 @@ const LoginPage = (props) => {
             <li>로그인</li>
             <li>변호사로 로그인</li>
           </ul>
-          <form className="login-form">
+          <form
+            className="login-form"
+            onSubmit={(e) => {
+              e.preventDefault();
+              formHandler();
+            }}
+          >
             <div>
-              <input type="text" placeholder="아이디" />
+              <input
+                type="text"
+                placeholder="아이디"
+                onInput={(e) => setUserId(e.target.value)}
+              />
             </div>
             <div>
-              <input type="password" placeholder="비밀번호" />
+              <input
+                type="password"
+                placeholder="비밀번호"
+                onInput={(e) => setPassword(e.target.value)}
+              />
             </div>
             <div className="erase">
               <button className="login-button">로그인</button>
@@ -41,7 +92,9 @@ const LoginPage = (props) => {
             </Link>
           </div>
           <div>
-            <Link className="company">JINTALK CO.Ltd</Link>
+            <Link to="/" className="company">
+              JINTALK CO.Ltd
+            </Link>
           </div>
         </div>
       </div>
