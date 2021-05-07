@@ -6,12 +6,13 @@ import React from "react";
 // import ConsultingSection from "../component/ConsultingSection";
 // import PredictionSection from "../component/PredictionSection";
 // import LawyerBanner from "../component/LawyerBanner";
-import MainFooter from "../component/MainFooter";
+// import MainFooter from "../component/MainFooter";
+import UserSignup from "../component/signup/UserSignup";
 
 const TestPage = (props) => {
   return (
     <>
-      <MainFooter />
+      <UserSignup />
     </>
   );
 };
