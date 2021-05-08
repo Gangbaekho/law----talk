@@ -28,14 +28,15 @@ const Consulting = (props) => {
 };
 
 const StyleContainer = styled.div`
-  padding: 1rem;
+  padding: 2rem 1rem;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   h4 {
     color: #555555;
   }
   h2 {
-    margin-top: 0.5rem;
+    margin-top: 0px;
     margin-bottom: 1rem;
+    border-bottom: none;
   }
   p {
     color: #555555;

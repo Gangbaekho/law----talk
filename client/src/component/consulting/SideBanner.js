@@ -49,6 +49,10 @@ const StyleContainer = styled.div`
   }
 
   .lawyer-rank {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     padding: 1rem;
     h3 {
       color: #555;
