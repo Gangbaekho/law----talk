@@ -10,6 +10,7 @@ import React from "react";
 // import SignupForm from "../component/signup/SignupForm";
 import styled from "styled-components";
 import Consulting from "../component/consulting/Consulting";
+import SideBanner from "../component/consulting/SideBanner";
 
 const TestPage = (props) => {
   return (
@@ -22,7 +23,9 @@ const TestPage = (props) => {
           <Consulting />
           <Consulting />
         </div>
-        <div className="side"></div>
+        <div className="side">
+          <SideBanner />
+        </div>
       </div>
     </StyleContainer>
   );
