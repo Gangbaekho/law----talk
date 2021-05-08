@@ -45,7 +45,7 @@ const SignupForm = (props) => {
         <div className="banner">
           <h2 className="logo">JINTALK</h2>
           <h2>Good Lawyers</h2>
-          <h4>의뢰인 회원가입</h4>
+          <h4>{formPage} 회원가입</h4>
         </div>
         <div className="form-container">
           <p>계정정보</p>
