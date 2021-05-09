@@ -18,7 +18,11 @@ const LoginPage = (props) => {
     };
 
     graphqlRequest(graphqlMutation)
-      .then((data) => console.log(data))
+      .then((data) => {
+        if (!data.errors) {
+          history.push("/");
+        }
+      })
       .catch((error) => {
         console.log(error);
       });

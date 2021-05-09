@@ -1,16 +1,36 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import MainHeader from "../component/MainHeader";
 import MainFooter from "../component/MainFooter";
 import styled from "styled-components";
 import Consulting from "../component/consulting/Consulting";
 import SideBanner from "../component/consulting/SideBanner";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchConsultingQuestions } from "../store/action/consulting-questions";
 
 const ConsultingPage = (props) => {
+  const dispatch = useDispatch();
+
+  const graphqlQuery = {
+    query: `
+      query {
+        getConsultingQuestions(specificDomainId:1){
+          title
+          content
+          viewCount 
+        }
+      }
+    `,
+  };
+
+  useEffect(() => {
+    dispatch(fetchConsultingQuestions(graphqlQuery));
+  }, []);
+
   return (
     <>
       <MainHeader />
       <StyleContainer>
-        <h2>상담사례</h2>
+        <h2 className="title">상담사례</h2>
         <div className="flex-container">
           <div className="consultings">
             <Consulting />
@@ -42,9 +62,9 @@ const StyleContainer = styled.div`
   width: 1080px;
   margin: 0 auto;
 
-  h2 {
+  .title {
     margin: 2rem 0;
-    padding: 1rem 0;
+    padding: 1rem;
     border-bottom: 1px solid #555;
     color: rgba(0, 0, 0, 0.8);
   }

@@ -11,11 +11,13 @@ import { composeWithDevTools } from "redux-devtools-extension";
 
 // REDUCERS
 import testReducer from "./store/reducer/test";
+import consultingQuestoinReducer from "./store/reducer/consulting-question";
 
 import reportWebVitals from "./reportWebVitals";
 
 const rootReducer = combineReducers({
   test: testReducer,
+  consultingQuestion: consultingQuestoinReducer,
 });
 
 const store = createStore(
