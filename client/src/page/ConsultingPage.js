@@ -6,25 +6,86 @@ import Consulting from "../component/consulting/Consulting";
 import SideBanner from "../component/consulting/SideBanner";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchConsultingQuestions } from "../store/action/consulting-questions";
+import { useQuery } from "urql";
+
+const POSTS_QUERY = {
+  query: `
+  query{
+    getConsultingQuestions(specificDomainId:1){
+      specificDomain{
+        domainName
+      }
+      title
+      viewCount
+      content
+        createdAt
+        updatedAt 
+      consultingAnswers{
+        content
+        mongoLawyer
+        {
+          lawyerName
+          lawyerProfileImageUrl
+          companyName
+          companyPhoneNumber
+        }
+        createdAt
+        updatedAt
+        recommendationCount
+      }
+    }
+  }
+  `,
+};
 
 const ConsultingPage = (props) => {
-  const dispatch = useDispatch();
+  const [{ fetching, data }, getQuery] = useQuery(POSTS_QUERY);
+  // const dispatch = useDispatch();
 
-  const graphqlQuery = {
-    query: `
-      query {
-        getConsultingQuestions(specificDomainId:1){
-          title
-          content
-          viewCount 
-        }
-      }
-    `,
-  };
+  // const graphqlQuery = {
+  //   query: `
+  //     query {
+  //       getConsultingQuestions(specificDomainId:1){
+  //         title
+  //         content
+  //         viewCount
+  //       }
+  //     }
+  //   `,
+  // };
+
+  // useEffect(() => {
+  //   dispatch(fetchConsultingQuestions(graphqlQuery));
+  // }, []);
 
   useEffect(() => {
-    dispatch(fetchConsultingQuestions(graphqlQuery));
+    getQuery();
   }, []);
+
+  let body;
+  if (fetching) {
+    body = <div>Data is loading..</div>;
+  } else if (!data.getConsultingQuestions) {
+    body = <div>Something went wrong</div>;
+  } else {
+    body = (
+      <div className="consultings">
+        {data.getConsultingQuestions.map((consultingQuestion) => (
+          <Consulting {...consultingQuestion} />
+        ))}
+        <div className="pagination">
+          <ul>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+            <li>6</li>
+          </ul>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -32,22 +93,7 @@ const ConsultingPage = (props) => {
       <StyleContainer>
         <h2 className="title">상담사례</h2>
         <div className="flex-container">
-          <div className="consultings">
-            <Consulting />
-            <Consulting />
-            <Consulting />
-            <Consulting />
-            <div className="pagination">
-              <ul>
-                <li>1</li>
-                <li>2</li>
-                <li>3</li>
-                <li>4</li>
-                <li>5</li>
-                <li>6</li>
-              </ul>
-            </div>
-          </div>
+          {body}
           <div className="side">
             <SideBanner />
           </div>

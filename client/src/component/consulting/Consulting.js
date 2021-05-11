@@ -1,27 +1,35 @@
 import React from "react";
 import styled from "styled-components";
 
-const Consulting = (props) => {
+const Consulting = ({
+  specificDomain,
+  title,
+  consultingAnswers,
+  content,
+  recommendationCount,
+  viewCount,
+  mongoLawyer,
+  createdAt,
+  updatedAt,
+}) => {
   return (
     <StyleContainer>
-      <h4>이혼</h4>
-      <h2>이혼 조정을 하는데 양육비가 어떻게 나오나요</h2>
+      <h4>{specificDomain.domainName}</h4>
+      <h2>{title}</h2>
       <p>
-        <span className="highlight">답변</span> 조현정 변호사
+        <span className="highlight">답변</span>
+        {consultingAnswers[0]
+          ? consultingAnswers[0].mongoLawyer.lawyerName
+          : "아직 답변 없음."}
       </p>
-      <p>
-        1. 귀하의 소득을 고려하면 현재 요구하는 양육비가 지나치게 많은 것으로
-        보이지는 않습니다. 만약 10년뒤 귀하의 경제적인 사정이 지금과 달라진다면
-        양육비감액청구를 통하여 조정할 수 있을 것입니다. 2. 이와 관련하여 더
-        구체적인
-      </p>
-      <p>다른 변호사 답변 3개</p>
+      <p>{consultingAnswers[0] ? consultingAnswers[0].content : ""}</p>
+      <p>다른 변호사 답변 {consultingAnswers.length}개</p>
       <div className="flex-container">
         <ul>
-          <li>조회수</li>
-          <li>좋아요</li>
+          <li>{viewCount}</li>
+          <li>{recommendationCount}</li>
         </ul>
-        <div>3시간 전 답변 작성됨.</div>
+        <div>{createdAt}</div>
       </div>
     </StyleContainer>
   );

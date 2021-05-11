@@ -8,6 +8,7 @@ import { createStore, combineReducers, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import ReduxThunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
+import { Provider as URQLProvider, createClient } from "urql";
 
 // REDUCERS
 import testReducer from "./store/reducer/test";
@@ -25,10 +26,19 @@ const store = createStore(
   composeWithDevTools(applyMiddleware(ReduxThunk))
 );
 
+const client = createClient({
+  url: "http://localhost:4000/graphql",
+  fetchOptions: {
+    credentials: "include",
+  },
+});
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <RootRouter />
+      <URQLProvider value={client}>
+        <RootRouter />
+      </URQLProvider>
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")
