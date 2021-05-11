@@ -90,8 +90,8 @@ const lawyerResolver = {
           where: {
             createdAt: {
               [Op.and]: {
-                [Op.lte]: moment().subtract(9, "days").format("YYYY-MM-DD"),
-                [Op.gte]: moment().subtract(16, "days").format("YYYY-MM-DD"),
+                [Op.lte]: moment().format("YYYY-MM-DD"),
+                [Op.gte]: moment().subtract(7, "days").format("YYYY-MM-DD"),
               },
             },
           },
@@ -123,15 +123,15 @@ const lawyerResolver = {
       await schema.validate({ email, password });
 
       return await transaction.serializableTransaction(async () => {
-        const mongoLawyer = await models.MongoLawyer.findOne({
-          _id: mongodbId,
-        });
+        // const mongoLawyer = await models.MongoLawyer.findOne({
+        //   _id: mongodbId,
+        // });
 
-        if (!mongoLawyer) {
-          const error = new Error("invalid mongodbId");
-          error.statusCode = 422;
-          throw error;
-        }
+        // if (!mongoLawyer) {
+        //   const error = new Error("invalid mongodbId");
+        //   error.statusCode = 422;
+        //   throw error;
+        // }
 
         const lawyer = await models.Lawyer.create({
           mongodbId,

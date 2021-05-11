@@ -19,6 +19,7 @@ const RedisStore = require("connect-redis")(session);
 const redisClient = require("./redisClient");
 
 const SESSION_SECRET_KEY = require("./session-secret-key");
+const cors = require("cors");
 
 async function startApolloServer() {
   const server = new ApolloServer({
@@ -37,6 +38,13 @@ async function startApolloServer() {
   const app = express();
 
   app.use(
+    cors({
+      origin: "http://localhost:3000",
+      credentials: true,
+    })
+  );
+
+  app.use(
     session({
       store: new RedisStore({ client: redisClient }),
       name: "qid",
@@ -53,7 +61,7 @@ async function startApolloServer() {
 
   app.use("/test", testRoutes);
 
-  server.applyMiddleware({ app });
+  server.applyMiddleware({ app, cors: false });
 
   associateTables();
   await databaseConnect();
