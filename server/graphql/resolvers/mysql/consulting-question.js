@@ -56,6 +56,21 @@ const consultingQuestionResolver = {
         };
       });
     },
+    getConsultingQuestionDetail: async (
+      _,
+      { consultingQuestionId },
+      { models, transaction }
+    ) => {
+      return await transaction.repeatableReadTransaction(async () => {
+        const consultingQuestion = await models.ConsultingQuestion.findOne({
+          where: { id: consultingQuestionId },
+        });
+        if (!consultingQuestion) {
+          return null;
+        }
+        return consultingQuestion;
+      });
+    },
   },
   Mutation: {
     createConsultingQuestion: async (

@@ -40,6 +40,7 @@ const consultingQuestionSchema = gql`
       specificDomainId: Int!
       page: Int
     ): CurrentPageConsultingAnswersResponse
+    getConsultingQuestionDetail(consultingQuestionId: Int!): ConsultingQuestion
   }
 
   type Mutation {
