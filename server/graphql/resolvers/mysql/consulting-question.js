@@ -63,12 +63,8 @@ const consultingQuestionResolver = {
       { consultingQuestionInput },
       { models, transaction }
     ) => {
-      const {
-        userId,
-        specificDomainId,
-        title,
-        content,
-      } = consultingQuestionInput;
+      const { userId, specificDomainId, title, content } =
+        consultingQuestionInput;
 
       await schema.validate({ title, content });
 

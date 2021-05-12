@@ -39,7 +39,7 @@ const consultingQuestionSchema = gql`
     getCurrentPageConsultingQuestions(
       specificDomainId: Int!
       page: Int
-    ): CurrentPageConsultingAnswersResponse!
+    ): CurrentPageConsultingAnswersResponse
   }
 
   type Mutation {
