@@ -25,7 +25,11 @@ const RootRouter = () => {
     <BrowserRouter>
       <Switch>
         <Route path="/" component={MainPage} exact />
-        <Route path="/consulting" component={ConsultingPage} exact />
+        <Route
+          path="/consulting/:specificDomainId"
+          component={ConsultingPage}
+          exact
+        />
         <Route path="/consulting-write" component={ConsultingWritePage} exact />
         <Route path="/integrate" component={IntegratePage} exact />
         <Route path="/lawyer" component={LawyerPage} exact />

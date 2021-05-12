@@ -7,11 +7,12 @@ import SideBanner from "../component/consulting/SideBanner";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchConsultingQuestions } from "../store/action/consulting-questions";
 import { useQuery } from "urql";
+import Pagination from "../component/common/Pagination";
 
-const POSTS_QUERY = {
+const POSTS_QUERY = (specificDomainId, page) => ({
   query: `
   query{
-    getCurrentPageConsultingQuestions(specificDomainId:1,page:1){
+    getCurrentPageConsultingQuestions(specificDomainId:${specificDomainId},page:${page}){
       consultingQuestions{
         specificDomain{
           domainName
@@ -45,10 +46,16 @@ const POSTS_QUERY = {
     }
   }
   `,
-};
+});
 
 const ConsultingPage = (props) => {
-  const [{ fetching, data }, getQuery] = useQuery(POSTS_QUERY);
+  const { specificDomainId } = props.match.params;
+  console.log(specificDomainId);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const [{ fetching, data }, getQuery] = useQuery(
+    POSTS_QUERY(specificDomainId, currentPage)
+  );
 
   useEffect(() => {
     getQuery();
@@ -67,16 +74,11 @@ const ConsultingPage = (props) => {
             <Consulting {...consultingQuestion} />
           )
         )}
-        <div className="pagination">
-          <ul>
-            <li>1</li>
-            <li>2</li>
-            <li>3</li>
-            <li>4</li>
-            <li>5</li>
-            <li>6</li>
-          </ul>
-        </div>
+        <Pagination
+          currentPage={currentPage}
+          lastPage={data.getCurrentPageConsultingQuestions.lastPage}
+          setCurrentPage={setCurrentPage}
+        />
       </div>
     );
   }

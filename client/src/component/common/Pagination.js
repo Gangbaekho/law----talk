@@ -10,7 +10,7 @@ const createPageNumbers = (lastPage) => {
   return pageNumbers;
 };
 
-const Pagination = ({ currentPage, lastPage }) => {
+const Pagination = ({ currentPage, lastPage, setCurrentPage }) => {
   const pageNumbers = createPageNumbers(lastPage);
 
   return (
@@ -19,12 +19,20 @@ const Pagination = ({ currentPage, lastPage }) => {
         {pageNumbers.map((page) => {
           if (page === currentPage) {
             return (
-              <li key={page} className="highlight">
+              <li
+                key={page}
+                className="highlight"
+                onClick={() => setCurrentPage(page)}
+              >
                 {page}
               </li>
             );
           } else {
-            return <li key={page}>{page}</li>;
+            return (
+              <li key={page} onClick={() => setCurrentPage(page)}>
+                {page}
+              </li>
+            );
           }
         })}
       </ul>
@@ -33,8 +41,12 @@ const Pagination = ({ currentPage, lastPage }) => {
 };
 
 const StyleContainer = styled.div`
+  margin: 3rem 0;
   background-color: #f7f7f7;
   height: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   ul {
     display: flex;
@@ -45,6 +57,7 @@ const StyleContainer = styled.div`
     li {
       margin: 1rem;
       font-weight: bold;
+      cursor: pointer;
     }
     .highlight {
       color: orange;
