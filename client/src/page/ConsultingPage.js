@@ -11,16 +11,17 @@ import { useQuery } from "urql";
 const POSTS_QUERY = {
   query: `
   query{
-    getConsultingQuestions(specificDomainId:1){
-      specificDomain{
-        domainName
-      }
-      title
-      viewCount
-      content
+    getCurrentPageConsultingQuestions(specificDomainId:1,page:1){
+      consultingQuestions{
+        specificDomain{
+          domainName
+        }
+        title
+        viewCount
+        content
         createdAt
         updatedAt 
-      consultingAnswers{
+        consultingAnswers{
         content
         mongoLawyer
         {
@@ -32,7 +33,15 @@ const POSTS_QUERY = {
         createdAt
         updatedAt
         recommendationCount
+        }
       }
+  
+      currentPage
+      hasNextPage
+      hasPreviousPage
+      nextPage
+      previousPage
+      lastPage
     }
   }
   `,
@@ -40,23 +49,6 @@ const POSTS_QUERY = {
 
 const ConsultingPage = (props) => {
   const [{ fetching, data }, getQuery] = useQuery(POSTS_QUERY);
-  // const dispatch = useDispatch();
-
-  // const graphqlQuery = {
-  //   query: `
-  //     query {
-  //       getConsultingQuestions(specificDomainId:1){
-  //         title
-  //         content
-  //         viewCount
-  //       }
-  //     }
-  //   `,
-  // };
-
-  // useEffect(() => {
-  //   dispatch(fetchConsultingQuestions(graphqlQuery));
-  // }, []);
 
   useEffect(() => {
     getQuery();
@@ -65,14 +57,16 @@ const ConsultingPage = (props) => {
   let body;
   if (fetching) {
     body = <div>Data is loading..</div>;
-  } else if (!data.getConsultingQuestions) {
+  } else if (!data.getCurrentPageConsultingQuestions) {
     body = <div>Something went wrong</div>;
   } else {
     body = (
       <div className="consultings">
-        {data.getConsultingQuestions.map((consultingQuestion) => (
-          <Consulting {...consultingQuestion} />
-        ))}
+        {data.getCurrentPageConsultingQuestions.consultingQuestions.map(
+          (consultingQuestion) => (
+            <Consulting {...consultingQuestion} />
+          )
+        )}
         <div className="pagination">
           <ul>
             <li>1</li>

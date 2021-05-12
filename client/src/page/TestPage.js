@@ -8,45 +8,17 @@ import React from "react";
 // import LawyerBanner from "../component/LawyerBanner";
 // import MainFooter from "../component/MainFooter";
 // import SignupForm from "../component/signup/SignupForm";
-import styled from "styled-components";
-import Consulting from "../component/consulting/Consulting";
-import SideBanner from "../component/consulting/SideBanner";
+// import styled from "styled-components";
+// import Consulting from "../component/consulting/Consulting";
+// import SideBanner from "../component/consulting/SideBanner";
+import Pagination from "../component/common/Pagination";
 
 const TestPage = (props) => {
   return (
-    <StyleContainer>
-      <h2>상담사례</h2>
-      <div className="flex-container">
-        <div className="consultings">
-          <Consulting />
-          <Consulting />
-          <Consulting />
-          <Consulting />
-        </div>
-        <div className="side">
-          <SideBanner />
-        </div>
-      </div>
-    </StyleContainer>
+    <>
+      <Pagination currentPage={1} lastPage={10} />
+    </>
   );
 };
-
-const StyleContainer = styled.div`
-  width: 1080px;
-  margin: 0 auto;
-  border: 2px solid black;
-
-  .flex-container {
-    display: flex;
-    .consultings {
-      width: 800px;
-      border: 2px solid black;
-    }
-    .side {
-      width: 280px;
-      border: 2px solid black;
-    }
-  }
-`;
 
 export default TestPage;

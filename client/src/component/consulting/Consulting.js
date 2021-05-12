@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import moment from "moment";
 
 const Consulting = ({
   specificDomain,
@@ -12,24 +13,31 @@ const Consulting = ({
   createdAt,
   updatedAt,
 }) => {
+  const consultingAnswerExists = consultingAnswers.length > 0;
+
   return (
     <StyleContainer>
       <h4>{specificDomain.domainName}</h4>
       <h2>{title}</h2>
-      <p>
-        <span className="highlight">답변</span>
-        {consultingAnswers[0]
-          ? consultingAnswers[0].mongoLawyer.lawyerName
-          : "아직 답변 없음."}
-      </p>
-      <p>{consultingAnswers[0] ? consultingAnswers[0].content : ""}</p>
-      <p>다른 변호사 답변 {consultingAnswers.length}개</p>
+      {consultingAnswerExists && (
+        <>
+          <p>
+            <span className="highlight">답변 </span>
+            {consultingAnswers[0].mongoLawyer.lawyerName}
+          </p>
+          <p>{consultingAnswers[0].content}</p>
+        </>
+      )}
+
+      {consultingAnswers.length >= 2 && (
+        <p>다른 변호사 답변 {consultingAnswers.length - 1}개</p>
+      )}
+
       <div className="flex-container">
         <ul>
-          <li>{viewCount}</li>
-          <li>{recommendationCount}</li>
+          <li>조회수 {viewCount}</li>
         </ul>
-        <div>{createdAt}</div>
+        <div>{moment().from(+createdAt)}</div>
       </div>
     </StyleContainer>
   );
