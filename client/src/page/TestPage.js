@@ -11,14 +11,21 @@ import React from "react";
 // import styled from "styled-components";
 // import Consulting from "../component/consulting/Consulting";
 // import SideBanner from "../component/consulting/SideBanner";
-import Pagination from "../component/common/Pagination";
+// import Pagination from "../component/common/Pagination";
+// import ConsultingDetailQuestion from "../component/consulting/ConsultingDetailQuestion";
+import ConsultingDetailAnswer from "../component/consulting/ConsultingDetailAnswer";
+import styled from "styled-components";
 
 const TestPage = (props) => {
   return (
-    <>
-      <Pagination currentPage={1} lastPage={10} />
-    </>
+    <StyleContaier>
+      <ConsultingDetailAnswer />
+    </StyleContaier>
   );
 };
+
+const StyleContaier = styled.div`
+  background-color: #e1dedd;
+`;
 
 export default TestPage;

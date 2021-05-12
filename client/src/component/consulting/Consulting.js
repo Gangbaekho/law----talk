@@ -1,8 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import moment from "moment";
+import { useHistory } from "react-router-dom";
 
 const Consulting = ({
+  id,
   specificDomain,
   title,
   consultingAnswers,
@@ -14,9 +16,14 @@ const Consulting = ({
   updatedAt,
 }) => {
   const consultingAnswerExists = consultingAnswers.length > 0;
+  const history = useHistory();
 
   return (
-    <StyleContainer>
+    <StyleContainer
+      onClick={() => {
+        history.push(`/consulting/consultingQuestionIds/${id}`);
+      }}
+    >
       <h4>{specificDomain.domainName}</h4>
       <h2>{title}</h2>
       {consultingAnswerExists && (

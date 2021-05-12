@@ -18,6 +18,7 @@ import VideoPage from "../page/VideoPage";
 import PostDetailPage from "../page/PostDetailPage";
 import VideoDetailPage from "../page/VideoPage";
 import SignupPage from "../page/SignupPage";
+import ConsultingDetailPage from "../page/ConsultingDetailPage";
 import TestPage from "../page/TestPage";
 
 const RootRouter = () => {
@@ -26,8 +27,13 @@ const RootRouter = () => {
       <Switch>
         <Route path="/" component={MainPage} exact />
         <Route
-          path="/consulting/:specificDomainId"
+          path="/consulting/specificDomainIds/:specificDomainId"
           component={ConsultingPage}
+          exact
+        />
+        <Route
+          path="/consulting/consultingQuestionIds/:consultingQuestionId"
+          component={ConsultingDetailPage}
           exact
         />
         <Route path="/consulting-write" component={ConsultingWritePage} exact />

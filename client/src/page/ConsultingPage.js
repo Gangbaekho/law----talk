@@ -17,6 +17,7 @@ const POSTS_QUERY = (specificDomainId, page) => ({
         specificDomain{
           domainName
         }
+        id
         title
         viewCount
         content
