@@ -26,7 +26,12 @@ const ConsultingDetailAnswer = ({
             <div className="phone-number">{mongoLawyer.companyPhoneNumber}</div>
           </div>
         </div>
-        <div className="consulting">
+
+        <div
+          className={`consulting ${
+            mongoLawyer.mongoSchedule === null && "unable"
+          }`}
+        >
           상담
           <br />
           예약
@@ -88,6 +93,10 @@ const StyleContainer = styled.div`
     color: #555;
     margin: 1rem 0;
     padding: 1rem;
+  }
+
+  .unable {
+    background-color: gray;
   }
 `;
 
