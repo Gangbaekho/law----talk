@@ -14,24 +14,13 @@ import React from "react";
 // import Pagination from "../component/common/Pagination";
 // import ConsultingDetailQuestion from "../component/consulting/ConsultingDetailQuestion";
 // import ConsultingDetailAnswer from "../component/consulting/ConsultingDetailAnswer";
+// import PostContainer from "../component/post/PostContainer";
+// import Post from "../component/post/Post";
 import styled from "styled-components";
-import PostContainer from "../component/post/PostContainer";
-import Post from "../component/post/Post";
+import PostCarousel from "../component/post/PostCarousel";
 
 const TestPage = (props) => {
-  return (
-    <PostContainer>
-      <Post />
-      <Post />
-      <Post />
-      <Post />
-      <Post />
-      <Post />
-      <Post />
-      <Post />
-      <Post />
-    </PostContainer>
-  );
+  return <PostCarousel />;
 };
 
 const StyleContaier = styled.div`

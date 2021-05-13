@@ -11,7 +11,7 @@ const Post = ({ id, postType, title, content, postImageUrl, mongoLawyer }) => {
         history.push(`/post/postIds/${id}`);
       }}
     >
-      <div className="image-container"></div>
+      <div className="image-container">{postImageUrl}</div>
       <div className="post-info">
         <h4>{postType}</h4>
         <h3>{title}</h3>
