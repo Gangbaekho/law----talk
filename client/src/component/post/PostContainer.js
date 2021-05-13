@@ -9,10 +9,11 @@ const StyleContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   width: 1080px;
-  border: 2px solid black;
   place-content: center;
   place-items: center;
   margin: 0 auto;
+  padding: 3rem 0;
+  border-top: 1px solid #555;
 `;
 
 export default PostContainer;

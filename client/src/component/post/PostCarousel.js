@@ -1,42 +1,74 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
+const calculateMaxIndex = (posts) => {
+  const length = posts.length;
+  if (length >= 3) {
+    return 2;
+  } else if (length === 0) {
+    return -1;
+  } else {
+    return length - 1;
+  }
+};
+
 const PostCarousel = (props) => {
+  const maxIndex = calculateMaxIndex(props.posts);
+  const [index, setIndex] = useState(0);
+  const targetPost = props.posts[index];
+
+  const previewButtonHandler = () => {
+    if (index === 0) {
+      setIndex(maxIndex);
+    } else {
+      setIndex((prevState) => prevState - 1);
+    }
+  };
+
+  const nextButtonHandler = () => {
+    if (index === maxIndex) {
+      setIndex(0);
+    } else {
+      setIndex((prevState) => prevState + 1);
+    }
+  };
+
+  if (maxIndex === -1) {
+    return;
+  }
+
   return (
     <StyleContainer>
       <div>
-        <button className="button"> &#60;</button>
+        <button className="button" onClick={() => previewButtonHandler()}>
+          &#60;
+        </button>
       </div>
       <div className="posts">
-        <div className="image-container">이미지</div>
+        <div className="image-container">{targetPost.postImageUrl}</div>
         <div className="content">
-          <h4 className="content__type">법률가이드</h4>
-          <h2 className="content__title">이혼재산분할 포기하지 말고 쟁취를</h2>
-          <p className="content__description">
-            최근에 들어 이혼에 돌입하는 부부의 수가 정말 많이 늘어나고 있습니다.
-            서로 잘 협의하여 원만하게 끝맺음을 하면 좋겠지만, 각자의 생각과
-            나아갈 방향이 다르기 때문에 여기서 많은 갈등과 복잡한 문제들을 겪게
-            됩니다. 이혼재산분할 또한 원활하게 결혼 생활을 끝내기 어렵게 하는
-            요인인데요. 대부분 가산배분과 양육권 등의 분쟁에서 서로 합의를 보지
-            못하기 때문에 소송 이혼으로 들어가게 됩니다.대부분 가산배분과 양육권
-            등의 분쟁에서 서로 합의를 보지 못하기 때문에 소송 이혼으로 들어가게
-            됩니다.대부분 가산배분과 양육권 등의 분쟁에서 서로 합의를 보지
-            못하기 때문에 소송 이혼으로 들어가게 됩니다.
-          </p>
+          <h4 className="content__type">{targetPost.postType}</h4>
+          <h2 className="content__title">{targetPost.title}</h2>
+          <p className="content__description">{targetPost.content}</p>
           <div className="lawyer-info">
             <div className="description">
               <p className="lawyer-name">
-                <span className="by">BY</span> 이주연 변호사
+                <span className="by">BY</span>{" "}
+                {targetPost.mongoLawyer.lawyerName}
               </p>
-              <p className="lawyer-title">변호사 소개</p>
+              <p className="lawyer-title">{targetPost.mongoLawyer.title}</p>
             </div>
-            <div className="lawyer-image">이미지</div>
+            <div className="lawyer-image">
+              {targetPost.mongoLawyer.lawyerProfileImageUrl}
+            </div>
           </div>
           <div>---</div>
         </div>
       </div>
       <div>
-        <button className="button">&#62;</button>
+        <button className="button" onClick={() => nextButtonHandler()}>
+          &#62;
+        </button>
       </div>
     </StyleContainer>
   );
@@ -44,8 +76,7 @@ const PostCarousel = (props) => {
 
 const StyleContainer = styled.div`
   width: 1200px;
-  border: 2px solid black;
-  margin: 0 auto;
+  margin: 3rem auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -53,9 +84,14 @@ const StyleContainer = styled.div`
   .posts {
     width: 1080px;
     height: 460px;
-    border: 2px solid black;
     display: grid;
     grid-template-columns: 3fr 2fr;
+    grid-gap: 1rem;
+    .image-container {
+      background-image: url("/images/image1.s.jpg");
+      background-size: cover;
+      background-position: center;
+    }
     .content {
       display: grid;
       grid-template-columns: 1fr;

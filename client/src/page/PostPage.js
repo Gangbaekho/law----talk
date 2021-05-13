@@ -6,6 +6,7 @@ import { useQuery } from "urql";
 import Pagination from "../component/common/Pagination";
 import PostContainer from "../component/post/PostContainer";
 import Post from "../component/post/Post";
+import PostCarousel from "../component/post/PostCarousel";
 // import Carousel from "react-elastic-carousel";
 // import Item from "../component/Item";
 
@@ -63,13 +64,7 @@ const PostPage = (props) => {
   } else {
     body = (
       <>
-        {/* <div className="carousel-container">
-          <Carousel breakPoints={breakPoints}>
-            {items.map((item) => (
-              <Item key={item}>{item}</Item>
-            ))}
-          </Carousel>
-        </div> */}
+        <PostCarousel posts={data.getCurrentPagePosts.posts} />
         <PostContainer>
           {data.getCurrentPagePosts.posts.map((post) => (
             <Post key={post.id} {...post} />
@@ -89,8 +84,8 @@ const PostPage = (props) => {
       <MainHeader />
       <StyleContainer>
         <h2 className="title">해결사례 / 법률가이드</h2>
-        {body}
       </StyleContainer>
+      {body}
 
       <MainFooter />
     </>
@@ -100,6 +95,10 @@ const PostPage = (props) => {
 const StyleContainer = styled.div`
   width: 1080px;
   margin: 0 auto;
+
+  /* .post-carousel {
+    width: 1200px;
+  } */
 
   .carousel-container {
     width: 1080px;

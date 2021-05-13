@@ -20,7 +20,7 @@ import styled from "styled-components";
 import PostCarousel from "../component/post/PostCarousel";
 
 const TestPage = (props) => {
-  return <PostCarousel />;
+  return <PostCarousel posts={[1, 2, 3]} />;
 };
 
 const StyleContaier = styled.div`
