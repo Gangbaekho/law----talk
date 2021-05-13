@@ -5,6 +5,7 @@ const mongoScheduleSchema = gql`
     _id: String!
     lawyerId: String!
     mysqlLawyerId: Int!
+    scheduleDate: String!
     fifteenConsultingAvailableTime: [AvailableTime!]!
     thirtyConsultingAvailableTime: [AvailableTime!]!
     createdAt: String!
@@ -24,8 +25,9 @@ const mongoScheduleSchema = gql`
   input MongoScheduleInputType {
     lawyerId: String!
     mysqlLawyerId: Int!
-    fifteenConsultingAvaliableTime: [AvailableTimeInputType!]!
-    thirtyConsultingAvaliableTime: [AvailableTimeInputType!]!
+    scheduleDate: String!
+    fifteenConsultingAvailableTime: [AvailableTimeInputType!]!
+    thirtyConsultingAvailableTime: [AvailableTimeInputType!]!
   }
 
   type Query {

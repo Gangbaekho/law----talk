@@ -23,12 +23,8 @@ const consultingAnswerResolver = {
       { consultingAnswerInput },
       { models, transaction }
     ) => {
-      const {
-        lawyerId,
-        mongoLawyerId,
-        consultingQuestionId,
-        content,
-      } = consultingAnswerInput;
+      const { lawyerId, mongoLawyerId, consultingQuestionId, content } =
+        consultingAnswerInput;
 
       await schema.validate({ content });
 

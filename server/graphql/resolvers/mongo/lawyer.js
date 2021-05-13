@@ -68,6 +68,11 @@ const mongoLaywerResolver = {
       return createdLawyer._id;
     },
   },
+  MongoLawyer: {
+    mongoSchedule: async ({ _id }, _, { dataLoaders }) => {
+      return dataLoaders.mongoScheduleLoader.byMongoLawyerId.load(_id);
+    },
+  },
 };
 
 module.exports = mongoLaywerResolver;

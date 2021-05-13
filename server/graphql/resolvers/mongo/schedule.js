@@ -11,15 +11,19 @@ const mongoScheduleResolver = {
       const {
         lawyerId,
         mysqlLawyerId,
-        fifteenConsultingAvaliableTime,
-        thirtyConsultingAvaliableTime,
+        fifteenConsultingAvailableTime,
+        thirtyConsultingAvailableTime,
+        scheduleDate,
       } = mongoScheduleInput;
+
+      console.log(mongoScheduleInput);
 
       const schedule = new Schedule({
         lawyerId,
         mysqlLawyerId,
-        fifteenConsultingAvaliableTime,
-        thirtyConsultingAvaliableTime,
+        fifteenConsultingAvailableTime,
+        thirtyConsultingAvailableTime,
+        scheduleDate,
       });
 
       const createdSchedule = await schedule.save();

@@ -28,6 +28,7 @@ const mongoLawyerSchema = gql`
     lauguage: [String!]!
     isPreminum: Boolean!
     priorityScore: Int!
+    mongoSchedule: MongoSchedule
     createdAt: String!
     updatedAt: String!
   }

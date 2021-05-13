@@ -33,6 +33,10 @@ const scheduleSchema = new Schema(
       required: true,
       _id: false,
     },
+    scheduleDate: {
+      type: Schema.Types.String,
+      required: true,
+    },
   },
   {
     timestamps: true,
