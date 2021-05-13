@@ -51,7 +51,7 @@ const POSTS_QUERY = (specificDomainId, page) => ({
 
 const ConsultingPage = (props) => {
   const { specificDomainId } = props.match.params;
-  console.log(specificDomainId);
+
   const [currentPage, setCurrentPage] = useState(1);
 
   const [{ fetching, data }, getQuery] = useQuery(

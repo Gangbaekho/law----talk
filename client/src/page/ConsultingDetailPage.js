@@ -49,7 +49,10 @@ const CONSULTING_DETAIL_QUERY = (consultingQuestionId) => ({
 });
 
 const ConsultingDetailPage = (props) => {
-  const [{ fetching, data }] = useQuery(CONSULTING_DETAIL_QUERY(1));
+  const { consultingQuestionId } = props.match.params;
+  const [{ fetching, data }] = useQuery(
+    CONSULTING_DETAIL_QUERY(consultingQuestionId)
+  );
 
   let body;
   if (fetching) {
@@ -61,9 +64,6 @@ const ConsultingDetailPage = (props) => {
       <>
         <ConsultingDetailQuestion {...data.getConsultingQuestionDetail} />
         <div className="answers">
-          {/* <ConsultingDetailAnswer
-            {...data.getConsultingQuestionDetail.consultingAnswers} */}
-          {/* /> */}
           {data.getConsultingQuestionDetail.consultingAnswers.map(
             (consultingAnswer) => (
               <ConsultingDetailAnswer

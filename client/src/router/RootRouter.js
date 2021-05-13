@@ -42,8 +42,12 @@ const RootRouter = () => {
         <Route path="/lawyer/:lawyerId" component={LawyerDetailPage} exact />
         <Route path="/login" component={LoginPage} exact />
         <Route path="/notice" component={NoticePage} exact />
-        <Route path="/post" component={PostPage} exact />
-        <Route path="/post/:postId" component={PostDetailPage} exact />
+        <Route
+          path="/post/specificDomainIds/:specificDomainId"
+          component={PostPage}
+          exact
+        />
+        <Route path="/post/postIds/:postId" component={PostDetailPage} exact />
         <Route path="/schedule" component={SchedulePage} exact />
         <Route path="/specific-domain" component={SpecificDomainPage} exact />
         <Route path="/specific-region" component={SpecificRegionPage} exact />

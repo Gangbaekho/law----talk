@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import moment from "moment";
+import "moment/locale/ko";
 import { useHistory } from "react-router-dom";
 
 const Consulting = ({
@@ -44,7 +45,7 @@ const Consulting = ({
         <ul>
           <li>조회수 {viewCount}</li>
         </ul>
-        <div>{moment().from(+createdAt)}</div>
+        <div>{moment().to(+createdAt)}</div>
       </div>
     </StyleContainer>
   );
