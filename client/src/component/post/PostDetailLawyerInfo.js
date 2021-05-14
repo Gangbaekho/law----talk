@@ -2,17 +2,22 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-const PostDetailLawyerInfo = (props) => {
+const PostDetailLawyerInfo = ({
+  lawyerName,
+  companyName,
+  companyPhoneNumber,
+  lawyerProfileImageUrl,
+}) => {
   return (
     <StyleContainer>
       <div className="lawyer-info">
-        <div className="image-container">이미지</div>
+        <div className="image-container">{lawyerProfileImageUrl}</div>
         <div className="description">
           <p>
-            <span className="lawyer-name">장성민 변호사</span>&nbsp;
-            <span className="company-name">법무법인 감명</span>
+            <span className="lawyer-name">{lawyerName} 변호사</span>&nbsp;
+            <span className="company-name">{companyName}</span>
           </p>
-          <p className="company-number">사무실 문의 123-456-789</p>
+          <p className="company-number">사무실 문의 {companyPhoneNumber}</p>
         </div>
       </div>
       <div className="consulting">

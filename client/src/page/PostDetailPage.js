@@ -5,6 +5,7 @@ import styled from "styled-components";
 import PostDetailHeader from "../component/post/PostDetailHeader";
 import OtherPosts from "../component/post/OtherPosts";
 import RelatedConsultingQuestions from "../component/post/RelatedConsultingQuestions";
+import PostDetailLawyerInfo from "../component/post/PostDetailLawyerInfo";
 
 const POST_DETAIL_QUERY = (postId) => ({
   query: `
@@ -24,6 +25,7 @@ const POST_DETAIL_QUERY = (postId) => ({
         lawyerName
         companyName
         companyPhoneNumber
+        lawyerProfileImageUrl
       }
       content
       lawyer{
@@ -55,6 +57,12 @@ const PostDetailPage = (props) => {
           domainName={data.post.specificDomain.domainName}
           lawyerName={data.post.mongoLawyer.lawyerName}
           title={data.post.title}
+        />
+        <PostDetailLawyerInfo
+          lawyerName={data.post.mongoLawyer.lawyerName}
+          companyName={data.post.mongoLawyer.companyName}
+          companyPhoneNumber={data.post.mongoLawyer.companyPhoneNumber}
+          lawyerProfileImageUrl={data.post.mongoLawyer.lawyerProfileImageUrl}
         />
         <OtherPosts
           lawyerName={data.post.mongoLawyer.lawyerName}
