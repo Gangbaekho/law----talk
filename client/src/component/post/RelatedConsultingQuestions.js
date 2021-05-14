@@ -2,24 +2,28 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-const OthersPosts = (props) => {
+const RelatedConsultingQuestions = (props) => {
   return (
     <StyleContainer>
       <p className="title">
-        <span className="highlight">박성애 변호사</span>가 작성한 다른 포스트
+        <span className="highlight">관련 사례를 확인해보세요</span>
       </p>
       <ul className="content">
         <li>
-          <Link className="link">양육비 청구</Link>
+          <Link className="link">
+            사실혼관계에서 불륜 법적으로 소송이 가능 한가요?
+          </Link>
         </li>
         <li>
-          <Link className="link">업무방해죄</Link>
+          <Link className="link">성인이 된 자녀의 성(이름) 변경</Link>
         </li>
         <li>
-          <Link className="link">재산분할 합의서</Link>
+          <Link className="link">여자친구 임신 문제</Link>
         </li>
         <li>
-          <Link className="link">재산분할, 남편 재산 찾아내기</Link>
+          <Link className="link">
+            아이를 제밑으로 옮길수있는방법이있을까요?
+          </Link>
         </li>
         <li>
           <Link className="link">부부별거중 바람 이혼</Link>
@@ -57,4 +61,4 @@ const StyleContainer = styled.div`
   }
 `;
 
-export default OthersPosts;
+export default RelatedConsultingQuestions;

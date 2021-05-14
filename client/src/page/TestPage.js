@@ -19,10 +19,11 @@ import React from "react";
 // import styled from "styled-components";
 // import PostCarousel from "../component/post/PostCarousel";
 // import PostDetailHeader from "../component/post/PostDetailHeader";
-import OtherPosts from "../component/post/OtherPosts";
+// import OtherPosts from "../component/post/OtherPosts";
+import RelatedConsultingQuestions from "../component/post/RelatedConsultingQuestions";
 
 const TestPage = (props) => {
-  return <OtherPosts />;
+  return <RelatedConsultingQuestions />;
 };
 
 // const StyleContaier = styled.div`
