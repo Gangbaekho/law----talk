@@ -21,10 +21,11 @@ import React from "react";
 // import PostDetailHeader from "../component/post/PostDetailHeader";
 // import OtherPosts from "../component/post/OtherPosts";
 // import RelatedConsultingQuestions from "../component/post/RelatedConsultingQuestions";
-import PostDetailLawyerInfo from "../component/post/PostDetailLawyerInfo";
+// import PostDetailLawyerInfo from "../component/post/PostDetailLawyerInfo";
+import Video from "../component/video/Video";
 
 const TestPage = (props) => {
-  return <PostDetailLawyerInfo />;
+  return <Video />;
 };
 
 // const StyleContaier = styled.div`
