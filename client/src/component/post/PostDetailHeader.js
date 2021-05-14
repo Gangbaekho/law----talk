@@ -1,19 +1,17 @@
 import React from "react";
 import styled from "styled-components";
 
-const PostDetailHeader = (props) => {
+const PostDetailHeader = ({ postType, domainName, lawyerName, title }) => {
   return (
     <StyleContainer>
       <div className="title">
         <h3>포스트</h3>
       </div>
       <div className="image-container">
-        <p className="item type">법률가이드</p>
-        <p className="item specific-domain">상속</p>
-        <h1 className="item post-title">
-          재혼하신아버지가 돌아가셨는데, 어떻게 상속을 받을 수 있는지
-        </h1>
-        <p className="item lawyer-name">박정식 변호사</p>
+        <p className="item type">{postType}</p>
+        <p className="item specific-domain">{domainName}</p>
+        <h1 className="item post-title">{title}</h1>
+        <p className="item lawyer-name">{lawyerName}</p>
       </div>
     </StyleContainer>
   );

@@ -2,32 +2,23 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-const RelatedConsultingQuestions = (props) => {
+const RelatedConsultingQuestions = ({ consultingQuestions }) => {
   return (
     <StyleContainer>
       <p className="title">
         <span className="highlight">관련 사례를 확인해보세요</span>
       </p>
       <ul className="content">
-        <li>
-          <Link className="link">
-            사실혼관계에서 불륜 법적으로 소송이 가능 한가요?
-          </Link>
-        </li>
-        <li>
-          <Link className="link">성인이 된 자녀의 성(이름) 변경</Link>
-        </li>
-        <li>
-          <Link className="link">여자친구 임신 문제</Link>
-        </li>
-        <li>
-          <Link className="link">
-            아이를 제밑으로 옮길수있는방법이있을까요?
-          </Link>
-        </li>
-        <li>
-          <Link className="link">부부별거중 바람 이혼</Link>
-        </li>
+        {consultingQuestions.map((consultingQuestion) => (
+          <li key={consultingQuestion.id}>
+            <Link
+              to={`/consulting/consultingQuestionIds/${consultingQuestion.id}`}
+              className="link"
+            >
+              {consultingQuestion.title}
+            </Link>
+          </li>
+        ))}
       </ul>
     </StyleContainer>
   );

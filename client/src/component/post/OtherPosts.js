@@ -2,28 +2,20 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-const OthersPosts = (props) => {
+const OthersPosts = ({ lawyerName, posts }) => {
   return (
     <StyleContainer>
       <p className="title">
-        <span className="highlight">박성애 변호사</span>가 작성한 다른 포스트
+        <span className="highlight">{lawyerName}</span>가 작성한 다른 포스트
       </p>
       <ul className="content">
-        <li>
-          <Link className="link">양육비 청구</Link>
-        </li>
-        <li>
-          <Link className="link">업무방해죄</Link>
-        </li>
-        <li>
-          <Link className="link">재산분할 합의서</Link>
-        </li>
-        <li>
-          <Link className="link">재산분할, 남편 재산 찾아내기</Link>
-        </li>
-        <li>
-          <Link className="link">부부별거중 바람 이혼</Link>
-        </li>
+        {posts.map((post) => (
+          <li key={post.id}>
+            <Link to={`/post/postIds/${post.id}`} className="link">
+              {post.title}
+            </Link>
+          </li>
+        ))}
       </ul>
     </StyleContainer>
   );
