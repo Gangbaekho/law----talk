@@ -47,9 +47,18 @@ const VideoPage = (props) => {
   } else if (!data.getCurrentPageVideos) {
     body = <div>Something went wrong</div>;
   } else {
-    body = data.getCurrentPageVideos.videos.map((video) => (
-      <Video key={video.id} {...video} />
-    ));
+    body = (
+      <>
+        {data.getCurrentPageVideos.videos.map((video) => (
+          <Video key={video.id} {...video} />
+        ))}
+        <Pagination
+          currentPage={currentPage}
+          lastPage={data.getCurrentPageVideos.lastPage}
+          setCurrentPage={setCurrentPage}
+        />
+      </>
+    );
   }
 
   return (
