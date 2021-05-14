@@ -51,7 +51,11 @@ const RootRouter = () => {
         <Route path="/schedule" component={SchedulePage} exact />
         <Route path="/specific-domain" component={SpecificDomainPage} exact />
         <Route path="/specific-region" component={SpecificRegionPage} exact />
-        <Route path="/video" component={VideoPage} exact />
+        <Route
+          path="/video/specificDomainIds/:specificDomainId"
+          component={VideoPage}
+          exact
+        />
         <Route path="/video/:videoId" component={VideoDetailPage} exact />
         <Route path="/notice" component={NoticePage} exact />
         <Route path="/test" component={TestPage} exact />

@@ -1,16 +1,20 @@
 import React from "react";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
 
-const Video = (props) => {
+const Video = ({ id, videoThumbNailUrl, title, mongoLawyer }) => {
+  const history = useHistory();
+
   return (
-    <StyleContainer>
-      <div className="image-container">이미지</div>
+    <StyleContainer
+      onClick={() => {
+        history.push(`/video/videoIds/${id}`);
+      }}
+    >
+      <div className="image-container">{videoThumbNailUrl}</div>
       <div className="video-info">
-        <h2>
-          아들하고 며느리가 이혼했는데 며느리 대신 할머니인 제가 손자를 양육할
-          수 있나요?
-        </h2>
-        <p>윤유호 변호사</p>
+        <h2>{title}</h2>
+        <p>{mongoLawyer.lawyerName} 변호사</p>
       </div>
     </StyleContainer>
   );
@@ -21,18 +25,16 @@ const StyleContainer = styled.div`
   grid-template-columns: 2fr 3fr;
   width: 1080px;
   height: 200px;
-  border: 2px solid black;
   margin: 2rem auto;
+  cursor: pointer;
 
   .image-container {
-    border: 2px solid black;
     background-image: url("/images/image1.s.jpg");
     background-size: cover;
     background-position: center;
   }
   .video-info {
     padding: 1rem;
-    border: 2px solid black;
     color: #222;
     p {
       margin: 1rem 0;
