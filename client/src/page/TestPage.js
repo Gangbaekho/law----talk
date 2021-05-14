@@ -18,10 +18,11 @@ import React from "react";
 // import Post from "../component/post/Post";
 // import styled from "styled-components";
 // import PostCarousel from "../component/post/PostCarousel";
-import PostDetailHeader from "../component/post/PostDetailHeader";
+// import PostDetailHeader from "../component/post/PostDetailHeader";
+import OtherPosts from "../component/post/OtherPosts";
 
 const TestPage = (props) => {
-  return <PostDetailHeader />;
+  return <OtherPosts />;
 };
 
 // const StyleContaier = styled.div`
