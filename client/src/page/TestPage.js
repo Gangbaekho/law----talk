@@ -20,10 +20,11 @@ import React from "react";
 // import PostCarousel from "../component/post/PostCarousel";
 // import PostDetailHeader from "../component/post/PostDetailHeader";
 // import OtherPosts from "../component/post/OtherPosts";
-import RelatedConsultingQuestions from "../component/post/RelatedConsultingQuestions";
+// import RelatedConsultingQuestions from "../component/post/RelatedConsultingQuestions";
+import PostDetailLawyerInfo from "../component/post/PostDetailLawyerInfo";
 
 const TestPage = (props) => {
-  return <RelatedConsultingQuestions />;
+  return <PostDetailLawyerInfo />;
 };
 
 // const StyleContaier = styled.div`
