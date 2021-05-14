@@ -16,15 +16,16 @@ import React from "react";
 // import ConsultingDetailAnswer from "../component/consulting/ConsultingDetailAnswer";
 // import PostContainer from "../component/post/PostContainer";
 // import Post from "../component/post/Post";
-import styled from "styled-components";
-import PostCarousel from "../component/post/PostCarousel";
+// import styled from "styled-components";
+// import PostCarousel from "../component/post/PostCarousel";
+import PostDetailHeader from "../component/post/PostDetailHeader";
 
 const TestPage = (props) => {
-  return <PostCarousel posts={[1, 2, 3]} />;
+  return <PostDetailHeader />;
 };
 
-const StyleContaier = styled.div`
-  background-color: #e1dedd;
-`;
+// const StyleContaier = styled.div`
+//   background-color: #e1dedd;
+// `;
 
 export default TestPage;
