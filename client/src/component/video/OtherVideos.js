@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-const OthersVideos = ({ lawyerName, videos }) => {
+const OtherVideos = ({ lawyerName, videos }) => {
   return (
     <StyleContainer>
       <p className="title">
@@ -49,4 +49,4 @@ const StyleContainer = styled.div`
   }
 `;
 
-export default OthersVideos;
+export default OtherVideos;

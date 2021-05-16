@@ -1,18 +1,25 @@
 import React from "react";
 import styled from "styled-components";
+import moment from "moment";
+import "moment/locale/ko";
 
-const VideoDetailContent = (props) => {
+const VideoDetailContent = ({
+  videoType,
+  title,
+  videoUrl,
+  reviewCount,
+  recommendationCount,
+  content,
+  createdAt,
+}) => {
   return (
     <StyleContainer>
-      <div className="type">[법률 가이드]</div>
-      <h2 className="title">
-        #2 결혼생활 중 재산분할합의 이혼시에도 유효할까? / 한승미 이혼전문
-        변호사
-      </h2>
+      <div className="type">{videoType}</div>
+      <h2 className="title">{title}</h2>
       <div className="flex-container">
-        <div className="day">2일 전 작성됨</div>
-        <div>조회수 4</div>
-        <div> 유용해요 0</div>
+        <div className="day">{moment().to(+createdAt)} 작성됨</div>
+        <div>조회수 {reviewCount}</div>
+        <div> 유용해요 {recommendationCount}</div>
       </div>
       <div className="like">
         동영상 강의, 어떠셨나요? &nbsp;<button>유용해요</button>
