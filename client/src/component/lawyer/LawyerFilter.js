@@ -177,7 +177,8 @@ const LawyerFilter = (props) => {
 
 const StyleContainer = styled.div`
   width: 340px;
-  border: 2px solid black;
+  padding: 0 2rem;
+  border-left: 1px solid #aaa;
 
   .header {
     display: flex;
@@ -204,11 +205,16 @@ const StyleContainer = styled.div`
         flex-wrap: wrap;
         list-style: none;
         li {
-          margin: 0 1rem;
+          margin: 0 0.5rem;
           margin-bottom: 0.5rem;
           color: #5a5d5a;
           font-weight: bold;
           cursor: pointer;
+        }
+        .underline {
+          text-decoration: underline;
+          color: orange;
+          font-weight: bold;
         }
       }
     }
@@ -223,9 +229,6 @@ const StyleContainer = styled.div`
       padding: 1rem 0;
       cursor: pointer;
     }
-  }
-  .underline {
-    text-decoration: underline;
   }
 `;
 

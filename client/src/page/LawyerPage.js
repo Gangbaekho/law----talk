@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { useQuery } from "urql";
 import PremiumLawyer from "../component/lawyer/PremiumLawyer";
 import NormalLawyer from "../component/lawyer/NormalLawyer";
+import LawyerFilter from "../component/lawyer/LawyerFilter";
 
 const LAWYERS_QUERY = (specificDomainId) => ({
   query: `
@@ -50,12 +51,25 @@ const LawyerPage = (props) => {
   } else if (!data.getLawyers) {
     body = <div>Something went wrong</div>;
   } else {
-    body = data.getLawyers.map((lawyer) => {
-      if (lawyer.isPremium === "Y") {
-        return <PremiumLawyer {...lawyer} />;
-      }
-      return <NormalLawyer {...lawyer} />;
-    });
+    body = (
+      <StyleContainer>
+        <div>
+          {data.getLawyers.map((lawyer) => {
+            if (lawyer.isPremium === "Y") {
+              return <PremiumLawyer key={lawyer.id} {...lawyer} />;
+            }
+            return <NormalLawyer key={lawyer.id} {...lawyer} />;
+          })}
+        </div>
+        <LawyerFilter />
+      </StyleContainer>
+    );
+    // data.getLawyers.map((lawyer) => {
+    //   if (lawyer.isPremium === "Y") {
+    //     return <PremiumLawyer {...lawyer} />;
+    //   }
+    //   return <NormalLawyer {...lawyer} />;
+    // });
   }
 
   return (
@@ -66,5 +80,11 @@ const LawyerPage = (props) => {
     </>
   );
 };
+
+const StyleContainer = styled.div`
+  display: flex;
+  width: 1080px;
+  margin: 0 auto;
+`;
 
 export default LawyerPage;
