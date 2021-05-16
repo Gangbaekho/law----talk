@@ -13,7 +13,7 @@ const postResolver = {
     post: async (_, { id }, { models, transaction, session }) => {
       console.log(session.userId);
       return await transaction.repeatableReadTransaction(async () => {
-        const post = await models.Post.findOne({ id });
+        const post = await models.Post.findOne({ where: { id } });
         return post;
       });
     },
@@ -45,6 +45,7 @@ const postResolver = {
           where: { specificDomainId },
           offset: (page - 1) * ITEMS_PER_PAGE,
           limit: ITEMS_PER_PAGE,
+          order: [["id", "DESC"]],
         });
         return {
           posts: posts,

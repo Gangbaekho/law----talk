@@ -22,10 +22,11 @@ import React from "react";
 // import OtherPosts from "../component/post/OtherPosts";
 // import RelatedConsultingQuestions from "../component/post/RelatedConsultingQuestions";
 // import PostDetailLawyerInfo from "../component/post/PostDetailLawyerInfo";
-import Video from "../component/video/Video";
+// import Video from "../component/video/Video";
+import VideoDetailHeader from "../component/video/VideoDetailHeader";
 
 const TestPage = (props) => {
-  return <Video />;
+  return <VideoDetailHeader />;
 };
 
 // const StyleContaier = styled.div`

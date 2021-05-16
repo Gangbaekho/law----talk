@@ -22,7 +22,7 @@ const Video = ({ id, videoThumbNailUrl, title, mongoLawyer }) => {
 
 const StyleContainer = styled.div`
   display: grid;
-  grid-template-columns: 2fr 3fr;
+  grid-template-columns: 1.5fr 3fr;
   width: 1080px;
   height: 200px;
   margin: 2rem auto;

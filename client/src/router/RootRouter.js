@@ -16,7 +16,7 @@ import SpecificDomainPage from "../page/SpecificDomainPage";
 import SpecificRegionPage from "../page/SpecificRegionPage";
 import VideoPage from "../page/VideoPage";
 import PostDetailPage from "../page/PostDetailPage";
-import VideoDetailPage from "../page/VideoPage";
+import VideoDetailPage from "../page/VideoDetailPage";
 import SignupPage from "../page/SignupPage";
 import ConsultingDetailPage from "../page/ConsultingDetailPage";
 import TestPage from "../page/TestPage";
@@ -56,7 +56,11 @@ const RootRouter = () => {
           component={VideoPage}
           exact
         />
-        <Route path="/video/:videoId" component={VideoDetailPage} exact />
+        <Route
+          path="/video/videoIds/:videoId"
+          component={VideoDetailPage}
+          exact
+        />
         <Route path="/notice" component={NoticePage} exact />
         <Route path="/test" component={TestPage} exact />
         <Route path="/signup" component={SignupPage} exact />

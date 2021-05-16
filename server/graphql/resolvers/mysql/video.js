@@ -13,7 +13,7 @@ const videoResolver = {
   Query: {
     video: async (_, { id }, { models, transaction }) => {
       return await transaction.repeatableReadTransaction(async () => {
-        const video = await models.Video.findOne({ id });
+        const video = await models.Video.findOne({ where: { id } });
         return video;
       });
     },
@@ -27,6 +27,7 @@ const videoResolver = {
           where: { specificDomainId },
           offset,
           limit: VIDEOS_PER_PAGE,
+          order: [["id", "DESC"]],
         });
         return videos;
       });
@@ -44,6 +45,7 @@ const videoResolver = {
           where: { specificDomainId },
           offset: (page - 1) * ITEMS_PER_PAGE,
           limit: ITEMS_PER_PAGE,
+          order: [["id", "DESC"]],
         });
         return {
           videos: videos,
