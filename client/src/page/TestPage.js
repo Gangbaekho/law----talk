@@ -25,10 +25,11 @@ import React from "react";
 // import Video from "../component/video/Video";
 // import VideoDetailHeader from "../component/video/VideoDetailHeader";
 // import VideoDetailContent from "../component/video/VideoDetailContent";
-import PremiumLawyer from "../component/lawyer/PremiumLawyer";
+// import PremiumLawyer from "../component/lawyer/PremiumLawyer";
+import NormalLawyer from "../component/lawyer/NormalLawyer";
 
 const TestPage = (props) => {
-  return <PremiumLawyer />;
+  return <NormalLawyer />;
 };
 
 // const StyleContaier = styled.div`
