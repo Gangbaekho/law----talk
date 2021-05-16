@@ -112,13 +112,8 @@ const lawyerResolver = {
   },
   Mutation: {
     createLawyer: async (_, { lawyerInput }, { models, transaction }) => {
-      const {
-        mongodbId,
-        email,
-        password,
-        isPremium,
-        priorityScore,
-      } = lawyerInput;
+      const { mongodbId, email, password, isPremium, priorityScore } =
+        lawyerInput;
 
       await schema.validate({ email, password });
 
@@ -168,7 +163,7 @@ const lawyerResolver = {
       return dataLoaders.consultingAnswerLoader.byLawyerId.load(id);
     },
     mongoLawyer: async ({ mongodbId }, _, { dataLoaders }) => {
-      return dataLoaders.mongoLawyerLoader.load(mongodbId);
+      return dataLoaders.mongoLawyerLoader.byMongoLawyerId.load(mongodbId);
     },
   },
 };

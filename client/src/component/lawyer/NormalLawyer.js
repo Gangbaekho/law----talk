@@ -23,7 +23,7 @@ const NormalLawyer = ({ mongoLawyer }) => {
       </div>
       <div className="consulting">
         {priceInformation.map((price) => (
-          <div className="consulting-type">
+          <div key={v4()} className="consulting-type">
             {price.serviceTime} {price.serviceName}
           </div>
         ))}
