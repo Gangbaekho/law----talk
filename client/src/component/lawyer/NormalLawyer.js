@@ -1,20 +1,32 @@
 import React from "react";
 import styled from "styled-components";
+import { v4 } from "uuid";
 
-const NormalLawyer = (props) => {
+const NormalLawyer = ({ mongoLawyer }) => {
+  const {
+    lawyerName,
+    companyName,
+    title,
+    lawyerProfileImageUrl,
+    priceInformation,
+  } = mongoLawyer;
+
   return (
     <StyleContainer>
       <div className="lawyer">
         <div className="lawyer-info">
-          <h4>남중구 변호사</h4>
-          <p className="company">법무법인 인헌</p>
-          <p className="title">서울법대, 대형로펌 출신! 경력10년, 친절 명쾌</p>
+          <h4>{lawyerName}</h4>
+          <p className="company">{companyName}</p>
+          <p className="title">{title}</p>
         </div>
-        <div className="image-container">이미지</div>
+        <div className="image-container">{lawyerProfileImageUrl}</div>
       </div>
       <div className="consulting">
-        <div className="consulting-type">15분 전화상담</div>
-        <div className="consulting-type">30분 방문상담</div>
+        {priceInformation.map((price) => (
+          <div className="consulting-type">
+            {price.serviceTime} {price.serviceName}
+          </div>
+        ))}
       </div>
     </StyleContainer>
   );

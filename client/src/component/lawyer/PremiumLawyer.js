@@ -1,39 +1,49 @@
 import React from "react";
 import styled from "styled-components";
+import { v4 } from "uuid";
 
-const PremiumLawyer = (props) => {
+const PremiumLawyer = ({ mongoLawyer }) => {
+  const {
+    lawyerCharacters,
+    lawyerName,
+    companyName,
+    title,
+    lawyerProfileImageUrl,
+    priceInformation,
+    mongoSchedule,
+  } = mongoLawyer;
+
   return (
     <StyleContainer>
       <div className="lawyer">
         <div className="lawyer-info">
           <ul className="lawyer-characters">
-            <li>해결사</li>
-            <li>쉽고친절한 변호사</li>
+            {lawyerCharacters.map((character) => (
+              <li key={v4()}>{character}</li>
+            ))}
           </ul>
-          <h3 className="lawyer-name">방정환 변호사</h3>
-          <div className="company">법무법인 인화</div>
-          <div className="lawyer-title">
-            [법학박사/대표변호사] 21년의 경험과 실력이 결과로.
-          </div>
+          <h3 className="lawyer-name">{lawyerName}</h3>
+          <div className="company">{companyName}</div>
+          <div className="lawyer-title">{title}</div>
           <div className="evaluation">
             별점 &nbsp; <span className="review">(관련분야 후기 7개)</span>
           </div>
         </div>
-        <div className="image-container">이미지</div>
+        <div className="image-container">{lawyerProfileImageUrl}</div>
       </div>
       <div className="consulting-container">
         <div className="consulting">
-          <div className="consulting-type">
-            <span className="bold">15분 전화상담</span>
-            <br />
-            35,000원
-          </div>
-          <div className="consulting-type">
-            <span className="bold">30분 방문상담.</span>
-            <br />
-            110,000원
-          </div>
-          <div className="reserve">
+          {priceInformation.map((price) => (
+            <div className="consulting-type">
+              <span className="bold">
+                {price.serviceTime} {price.serviceName}
+              </span>
+              <br />
+              {price.minPrice}원
+            </div>
+          ))}
+
+          <div className={`reserve ${mongoSchedule === null && "unable"}`}>
             예약
             <br />
             하기
@@ -110,6 +120,9 @@ const StyleContainer = styled.div`
   .more {
     font-weight: bold;
     text-decoration: underline;
+  }
+  .unable {
+    background-color: #cfcfcf;
   }
 `;
 
