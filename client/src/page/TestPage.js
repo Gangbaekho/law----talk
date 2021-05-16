@@ -23,10 +23,11 @@ import React from "react";
 // import RelatedConsultingQuestions from "../component/post/RelatedConsultingQuestions";
 // import PostDetailLawyerInfo from "../component/post/PostDetailLawyerInfo";
 // import Video from "../component/video/Video";
-import VideoDetailHeader from "../component/video/VideoDetailHeader";
+// import VideoDetailHeader from "../component/video/VideoDetailHeader";
+import VideoDetailContent from "../component/video/VideoDetailContent";
 
 const TestPage = (props) => {
-  return <VideoDetailHeader />;
+  return <VideoDetailContent />;
 };
 
 // const StyleContaier = styled.div`
