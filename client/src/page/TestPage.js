@@ -24,10 +24,11 @@ import React from "react";
 // import PostDetailLawyerInfo from "../component/post/PostDetailLawyerInfo";
 // import Video from "../component/video/Video";
 // import VideoDetailHeader from "../component/video/VideoDetailHeader";
-import VideoDetailContent from "../component/video/VideoDetailContent";
+// import VideoDetailContent from "../component/video/VideoDetailContent";
+import PremiumLawyer from "../component/lawyer/PremiumLawyer";
 
 const TestPage = (props) => {
-  return <VideoDetailContent />;
+  return <PremiumLawyer />;
 };
 
 // const StyleContaier = styled.div`

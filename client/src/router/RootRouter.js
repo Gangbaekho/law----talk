@@ -38,8 +38,16 @@ const RootRouter = () => {
         />
         <Route path="/consulting-write" component={ConsultingWritePage} exact />
         <Route path="/integrate" component={IntegratePage} exact />
-        <Route path="/lawyer" component={LawyerPage} exact />
-        <Route path="/lawyer/:lawyerId" component={LawyerDetailPage} exact />
+        <Route
+          path="/lawyer/specificDomainIds/:specificDomainId"
+          component={LawyerPage}
+          exact
+        />
+        <Route
+          path="/lawyer/lawyerIds/:lawyerId"
+          component={LawyerDetailPage}
+          exact
+        />
         <Route path="/login" component={LoginPage} exact />
         <Route path="/notice" component={NoticePage} exact />
         <Route
