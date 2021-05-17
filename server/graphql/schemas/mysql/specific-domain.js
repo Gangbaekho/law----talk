@@ -12,6 +12,7 @@ const specificDomainSchema = gql`
     reviews: [Review!]!
     consultingQuestions: [ConsultingQuestion!]!
     generalDomain: GeneralDomain!
+    lawyers: [Lawyer!]!
   }
 
   type Query {

@@ -64,6 +64,9 @@ const SpecificDomainResolver = {
         generalDomainId
       );
     },
+    lawyers: async ({ id }, _, { dataLoaders }) => {
+      return dataLoaders.lawyerLoader.bySpecificDomainId.load(id);
+    },
   },
 };
 
