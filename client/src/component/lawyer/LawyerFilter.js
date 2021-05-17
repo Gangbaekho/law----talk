@@ -179,6 +179,7 @@ const StyleContainer = styled.div`
   width: 340px;
   padding: 0 2rem;
   border-left: 1px solid #aaa;
+  margin-left: 2rem;
 
   .header {
     display: flex;

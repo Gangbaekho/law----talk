@@ -30,9 +30,24 @@ import React from "react";
 // import LawyerFilter from "../component/lawyer/LawyerFilter";
 // import IntegratePost from "../component/post/IntegratePost";
 import IntegrateCarousel from "../component/common/IntegrateCarousel";
+import IntegrateCarouselItem from "../component/integrate/IntegrateCarouselItem";
 
 const TestPage = (props) => {
-  return <IntegrateCarousel />;
+  return (
+    <IntegrateCarousel>
+      <IntegrateCarouselItem />
+      <IntegrateCarouselItem />
+      <IntegrateCarouselItem />
+      <IntegrateCarouselItem />
+      <IntegrateCarouselItem />
+      <IntegrateCarouselItem />
+      <IntegrateCarouselItem />
+      <IntegrateCarouselItem />
+      <IntegrateCarouselItem />
+      <IntegrateCarouselItem />
+      <IntegrateCarouselItem />
+    </IntegrateCarousel>
+  );
 };
 
 // const StyleContaier = styled.div`

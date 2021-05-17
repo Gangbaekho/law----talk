@@ -56,9 +56,9 @@ const PremiumLawyer = ({ mongoLawyer }) => {
 };
 
 const StyleContainer = styled.div`
-  width: 740px;
+  /* width: 740px; */
   border-bottom: 1px solid #aaa;
-  margin-right: 3rem;
+  /* margin-right: 3rem; */
   padding: 2rem 0;
 
   .lawyer {

@@ -53,7 +53,7 @@ const LawyerPage = (props) => {
   } else {
     body = (
       <StyleContainer>
-        <div>
+        <div className="lawyer-container">
           {data.getLawyers.map((lawyer) => {
             if (lawyer.isPremium === "Y") {
               return <PremiumLawyer key={lawyer.id} {...lawyer} />;
@@ -85,6 +85,9 @@ const StyleContainer = styled.div`
   display: flex;
   width: 1080px;
   margin: 0 auto;
+  .lawyer-container {
+    width: 840px;
+  }
 `;
 
 export default LawyerPage;

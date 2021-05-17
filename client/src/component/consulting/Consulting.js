@@ -53,7 +53,7 @@ const Consulting = ({
 };
 
 const StyleContainer = styled.div`
-  padding: 2rem 1rem;
+  padding: 2rem 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   h4 {
     color: #555555;

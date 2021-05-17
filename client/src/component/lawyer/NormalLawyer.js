@@ -33,10 +33,10 @@ const NormalLawyer = ({ mongoLawyer }) => {
 };
 
 const StyleContainer = styled.div`
-  width: 740px;
+  /* width: 740px; */
   padding: 2rem 0;
   border-bottom: 1px solid #aaa;
-  margin-right: 3rem;
+  /* margin-right: 3rem; */
   .lawyer {
     display: flex;
     justify-content: space-between;

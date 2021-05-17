@@ -6,6 +6,8 @@ import { useQuery } from "urql";
 import PremiumLawyer from "../component/lawyer/PremiumLawyer";
 import NormalLawyer from "../component/lawyer/NormalLawyer";
 import Consulting from "../component/consulting/Consulting";
+import IntegrateCarousel from "../component/common/IntegrateCarousel";
+import IntegrateCarouselItem from "../component/integrate/IntegrateCarouselItem";
 
 const INTEGRATE_QUERY = (specificDomainId) => ({
   query: `
@@ -92,8 +94,8 @@ const IntegratePage = (props) => {
     body = <div>Something went wrong</div>;
   } else {
     body = (
-      <>
-        <div>
+      <StyledContainer>
+        <div className="center">
           {data.specificDomain.lawyers.map((lawyer) => {
             if (lawyer.isPremium === "Y") {
               return <PremiumLawyer key={lawyer.id} {...lawyer} />;
@@ -101,7 +103,7 @@ const IntegratePage = (props) => {
             return <NormalLawyer key={lawyer.id} {...lawyer} />;
           })}
         </div>
-        <div>
+        <div className="center">
           {data.specificDomain.consultingQuestions.map((consultingQuestion) => (
             <Consulting
               {...consultingQuestion}
@@ -109,7 +111,28 @@ const IntegratePage = (props) => {
             />
           ))}
         </div>
-      </>
+
+        <IntegrateCarousel>
+          <IntegrateCarouselItem />
+          <IntegrateCarouselItem />
+          <IntegrateCarouselItem />
+          <IntegrateCarouselItem />
+          <IntegrateCarouselItem />
+          <IntegrateCarouselItem />
+          <IntegrateCarouselItem />
+          <IntegrateCarouselItem />
+        </IntegrateCarousel>
+        <IntegrateCarousel>
+          <IntegrateCarouselItem />
+          <IntegrateCarouselItem />
+          <IntegrateCarouselItem />
+          <IntegrateCarouselItem />
+          <IntegrateCarouselItem />
+          <IntegrateCarouselItem />
+          <IntegrateCarouselItem />
+          <IntegrateCarouselItem />
+        </IntegrateCarousel>
+      </StyledContainer>
     );
   }
 
@@ -122,6 +145,11 @@ const IntegratePage = (props) => {
   );
 };
 
-const StyledContainer = styled.div``;
+const StyledContainer = styled.div`
+  .center {
+    width: 1080px;
+    margin: 0 auto;
+  }
+`;
 
 export default IntegratePage;
