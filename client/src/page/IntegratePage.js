@@ -3,6 +3,9 @@ import MainHeader from "../component/MainHeader";
 import MainFooter from "../component/MainFooter";
 import styled from "styled-components";
 import { useQuery } from "urql";
+import PremiumLawyer from "../component/lawyer/PremiumLawyer";
+import NormalLawyer from "../component/lawyer/NormalLawyer";
+import Consulting from "../component/consulting/Consulting";
 
 const INTEGRATE_QUERY = (specificDomainId) => ({
   query: `
@@ -19,8 +22,14 @@ const INTEGRATE_QUERY = (specificDomainId) => ({
           lawyerCharacters
           companyName
           title
+          lawyerProfileImageUrl
           mongoSchedule{
             scheduleDate
+          }
+          priceInformation{
+            serviceName
+            minPrice
+            serviceTime
           }
         }
       }
@@ -28,11 +37,21 @@ const INTEGRATE_QUERY = (specificDomainId) => ({
         id
         title
         viewCount
+        content
+        createdAt
+        updatedAt 
         consultingAnswers{
-          mongoLawyer{
-            lawyerProfileImageUrl
-            lawyerName
-          }
+        content
+        mongoLawyer
+        {
+          lawyerName
+          lawyerProfileImageUrl
+          companyName
+          companyPhoneNumber
+        }
+        createdAt
+        updatedAt
+        recommendationCount
         }
       }
       posts{
@@ -72,7 +91,26 @@ const IntegratePage = (props) => {
   } else if (!data.specificDomain) {
     body = <div>Something went wrong</div>;
   } else {
-    body = <h2>Fetch done</h2>;
+    body = (
+      <>
+        <div>
+          {data.specificDomain.lawyers.map((lawyer) => {
+            if (lawyer.isPremium === "Y") {
+              return <PremiumLawyer key={lawyer.id} {...lawyer} />;
+            }
+            return <NormalLawyer key={lawyer.id} {...lawyer} />;
+          })}
+        </div>
+        <div>
+          {data.specificDomain.consultingQuestions.map((consultingQuestion) => (
+            <Consulting
+              {...consultingQuestion}
+              domainName={data.specificDomain.domainName}
+            />
+          ))}
+        </div>
+      </>
+    );
   }
 
   return (

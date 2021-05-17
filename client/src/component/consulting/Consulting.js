@@ -15,6 +15,7 @@ const Consulting = ({
   mongoLawyer,
   createdAt,
   updatedAt,
+  domainName,
 }) => {
   const consultingAnswerExists = consultingAnswers.length > 0;
   const history = useHistory();
@@ -25,7 +26,7 @@ const Consulting = ({
         history.push(`/consulting/consultingQuestionIds/${id}`);
       }}
     >
-      <h4>{specificDomain.domainName}</h4>
+      <h4>{domainName ? domainName : specificDomain.domainName}</h4>
       <h2>{title}</h2>
       {consultingAnswerExists && (
         <>

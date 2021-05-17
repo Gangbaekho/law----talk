@@ -27,10 +27,12 @@ import React from "react";
 // import VideoDetailContent from "../component/video/VideoDetailContent";
 // import PremiumLawyer from "../component/lawyer/PremiumLawyer";
 // import NormalLawyer from "../component/lawyer/NormalLawyer";
-import LawyerFilter from "../component/lawyer/LawyerFilter";
+// import LawyerFilter from "../component/lawyer/LawyerFilter";
+// import IntegratePost from "../component/post/IntegratePost";
+import IntegrateCarousel from "../component/common/IntegrateCarousel";
 
 const TestPage = (props) => {
-  return <LawyerFilter />;
+  return <IntegrateCarousel />;
 };
 
 // const StyleContaier = styled.div`
