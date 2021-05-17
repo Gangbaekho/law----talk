@@ -8,6 +8,7 @@ import NormalLawyer from "../component/lawyer/NormalLawyer";
 import Consulting from "../component/consulting/Consulting";
 import IntegrateCarousel from "../component/common/IntegrateCarousel";
 import IntegrateCarouselItem from "../component/integrate/IntegrateCarouselItem";
+import { v4 } from "uuid";
 
 const INTEGRATE_QUERY = (specificDomainId) => ({
   query: `
@@ -60,6 +61,7 @@ const INTEGRATE_QUERY = (specificDomainId) => ({
         id
         postType
         postImageUrl
+        title
         mongoLawyer{
           lawyerName
         }
@@ -67,6 +69,7 @@ const INTEGRATE_QUERY = (specificDomainId) => ({
       videos{
         id
         videoThumbNailUrl
+        title
         mongoLawyer{
           lawyerName
         }
@@ -113,24 +116,14 @@ const IntegratePage = (props) => {
         </div>
 
         <IntegrateCarousel>
-          <IntegrateCarouselItem />
-          <IntegrateCarouselItem />
-          <IntegrateCarouselItem />
-          <IntegrateCarouselItem />
-          <IntegrateCarouselItem />
-          <IntegrateCarouselItem />
-          <IntegrateCarouselItem />
-          <IntegrateCarouselItem />
+          {data.specificDomain.posts.map((post) => (
+            <IntegrateCarouselItem key={v4()} {...post} itemType="post" />
+          ))}
         </IntegrateCarousel>
         <IntegrateCarousel>
-          <IntegrateCarouselItem />
-          <IntegrateCarouselItem />
-          <IntegrateCarouselItem />
-          <IntegrateCarouselItem />
-          <IntegrateCarouselItem />
-          <IntegrateCarouselItem />
-          <IntegrateCarouselItem />
-          <IntegrateCarouselItem />
+          {data.specificDomain.videos.map((video) => (
+            <IntegrateCarouselItem key={v4()} {...video} itemType="video" />
+          ))}
         </IntegrateCarousel>
       </StyledContainer>
     );

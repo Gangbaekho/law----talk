@@ -1,19 +1,47 @@
 import React from "react";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
 
-const IntegrateCarouselItem = (props) => {
+const IntegrateCarouselItem = ({
+  mongoLawyer,
+  postType,
+  id,
+  title,
+  postImageUrl,
+  videoThumbNailUrl,
+  itemType,
+}) => {
+  const history = useHistory();
+
+  console.log(id);
+
+  const clickHandler = () => {
+    if (itemType === "post") {
+      return history.push(`/post/postIds/${id}`);
+    }
+    return history.push(`/video/videoIds/${id}`);
+  };
+
+  let imageUrl;
+  if (postImageUrl) {
+    imageUrl = postImageUrl;
+  } else {
+    imageUrl = videoThumbNailUrl;
+  }
+
   return (
-    <StyleContainer>
-      <div className="image-container"></div>
-      <h4>포스트 타입</h4>
-      <h3>상속인 중에 미성년자가 있는 경우의 상속재산 분할?</h3>
-      <p>박정식 변호사</p>
+    <StyleContainer onClick={clickHandler}>
+      <div className="image-container">{imageUrl}</div>
+      {itemType === "post" && <h4>{postType}</h4>}
+      <h3>{title}</h3>
+      <p>{mongoLawyer.lawyerName}</p>
     </StyleContainer>
   );
 };
 
 const StyleContainer = styled.div`
   width: 260px;
+  cursor: pointer;
   .image-container {
     height: 170px;
     background-image: url("/images/image1.s.jpg");
