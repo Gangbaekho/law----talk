@@ -5,6 +5,7 @@ const moment = require("moment");
 
 const { QueryTypes } = require("sequelize");
 const sequelize = require("../../../util/mysql");
+const bcrypt = require("bcryptjs");
 
 const schema = yup.object().shape({
   email: yup.string().trim().email().required(),
@@ -127,16 +128,46 @@ const lawyerResolver = {
         //   error.statusCode = 422;
         //   throw error;
         // }
+        const encodedPassword = await bcrypt.hash(password, 12);
 
         const lawyer = await models.Lawyer.create({
           mongodbId,
           email,
-          password,
+          password: encodedPassword,
           isPremium,
           priorityScore,
         });
 
         return lawyer.id;
+      });
+    },
+    lawyerLogin: async (
+      _,
+      { email, password },
+      { models, transaction, session }
+    ) => {
+      await schema.validate({ email, password });
+
+      return await transaction.repeatableReadTransaction(async () => {
+        const lawyer = await models.Lawyer.findOne({ where: { email } });
+
+        if (!lawyer) {
+          const error = new Error("lawyer does not exists.");
+          error.statusCode = 422;
+          throw error;
+        }
+
+        const isEqual = await bcrypt.compare(password, lawyer.password);
+
+        if (!isEqual) {
+          const error = new Error("password is invalid.");
+          error.statusCode = 422;
+          throw error;
+        }
+
+        session.lawyerId = lawyer.id;
+
+        return lawyer;
       });
     },
   },

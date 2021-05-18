@@ -36,6 +36,7 @@ const lawyerSchema = gql`
 
   type Mutation {
     createLawyer(lawyerInput: LawyerInputType!): Int!
+    lawyerLogin(email: String!, password: String!): Lawyer!
   }
 `;
 
