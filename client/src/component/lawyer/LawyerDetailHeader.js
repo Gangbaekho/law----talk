@@ -32,7 +32,7 @@ const StyleContainer = styled.div`
   align-items: center;
   width: 840px;
   padding: 3rem 0;
-  border: 2px solid black;
+  border-bottom: 4px double #cac8ca;
 
   .navigation {
     display: flex;

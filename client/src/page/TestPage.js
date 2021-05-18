@@ -31,14 +31,11 @@ import React from "react";
 // import IntegratePost from "../component/post/IntegratePost";
 // import IntegrateCarousel from "../component/common/IntegrateCarousel";
 // import IntegrateCarouselItem from "../component/integrate/IntegrateCarouselItem";
-import LawyerDetailHeader from "../component/lawyer/LawyerDetailHeader";
+// import LawyerDetailHeader from "../component/lawyer/LawyerDetailHeader";
+import LawyerDetailInfo from "../component/lawyer/LawyerDetailInfo";
 
 const TestPage = (props) => {
-  return <LawyerDetailHeader />;
+  return <LawyerDetailInfo />;
 };
-
-// const StyleContaier = styled.div`
-//   background-color: #e1dedd;
-// `;
 
 export default TestPage;
