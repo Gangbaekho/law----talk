@@ -29,25 +29,12 @@ import React from "react";
 // import NormalLawyer from "../component/lawyer/NormalLawyer";
 // import LawyerFilter from "../component/lawyer/LawyerFilter";
 // import IntegratePost from "../component/post/IntegratePost";
-import IntegrateCarousel from "../component/common/IntegrateCarousel";
-import IntegrateCarouselItem from "../component/integrate/IntegrateCarouselItem";
+// import IntegrateCarousel from "../component/common/IntegrateCarousel";
+// import IntegrateCarouselItem from "../component/integrate/IntegrateCarouselItem";
+import LawyerDetailHeader from "../component/lawyer/LawyerDetailHeader";
 
 const TestPage = (props) => {
-  return (
-    <IntegrateCarousel>
-      <IntegrateCarouselItem />
-      <IntegrateCarouselItem />
-      <IntegrateCarouselItem />
-      <IntegrateCarouselItem />
-      <IntegrateCarouselItem />
-      <IntegrateCarouselItem />
-      <IntegrateCarouselItem />
-      <IntegrateCarouselItem />
-      <IntegrateCarouselItem />
-      <IntegrateCarouselItem />
-      <IntegrateCarouselItem />
-    </IntegrateCarousel>
-  );
+  return <LawyerDetailHeader />;
 };
 
 // const StyleContaier = styled.div`
