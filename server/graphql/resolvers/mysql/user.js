@@ -45,34 +45,29 @@ const userResolver = {
     loginUser: async (_, { userInput }, { models, transaction, session }) => {
       const { email, password } = userInput;
 
-      const user = await models.User.findOne({ where: { email } });
+      await schema.validate({ email, password });
 
-      if (!user) {
-        const error = new Error("user does not exists.");
-        error.statusCode = 422;
-        throw error;
-      }
+      return await transaction.repeatableReadTransaction(async () => {
+        const user = await models.User.findOne({ where: { email } });
 
-      const isEqual = await bcrypt.compare(password, user.password);
+        if (!user) {
+          const error = new Error("user does not exists.");
+          error.statusCode = 422;
+          throw error;
+        }
 
-      if (!isEqual) {
-        const error = new Error("password is invalid.");
-        error.statusCode = 422;
-        throw error;
-      }
+        const isEqual = await bcrypt.compare(password, user.password);
 
-      // const token = jwt.sign(
-      //   {
-      //     email: user.email,
-      //     userId: user.id,
-      //   },
-      //   JWT_SECRET_CODE,
-      //   { expiresIn: "24h" }
-      // );
+        if (!isEqual) {
+          const error = new Error("password is invalid.");
+          error.statusCode = 422;
+          throw error;
+        }
 
-      session.userId = user.id;
+        session.userId = user.id;
 
-      return user.id;
+        return user.id;
+      });
     },
   },
   User: {

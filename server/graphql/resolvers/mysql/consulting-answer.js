@@ -6,8 +6,7 @@ const schema = yup.object().shape({
 
 const consultingAnswerResolver = {
   Query: {
-    consultingAnswer: async (_, { id }, { dataLoaders }) => {
-      // return dataLoaders.consultingAnswerLoader.byConsultingAnswerId.load(id);
+    consultingAnswer: async (_, { id }, { transaction, models }) => {
       return await transaction.repeatableReadTransaction(async () => {
         const consultingAnswer = await models.ConsultingAnswer.findOne({
           where: { id },

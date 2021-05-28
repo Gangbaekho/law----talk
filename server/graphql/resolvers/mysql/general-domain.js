@@ -38,12 +38,6 @@ const generalDomainResolver = {
   GeneralDomain: {
     specificDomains: async ({ id }, _, { dataLoaders }) => {
       return dataLoaders.specificDomainLoader.byGeneralDomainId.load(id);
-      // return await transaction.repeatableReadTransaction(async () => {
-      //   const specificDomains = await models.SpecificDomain.findAll({
-      //     where: { generalDomainId: id },
-      //   });
-      //   return specificDomains;
-      // });
     },
   },
 };
